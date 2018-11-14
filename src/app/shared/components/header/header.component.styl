@@ -1,0 +1,17 @@
+@import '../../../styles/index.styl'
+:host(app-header)
+  padding-top 0
+  padding-bottom 6.5rem
+  display grid
+  header
+    position fixed
+    z-index 999
+    width 100%
+    nav
+      display flex
+      flex-wrap wrap
+      align-items center
+      padding calculateRem(8px) calculateRem(16px)
+      color $primaryColor
+      height 4rem
+      background $primaryColor

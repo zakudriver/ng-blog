@@ -27,7 +27,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.styl"
+              "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "src/assets/css/reset.css",
+              "src/assets/css/loading.css",
+              "src/app/styles/global.styl"
             ],
             "scripts": []
           },
