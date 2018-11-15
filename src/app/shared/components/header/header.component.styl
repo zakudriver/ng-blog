@@ -1,17 +1,38 @@
 @import '../../../styles/index.styl'
 :host(app-header)
-  padding-top 0
-  padding-bottom 6.5rem
-  display grid
-  header
-    position fixed
-    z-index 999
+  padding 25px 0 10px
+  position fixed
+  z-index 1030
+  left 0
+  right 0
+  nav
+    display flex
+    justify-content space-between
+    align-items center
     width 100%
-    nav
+    margin 0 auto
+    padding 0 15px
+.nav
+  &-left
+    display flex
+    flex-grow 1
+    &-menu
+      margin-left auto
       display flex
-      flex-wrap wrap
-      align-items center
-      padding calculateRem(8px) calculateRem(16px)
-      color $primaryColor
-      height 4rem
-      background $primaryColor
+      flex-direction row
+@media (min-width: 576px)
+  nav
+    max-width 540px
+@media (min-width: 768px)
+  nav
+    max-width 720px
+@media (min-width: 992px)
+  nav
+    max-width 960px
+@media (min-width: 1200px)
+  nav
+    max-width 1140px
+.mat-button
+  a
+    color #fff
+    text-decoration none

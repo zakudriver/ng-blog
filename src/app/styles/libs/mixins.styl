@@ -1,5 +1,9 @@
+@import 'colors.styl'
 fontRoboto($size = false, $colour = false, $weight = false, $lh = false)
   font-family 'Roboto', Helvetica, Arial, sans-serif
+  font-weight 400
+  line-height 1.5em
+  color $fontColor
   if ($size)
     font-size $size
   if ($colour)
