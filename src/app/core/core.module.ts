@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  imports: [BrowserAnimationsModule],
-  exports: [BrowserAnimationsModule]
+  imports: [HttpClientModule],
+  exports: [HttpClientModule]
 })
 export class CoreModule {}

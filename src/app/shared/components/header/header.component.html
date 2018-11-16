@@ -1,14 +1,44 @@
-<nav>
-  <div>
+<header class="header-scroll">
+  <nav>
+    <div><a routerLink="/">me</a></div>
 
-  </div>
-
-  <div class="nav-left">
-    <ul class="nav-left-menu">
-      <li>
-        <button mat-button matTooltip="blog" matTooltipClass="nav-btn-tooltip"><a href="">Blog</a></button>
-        <button mat-button><a href="">About</a></button>
-      </li>
-    </ul>
-  </div>
-</nav>
+    <ng-container *ngIf="isDesktop; else: mobile">
+      <div class="nav-left">
+        <ul class="nav-left-menu">
+          <li>
+            <a routerLink="/blog"
+              ><button mat-button matTooltip="blog" matTooltipClass="nav-btn-tooltip">Blog</button></a
+            >
+          </li>
+          <li>
+            <a routerLink="/about"
+              ><button mat-button matTooltip="blog" matTooltipClass="nav-btn-tooltip">About</button></a
+            >
+          </li>
+        </ul>
+      </div>
+    </ng-container>
+    <ng-template #mobile>
+      <div class="nav-left-mobile">
+        <button mat-icon-button mat-button matTooltip="menu" matTooltipClass="nav-btn-tooltip" (click)="onDrawer()">
+          <mat-icon aria-label="icon-button with a menu icon" class="nav-icon">menu</mat-icon>
+        </button>
+      </div>
+      <mat-drawer-container>
+        <mat-drawer mode="side" opened="{{isMobileMenu}}" position="end" class="drawer">
+          <p>Right drawer</p>
+          <p>Right drawer</p>
+          <p>Right drawer</p>
+          <p>Right drawer</p>
+        </mat-drawer>
+        <!--
+          <mat-drawer-content>
+            <button mat-icon-button (click)="onDrawer()">
+              <mat-icon aria-label="icon-button with a menu icon">menu</mat-icon>
+            </button>
+          </mat-drawer-content>
+        -->
+      </mat-drawer-container>
+    </ng-template>
+  </nav>
+</header>

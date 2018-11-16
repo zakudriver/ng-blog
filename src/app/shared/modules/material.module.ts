@@ -13,8 +13,10 @@ import {
   MatProgressSpinnerModule,
   MatSliderModule,
   MatSnackBarModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatSidenavModule
 } from '@angular/material';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -31,7 +33,9 @@ import {
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatListModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSidenavModule,
+    HttpClientModule
   ],
   exports: [
     MatButtonModule,
@@ -47,7 +51,10 @@ import {
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatListModule,
-    MatDialogModule
-  ]
+    MatDialogModule,
+    MatSidenavModule,
+    HttpClientModule
+  ],
+  providers: [HttpClient]
 })
 export class MaterialModule {}

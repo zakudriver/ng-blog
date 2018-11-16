@@ -1,25 +1,43 @@
 @import '../../../styles/index.styl'
 :host(app-header)
-  padding 25px 0 10px
-  position fixed
-  z-index 1030
-  left 0
-  right 0
-  nav
-    display flex
-    justify-content space-between
-    align-items center
-    width 100%
-    margin 0 auto
-    padding 0 15px
-.nav
-  &-left
-    display flex
-    flex-grow 1
-    &-menu
-      margin-left auto
+  header
+    padding 25px 0 10px
+    position fixed
+    z-index 1030
+    left 0
+    right 0
+    .mat-button
+      color #fff
+    nav
       display flex
-      flex-direction row
+      justify-content space-between
+      align-items center
+      width 100%
+      margin 0 auto
+      padding 0 15px
+  .nav
+    &-left
+      display flex
+      flex-grow 1
+      &-menu
+        margin-left auto
+        display flex
+        flex-direction row
+      &-mobile
+        margin-left auto
+        display flex
+        flex-direction row
+    &-icon
+      color #fff
+  .header-scroll
+    background-color #fff
+    box-shadow 0 4px 18px 0 rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)
+    .mat-button
+      color $fontColor
+  .drawer
+    position fixed
+    right 0
+    top 0
 @media (min-width: 576px)
   nav
     max-width 540px
@@ -32,7 +50,3 @@
 @media (min-width: 1200px)
   nav
     max-width 1140px
-.mat-button
-  a
-    color #fff
-    text-decoration none
