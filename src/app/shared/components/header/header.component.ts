@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { MatIconRegistry } from '@angular/material';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { fromEvent } from 'rxjs';
 
 @Component({
@@ -11,19 +9,25 @@ import { fromEvent } from 'rxjs';
 export class HeaderComponent implements OnInit {
   isDesktop = true;
   isMobileMenu = false;
+  isTransparent = false;
 
-  constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
-    // iconRegistry.addSvgIcon(
-    //   'menu',
-    //   sanitizer.bypassSecurityTrustResourceUrl('assets/img/baseline-menu-24px.svg')
-    // );
+  constructor(public el: ElementRef) {
+    const clientWidth = document.documentElement.clientWidth;
+    this.isDesktop = clientWidth > 990;
   }
 
-  private onResize() {
+  onResize() {
     const el = fromEvent(window, 'resize');
     el.subscribe(e => {
-      console.log((e.target as Window).innerWidth);
       this.isDesktop = (e.target as Window).innerWidth > 990;
+    });
+  }
+
+  onScroll() {
+    const el = fromEvent(window, 'scroll');
+    el.subscribe(e => {
+      const navTop = document.documentElement.scrollTop || document.body.scrollTop;
+      this.isTransparent = navTop > 60;
     });
   }
 
@@ -33,5 +37,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.onResize();
+    this.onScroll();
   }
 }

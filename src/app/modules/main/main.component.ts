@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main.component.styl']
 })
 export class MainComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
+  onScroll(e) {
+    console.log(e);
   }
 
+  ngOnInit() {
+    // this.onScroll();
+  }
 }
