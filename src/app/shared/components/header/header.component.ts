@@ -51,8 +51,17 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  onDrawer() {
+  onDrawer(e: Event) {
+    e.stopPropagation();
     this.isMobileMenu = !this.isMobileMenu;
+  }
+
+  onCloseDrawer() {
+    this.isMobileMenu = false;
+  }
+
+  onStopPropagation(e: Event) {
+    e.stopPropagation();
   }
 
   ngOnInit() {

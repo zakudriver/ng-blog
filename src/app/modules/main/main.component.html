@@ -1,5 +1,5 @@
-<div id="main" appScroll>
-  <app-header></app-header>
+<div (click)="onClickBody(appHeader)">
+  <app-header #appHeader></app-header>
   <app-banner></app-banner>
   <main class="main">
     <router-outlet></router-outlet>

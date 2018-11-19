@@ -16,11 +16,17 @@
       align-items center
       width 100%
       margin 0 auto
+    a
+      text-decoration none
   .nav
     &-right
       display flex
-      flex-direction row-reverse
       flex-grow 1
+      &>ul
+        display flex
+        margin-left auto
+      &>button
+        margin-left auto
     &-icon
       color #fff
   .header-scroll
@@ -35,7 +41,7 @@
     position fixed
     right 0
     top 0
-    width 55%
+    width 230px
     padding 0 15px
   .mat-drawer-side.mat-drawer-end
     border none
