@@ -8,11 +8,5 @@ import { Component, OnInit } from '@angular/core';
 export class MainComponent implements OnInit {
   constructor() {}
 
-  onScroll(e) {
-    console.log(e);
-  }
-
-  ngOnInit() {
-    // this.onScroll();
-  }
+  ngOnInit() {}
 }

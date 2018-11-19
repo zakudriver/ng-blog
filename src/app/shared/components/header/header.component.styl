@@ -1,7 +1,9 @@
 @import '../../../styles/index.styl'
 :host(app-header)
   header
-    padding 25px 0 10px
+    padding 25px 15px 10px
+    height 50px
+    line-height 50px
     position fixed
     z-index 1030
     left 0
@@ -14,24 +16,17 @@
       align-items center
       width 100%
       margin 0 auto
-      padding 0 15px
   .nav
-    &-left
+    &-right
       display flex
+      flex-direction row-reverse
       flex-grow 1
-      &-menu
-        margin-left auto
-        display flex
-        flex-direction row
-      &-mobile
-        margin-left auto
-        display flex
-        flex-direction row
     &-icon
       color #fff
   .header-scroll
     background-color #fff
     box-shadow 0 4px 18px 0 rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)
+    padding 10px 15px
     .mat-button
       color $fontColor
     .nav-icon
@@ -40,6 +35,10 @@
     position fixed
     right 0
     top 0
+    width 55%
+    padding 0 15px
+  .mat-drawer-side.mat-drawer-end
+    border none
 @media (min-width: 576px)
   nav
     max-width 540px

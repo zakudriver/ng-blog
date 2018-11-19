@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { APP_BASE_HREF } from '@angular/common';
 
 import { MainComponent } from './main.component';
+import { MainRoutingModule } from './main-routing.module';
+import { SharedModule } from '@app/shared/shared.module';
+import { HomeComponent } from './views/home/home.component';
 
 describe('MainComponent', () => {
   let component: MainComponent;
@@ -8,9 +12,10 @@ describe('MainComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MainComponent ]
-    })
-    .compileComponents();
+      imports: [MainRoutingModule, SharedModule],
+      declarations: [MainComponent, HomeComponent],
+      providers: [{ provide: APP_BASE_HREF, useValue: '/' }]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,43 +1,34 @@
-<header [ngClass]="{'header-scroll': isTransparent}">
+<header [ngClass]="{ 'header-scroll': isTransparent }" [@scroll]="scrollState">
   <nav>
     <div><a routerLink="/">me</a></div>
 
     <ng-container *ngIf="isDesktop; else: mobile">
-      <div class="nav-left">
-        <ul class="nav-left-menu">
-          <li>
-            <a routerLink="/blog"
-              ><button mat-button matTooltip="blog" matTooltipClass="nav-btn-tooltip">Blog</button></a
-            >
-          </li>
-          <li>
-            <a routerLink="/about"
-              ><button mat-button matTooltip="blog" matTooltipClass="nav-btn-tooltip">About</button></a
-            >
-          </li>
-        </ul>
-      </div>
+      <ul class="nav-right">
+        <li>
+          <a routerLink="/blog"><button mat-button matTooltip="blog" matTooltipClass="nav-btn-tooltip">Blog</button></a>
+        </li>
+        <li>
+          <a routerLink="/about"
+            ><button mat-button matTooltip="blog" matTooltipClass="nav-btn-tooltip">About</button></a
+          >
+        </li>
+      </ul>
     </ng-container>
     <ng-template #mobile>
-      <div class="nav-left-mobile">
+      <div class="nav-right">
         <button mat-icon-button mat-button matTooltip="menu" matTooltipClass="nav-btn-tooltip" (click)="onDrawer()">
           <mat-icon aria-label="icon-button with a menu icon" class="nav-icon">menu</mat-icon>
         </button>
       </div>
       <mat-drawer-container>
         <mat-drawer mode="side" opened="{{isMobileMenu}}" position="end" class="drawer">
-          <p>Right drawer</p>
-          <p>Right drawer</p>
-          <p>Right drawer</p>
-          <p>Right drawer</p>
+          <mat-list>
+            <mat-list-item> <p mat-line>test</p> </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item> <p mat-line>test</p> </mat-list-item>
+            <mat-divider></mat-divider>
+          </mat-list>
         </mat-drawer>
-        <!--
-          <mat-drawer-content>
-            <button mat-icon-button (click)="onDrawer()">
-              <mat-icon aria-label="icon-button with a menu icon">menu</mat-icon>
-            </button>
-          </mat-drawer-content>
-        -->
       </mat-drawer-container>
     </ng-template>
   </nav>

@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
+import { ElementRef } from '@angular/core';
+import { MaterialModule } from '@app/shared/modules/material.module';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -8,9 +10,11 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
-    })
-    .compileComponents();
+      imports: [MaterialModule],
+      declarations: [HeaderComponent],
+      providers: [],
+      schemas: []
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +23,7 @@ describe('HeaderComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create header component with constructor', () => {
     expect(component).toBeTruthy();
   });
 });
