@@ -1,14 +1,18 @@
-@import 'colors.styl'
-fontRoboto($size = false, $colour = false, $weight = false, $lh = false)
+@import 'var.styl'
+// 字体
+fontRoboto($size = false, $color = false, $weight = false, $lh = false)
   font-family 'Roboto', Helvetica, Arial, sans-serif
   font-weight 400
   line-height 1.5em
   color $fontColor
   if ($size)
     font-size $size
-  if ($colour)
-    color $colour
+  if ($color)
+    color $color
   if ($weight)
     font-weight $weight
   if ($lh)
     line-height $lh
+// 大范围阴影
+boxShadowRoboto-l()
+  box-shadow 0 16px 38px -12px rgba(0, 0, 0, 0.56), 0 4px 25px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)

@@ -32,13 +32,13 @@ export class HeaderComponent implements OnInit {
 
   constructor(public el: ElementRef) {
     const clientWidth = document.documentElement.clientWidth;
-    this.isDesktop = clientWidth > 990;
+    this.isDesktop = clientWidth > 500;
   }
 
   onResize() {
     const el = fromEvent(window, 'resize');
     el.subscribe(e => {
-      this.isDesktop = (e.target as Window).innerWidth > 990;
+      this.isDesktop = (e.target as Window).innerWidth > 500;
     });
   }
 
