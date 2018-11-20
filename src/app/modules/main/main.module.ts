@@ -5,10 +5,9 @@ import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { HomeComponent } from './modules/home/home.component';
-import { BlogComponent } from './modules/blog/blog.component';
 
 @NgModule({
-  declarations: [MainComponent, HomeComponent, BlogComponent],
+  declarations: [MainComponent, HomeComponent],
   imports: [CommonModule, MainRoutingModule, SharedModule]
 })
 export class MainModule {}

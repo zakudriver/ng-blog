@@ -1,9 +1,7 @@
 <footer class="footer">
   <div class="footer-left">
     <ul>
-      <li><a routerLink="/">home</a></li>
-      <li><a routerLink="/blog">blog</a></li>
-      <li><a routerLink="/about">about</a></li>
+      <li *ngFor="let i of router"><a routerLink="{{i.path}}">{{i.name}}</a></li>
     </ul>
   </div>
 

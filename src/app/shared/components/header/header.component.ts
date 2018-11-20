@@ -1,6 +1,7 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { fromEvent } from 'rxjs';
-import { animate, AnimationTriggerMetadata, style, transition, trigger, state } from '@angular/animations';
+import { animate, style, transition, trigger, state } from '@angular/animations';
+import { APP_CONFIG, appconfig } from '@app/config/app.config';
 
 @Component({
   selector: 'app-header',
@@ -29,16 +30,18 @@ export class HeaderComponent implements OnInit {
   isMobileMenu = false;
   isTransparent = false;
   scrollState = 'top';
+  router;
 
-  constructor(public el: ElementRef) {
+  constructor(@Inject(APP_CONFIG) private config: appconfig) {
     const clientWidth = document.documentElement.clientWidth;
-    this.isDesktop = clientWidth > 500;
+    this.isDesktop = clientWidth > config.headerDesktopLimit;
+    this.router = config.router;
   }
 
   onResize() {
     const el = fromEvent(window, 'resize');
     el.subscribe(e => {
-      this.isDesktop = (e.target as Window).innerWidth > 500;
+      this.isDesktop = (e.target as Window).innerWidth > this.config.headerDesktopLimit;
     });
   }
 
@@ -46,8 +49,9 @@ export class HeaderComponent implements OnInit {
     const el = fromEvent(window, 'scroll');
     el.subscribe(e => {
       const navTop = document.documentElement.scrollTop || document.body.scrollTop;
-      this.isTransparent = navTop > 60;
-      this.scrollState = navTop > 60 ? 'scrolling' : 'top';
+      const isTop = navTop > this.config.headerScrollLimit;
+      this.isTransparent = isTop;
+      this.scrollState = isTop ? 'scrolling' : 'top';
     });
   }
 

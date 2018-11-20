@@ -1,4 +1,47 @@
 :host(app-home)
-  &>div
-    height 2000px
+  .home
     width 100%
+    margin 0 auto
+    padding-bottom 60px
+  .profile
+    width 50%
+    margin 0 auto
+    .avatar
+      text-align center
+      &>img
+        width 160px
+        height 160px
+        border-radius 50%
+        box-shadow 0 5px 15px -8px rgba(0, 0, 0, 0.24), 0 8px 10px -5px rgba(0, 0, 0, 0.2)
+        transform translate3d(0, -50%, 0)
+    .name
+      text-align center
+      margin-top -80px
+      h3
+        margin 30px 0 0
+        line-height 32px
+        font-weight 700
+        font-family 'Roboto Slab', 'Times New Roman', serif
+      h6
+        font-size 0.75rem
+    .btns
+      display flex
+      justify-content center
+      li
+        margin 0 10px
+  .description
+    margin 1.071rem auto 0
+    max-width 600px
+    color #999
+  @media (min-width: 576px)
+    .home
+      max-width 540px
+  @media (min-width: 768px)
+    .home
+      max-width 720px
+  @media (min-width: 992px)
+    .home
+      max-width 960px
+  @media (min-width: 1200px)
+    .home
+      max-width 1140px

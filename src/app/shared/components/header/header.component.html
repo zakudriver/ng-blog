@@ -5,11 +5,8 @@
     <ng-container *ngIf="isDesktop; else: mobile">
       <div class="nav-right">
         <ul>
-          <li>
-            <a routerLink="/blog"><button mat-button matTooltip="blog" matTooltipClass="nav-btn-tooltip">Blog</button></a>
-          </li>
-          <li>
-            <a routerLink="/about"><button mat-button matTooltip="blog" matTooltipClass="nav-btn-tooltip">About</button></a>
+          <li *ngFor="let i of router.slice(1)">
+            <a routerLink="{{i.path}}"><button mat-button matTooltip="blog" matTooltipClass="nav-btn-tooltip">{{i.name}}</button></a>
           </li>
         </ul>
       </div>
@@ -23,19 +20,9 @@
       <mat-drawer-container>
         <mat-drawer mode="side" opened="{{isMobileMenu}}" position="end" class="drawer">
           <mat-list>
-            <mat-list-item>
-              <mat-icon mat-list-icon>home</mat-icon>
-              <a mat-line routerLink="/">home</a>
-              <mat-divider></mat-divider>
-            </mat-list-item>
-            <mat-list-item>
-              <mat-icon mat-list-icon>home</mat-icon>
-              <a mat-line routerLink="/">blog</a>
-              <mat-divider></mat-divider>
-            </mat-list-item>
-            <mat-list-item>
-              <mat-icon mat-list-icon>home</mat-icon>
-              <a mat-line routerLink="/">about</a>
+            <mat-list-item *ngFor="let i of router">
+              <mat-icon mat-list-icon>{{i.icon}}</mat-icon>
+              <a mat-line routerLink="{{i.path}}">{{i.name}}</a>
               <mat-divider></mat-divider>
             </mat-list-item>
           </mat-list>
