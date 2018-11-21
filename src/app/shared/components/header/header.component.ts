@@ -28,7 +28,7 @@ import { APP_CONFIG, AppConfig } from '@app/config/app.config';
 export class HeaderComponent implements OnInit {
   isDesktop = true;
   isMobileMenu = false;
-  isTransparent = false;
+  isScrolling = false;
   scrollState = 'top';
   router;
 
@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit {
     el.subscribe(e => {
       const navTop = document.documentElement.scrollTop || document.body.scrollTop;
       const isTop = navTop > this.config.headerScrollLimit;
-      this.isTransparent = isTop;
+      this.isScrolling = isTop;
       this.scrollState = isTop ? 'scrolling' : 'top';
     });
   }
@@ -60,8 +60,10 @@ export class HeaderComponent implements OnInit {
     this.isMobileMenu = !this.isMobileMenu;
   }
 
-  onCloseDrawer() {
-    this.isMobileMenu = false;
+  onClose() {
+    document.addEventListener('click', () => {
+      this.isMobileMenu = false;
+    });
   }
 
   onStopPropagation(e: Event) {
@@ -71,5 +73,6 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.onResize();
     this.onScroll();
+    this.onClose();
   }
 }

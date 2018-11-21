@@ -4,7 +4,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { MainComponent } from './main.component';
 import { MainRoutingModule } from './main-routing.module';
 import { SharedModule } from '@app/shared/shared.module';
-import { HomeComponent } from './views/home/home.component';
+import { HomeComponent } from './children/home/home.component';
 
 describe('MainComponent', () => {
   let component: MainComponent;

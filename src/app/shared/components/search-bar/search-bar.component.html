@@ -1,0 +1,34 @@
+<ng-container *ngIf="isDesktop; else mobile">
+  <mat-form-field class="search" [ngClass]="{'search-top': !isScrolling}" [@search]="searchState">
+    <input matInput [matAutocomplete]="auto" placeholder="search">
+  </mat-form-field>
+
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option>
+      {{isScrolling}}
+    </mat-option>
+  </mat-autocomplete>
+
+
+  <button mat-icon-button *ngIf="isSearchBtn" [ngClass]="{'btn-top': !isScrolling}" (click)="onSearch()">
+    <mat-icon>search</mat-icon>
+  </button>
+</ng-container>
+<ng-template #mobile>
+  <div class="search-mobile">
+    <!-- <button mat-icon-button>
+      <mat-icon>search</mat-icon>
+    </button> -->
+    <mat-icon mat-list-icon>search</mat-icon>
+
+    <mat-form-field>
+      <input matInput [matAutocomplete]="auto" placeholder="search">
+    </mat-form-field>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option>
+        11
+      </mat-option>
+    </mat-autocomplete>
+  </div>
+
+</ng-template>

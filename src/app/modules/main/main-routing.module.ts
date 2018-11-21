@@ -15,7 +15,7 @@ const routes: Routes = [
       {
         path: 'blog',
         // component: BlogComponent
-        loadChildren: './modules/blog/blog.module#BlogModule'
+        loadChildren: './children/blog/blog.module#BlogModule'
       }
     ]
   }

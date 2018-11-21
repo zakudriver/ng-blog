@@ -8,10 +8,11 @@ import { APP_CONFIG, appConfig } from '@app/config/app.config';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { BannerComponent } from './components/banner/banner.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 @NgModule({
   imports: [CommonModule, MaterialModule, RouterModule, CoreModule],
-  declarations: [HeaderComponent, FooterComponent, BannerComponent],
+  declarations: [HeaderComponent, FooterComponent, BannerComponent, SearchBarComponent],
   exports: [HeaderComponent, FooterComponent, BannerComponent, MaterialModule],
   providers: [{ provide: APP_CONFIG, useValue: appConfig }]
 })
