@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { animate, style, transition, trigger, state } from '@angular/animations';
-import { APP_CONFIG, appconfig } from '@app/config/app.config';
+import { APP_CONFIG, AppConfig } from '@app/config/app.config';
 
 @Component({
   selector: 'app-header',
@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
   scrollState = 'top';
   router;
 
-  constructor(@Inject(APP_CONFIG) private config: appconfig) {
+  constructor(@Inject(APP_CONFIG) private config: AppConfig) {
     const clientWidth = document.documentElement.clientWidth;
     this.isDesktop = clientWidth > config.headerDesktopLimit;
     this.router = config.router;
