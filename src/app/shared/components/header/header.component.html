@@ -5,9 +5,6 @@
     <ng-container *ngIf="isDesktop; else: mobile">
       <div class="nav-right">
         <ul>
-          <li>
-            <app-search-bar [isScrolling]="isScrolling" [isDesktop]="isDesktop"></app-search-bar>
-          </li>
           <li *ngFor="let i of router.slice(1)">
             <a routerLink="{{i.path}}"><button mat-button matTooltip="blog" matTooltipClass="nav-btn-tooltip">{{i.name}}</button></a>
           </li>
@@ -20,17 +17,12 @@
           <mat-icon aria-label="icon-button with a menu icon" class="nav-icon">menu</mat-icon>
         </button>
       </div>
-      <mat-drawer-container>
+      <mat-drawer-container [(appBlackbox)]="isMobileMenu">
         <mat-drawer mode="side" opened="{{isMobileMenu}}" position="end" class="drawer">
           <mat-list>
             <mat-list-item *ngFor="let i of router">
               <mat-icon mat-list-icon>{{i.icon}}</mat-icon>
               <a mat-line routerLink="{{i.path}}">{{i.name}}</a>
-              <mat-divider></mat-divider>
-            </mat-list-item>
-
-            <mat-list-item class="search">
-              <app-search-bar [isDesktop]="isDesktop"></app-search-bar>
               <mat-divider></mat-divider>
             </mat-list-item>
           </mat-list>

@@ -14,7 +14,8 @@ import {
   MatSliderModule,
   MatSnackBarModule,
   MatTooltipModule,
-  MatSidenavModule
+  MatSidenavModule,
+  MatChipsModule
 } from '@angular/material';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
@@ -35,7 +36,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     MatListModule,
     MatDialogModule,
     MatSidenavModule,
-    HttpClientModule
+    HttpClientModule,
+    MatChipsModule
   ],
   exports: [
     MatButtonModule,
@@ -53,7 +55,8 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     MatListModule,
     MatDialogModule,
     MatSidenavModule,
-    HttpClientModule
+    HttpClientModule,
+    MatChipsModule
   ],
   providers: [HttpClient]
 })

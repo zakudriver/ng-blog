@@ -60,12 +60,6 @@ export class HeaderComponent implements OnInit {
     this.isMobileMenu = !this.isMobileMenu;
   }
 
-  onClose() {
-    document.addEventListener('click', () => {
-      this.isMobileMenu = false;
-    });
-  }
-
   onStopPropagation(e: Event) {
     e.stopPropagation();
   }
@@ -73,6 +67,5 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.onResize();
     this.onScroll();
-    this.onClose();
   }
 }
