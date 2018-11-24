@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SharedModule } from '@app/shared/shared.module';
 import { BlogRoutingModule } from './blog-routing.module';
+import { SharedModule } from '@app/shared/shared.module';
 import { BlogComponent } from './blog.component';
-import { ArticleListComponent } from './components/article-list/article-list.component';
+import { BlogListComponent } from './components/blog-list/blog-list.component';
+import { BlogToolbarComponent } from './components/blog-toolbar/blog-toolbar.component';
 
 @NgModule({
-  declarations: [BlogComponent, ArticleListComponent],
+  declarations: [BlogComponent, BlogListComponent, BlogToolbarComponent],
   imports: [CommonModule, BlogRoutingModule, SharedModule]
 })
 export class BlogModule {}

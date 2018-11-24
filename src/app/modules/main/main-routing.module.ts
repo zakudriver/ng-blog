@@ -14,8 +14,11 @@ const routes: Routes = [
       },
       {
         path: 'blog',
-        // component: BlogComponent
         loadChildren: './children/blog/blog.module#BlogModule'
+      },
+      {
+        path: 'contact',
+        loadChildren: './children/contact/contact.module#ContactModule'
       }
     ]
   }

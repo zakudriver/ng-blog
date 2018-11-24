@@ -18,8 +18,8 @@ export const appConfig = {
       icon: 'border_color'
     },
     {
-      path: '/about',
-      name: 'ABOUT',
+      path: '/contact',
+      name: 'CONTACT',
       icon: 'import_contacts'
     }
   ]
