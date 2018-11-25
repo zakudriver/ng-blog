@@ -5,6 +5,7 @@ import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { HomeComponent } from './children/home/home.component';
+import { CoreModule } from '@app/core/core.module';
 
 @NgModule({
   declarations: [MainComponent, HomeComponent],

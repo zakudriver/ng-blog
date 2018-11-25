@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+import { ClassificationService } from '@app/core/services/classification/classification.service';
 
 @Component({
   selector: 'app-blog',
@@ -6,10 +9,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./blog.component.styl']
 })
 export class BlogComponent implements OnInit {
-
-  constructor() { }
+  constructor(private classification: ClassificationService) {}
 
   ngOnInit() {
+    this.classification.getClassification().subscribe();
   }
-
 }

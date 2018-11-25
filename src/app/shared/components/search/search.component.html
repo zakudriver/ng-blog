@@ -1,9 +1,16 @@
 <mat-form-field class="search-form">
-  <input matInput placeholder="search" [matAutocomplete]="auto">
+  <!-- <input matInput placeholder="search" [matAutocomplete]="auto" [formControl]="searchFormControl"> -->
+  <mat-chip-list #chipList>
+    <mat-chip [selectable]="selectable">
+      111
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+    <input placeholder="search" [formControl]="searchFormControl" [matAutocomplete]="auto" [matChipInputFor]="chipList">
+  </mat-chip-list>
 
   <mat-autocomplete #auto="matAutocomplete">
-      <mat-option>
-        111
-      </mat-option>
-    </mat-autocomplete>
+    <mat-option>
+      111
+    </mat-option>
+  </mat-autocomplete>
 </mat-form-field>

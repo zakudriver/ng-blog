@@ -17,7 +17,6 @@ import {
   MatSidenavModule,
   MatChipsModule
 } from '@angular/material';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -36,7 +35,6 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     MatListModule,
     MatDialogModule,
     MatSidenavModule,
-    HttpClientModule,
     MatChipsModule
   ],
   exports: [
@@ -55,9 +53,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
     MatListModule,
     MatDialogModule,
     MatSidenavModule,
-    HttpClientModule,
     MatChipsModule
-  ],
-  providers: [HttpClient]
+  ]
 })
 export class MaterialModule {}
