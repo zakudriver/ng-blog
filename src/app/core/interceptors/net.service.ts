@@ -1,6 +1,6 @@
-import { Injectable, Injector, Inject } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { mergeMap, catchError } from 'rxjs/operators';
+import { mergeMap, catchError, switchMap, map } from 'rxjs/operators';
 import {
   HttpInterceptor,
   HttpRequest,
@@ -16,7 +16,7 @@ import {
 import { APP_CONFIG, AppConfig } from '@app/config/app.config';
 
 @Injectable()
-export class DefaultInterceptorService {
+export class NetService {
   private api: string;
   constructor(@Inject(APP_CONFIG) private config: AppConfig) {
     this.api = config.api;
@@ -39,6 +39,7 @@ export class DefaultInterceptorService {
         if (event instanceof HttpResponse && event.status === 200) {
           return of(event);
         }
+
         return of(event);
       }),
       catchError((err: HttpErrorResponse) => of(err))

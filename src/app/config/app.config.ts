@@ -25,3 +25,4 @@ export const appConfig = {
   ]
 };
 export type AppConfig = typeof appConfig;
+export type AppConfigRouter = typeof appConfig.router;

@@ -4,7 +4,7 @@ import { Directive, Input, Output, EventEmitter } from '@angular/core';
   selector: '[appBlackbox]'
 })
 export class BlackboxDirective {
-  @Input('appBlackbox') close;
+  @Input('appBlackbox') close: boolean;
   @Output('appBlackboxChange') closeChange = new EventEmitter();
 
   constructor() {

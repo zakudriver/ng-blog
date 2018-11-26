@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { animate, style, transition, trigger, state } from '@angular/animations';
-import { APP_CONFIG, AppConfig } from '@app/config/app.config';
+import { APP_CONFIG, AppConfig, AppConfigRouter } from '@app/config/app.config';
 
 @Component({
   selector: 'app-header',
@@ -26,11 +26,11 @@ import { APP_CONFIG, AppConfig } from '@app/config/app.config';
   ]
 })
 export class HeaderComponent implements OnInit {
+  router: AppConfigRouter;
   isDesktop = true;
   isMobileMenu = false;
   isScrolling = false;
   scrollState = 'top';
-  router;
 
   constructor(@Inject(APP_CONFIG) private config: AppConfig) {
     const clientWidth = document.documentElement.clientWidth;

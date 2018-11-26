@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
-import { ClassificationService } from '@app/core/services/classification/classification.service';
+import { BlogService } from './services/blog.service';
+import { IClassification } from '@app/interface';
 
 @Component({
   selector: 'app-blog',
@@ -9,9 +8,16 @@ import { ClassificationService } from '@app/core/services/classification/classif
   styleUrls: ['./blog.component.styl']
 })
 export class BlogComponent implements OnInit {
-  constructor(private classification: ClassificationService) {}
+  classification: IClassification;
+  constructor(private blogService: BlogService) {}
+
+  getClassification() {
+    this.blogService.getClassification().subscribe(d => {
+      console.log(d);
+    });
+  }
 
   ngOnInit() {
-    this.classification.getClassification().subscribe();
+    this.getClassification();
   }
 }
