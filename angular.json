@@ -32,6 +32,11 @@
               "src/assets/css/loading.css",
               "src/app/styles/global.styl"
             ],
+            "stylePreprocessorOptions":{
+              "includePaths": [
+                "src/app/styles"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
