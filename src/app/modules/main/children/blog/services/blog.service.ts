@@ -1,31 +1,37 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LoggerService } from '@app/core/services/logger.service';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject, Subject } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 
 import { IClassification, IResponse } from '@app/interface';
 
 @Injectable()
 export class BlogService {
-  constructor(private http: HttpClient, private logger: LoggerService) {}
-
-  private static handleError<T>(func = 'func', result?: T) {
+  static handleError<T>(func = 'func', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error);
-      // this.logger.log(`${func} failed: ${error.message}`);
+      LoggerService.log(`${func} failed: ${error.message}`, 'red');
 
       return of(result as T);
     };
   }
 
-  getClassification(): Observable<IClassification[]> {
-    return this.http.get('/classification').pipe(
-      map((d: IResponse) => {
-        return d.data;
-      }),
-      tap(() => this.logger.log(`fetched heroes`)),
-      catchError(BlogService.handleError<IClassification[]>('getClassification', []))
-    );
+  classification = new BehaviorSubject<IClassification[]>([]);
+
+  constructor(private http: HttpClient, private logger: LoggerService) {}
+
+  getClassification() {
+    return this.http
+      .get('/classification')
+      .pipe(
+        map((d: IResponse) => d.data),
+        tap(d => {
+          this.logger.responseLog(d, 'getClassification');
+        }),
+        catchError(BlogService.handleError<IClassification[]>('getClassification', []))
+      )
+      .subscribe(d => {
+        this.classification.next(d);
+      });
   }
 }

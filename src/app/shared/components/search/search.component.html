@@ -1,16 +1,15 @@
-<mat-form-field class="search-form">
-  <!-- <input matInput placeholder="search" [matAutocomplete]="auto" [formControl]="searchFormControl"> -->
+<mat-form-field class="search">
   <mat-chip-list #chipList>
-    <mat-chip [selectable]="selectable">
-      111
+    <mat-chip *ngFor="let i of selectedChips" [selectable]="selectable" [removable]="removable" (removed)="remove(i)">
+      {{i.name}}
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>
-    <input placeholder="search" [formControl]="searchFormControl" [matAutocomplete]="auto" [matChipInputFor]="chipList">
+    <input placeholder="search" #searchInput [formControl]="searchFormControl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
   </mat-chip-list>
-
-  <mat-autocomplete #auto="matAutocomplete">
-    <mat-option>
-      111
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+    <mat-option *ngFor="let i of filteredChips | async" [value]="i.name">
+      {{i.name}}
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>

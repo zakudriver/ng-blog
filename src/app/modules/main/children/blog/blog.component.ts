@@ -11,13 +11,7 @@ export class BlogComponent implements OnInit {
   classification: IClassification;
   constructor(private blogService: BlogService) {}
 
-  getClassification() {
-    this.blogService.getClassification().subscribe(d => {
-      console.log(d);
-    });
-  }
-
   ngOnInit() {
-    this.getClassification();
+    this.blogService.getClassification();
   }
 }
