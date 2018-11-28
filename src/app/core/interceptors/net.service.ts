@@ -17,9 +17,9 @@ import { APP_CONFIG, AppConfig } from '@app/config/app.config';
 
 @Injectable()
 export class NetService {
-  private api: string;
-  constructor(@Inject(APP_CONFIG) private config: AppConfig) {
-    this.api = config.api;
+  private _api: string;
+  constructor(@Inject(APP_CONFIG) private _config: AppConfig) {
+    this._api = _config.api;
   }
 
   intercept(
@@ -28,7 +28,7 @@ export class NetService {
   ): Observable<HttpSentEvent | HttpHeaderResponse | HttpProgressEvent | HttpResponse<any> | HttpUserEvent<any>> {
     let url = req.url;
     if (!url.startsWith('https://') && !url.startsWith('http://')) {
-      url = this.api + url;
+      url = this._api + url;
     }
 
     const newReq = req.clone({

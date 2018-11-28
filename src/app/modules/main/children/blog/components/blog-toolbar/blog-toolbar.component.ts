@@ -11,16 +11,25 @@ import { MatChipListChange, MatChipSelectionChange } from '@angular/material';
 export class BlogToolbarComponent implements OnInit {
   classification: IClassification[];
 
-  selectable = true;
-  constructor(private blogService: BlogService) {}
+  selectedChip: IClassification;
 
-  selectionChip(chip: MatChipSelectionChange) {
+  searchResult: any = [];
+
+  selectable = true;
+  constructor(private _blogService: BlogService) {}
+
+  onChip(chip: IClassification) {
     console.log(chip);
+    this.selectedChip = chip;
+  }
+
+  onSearch(value: any) {
+    console.log(value);
   }
 
   ngOnInit() {
-    this.blogService.classification.subscribe(d => {
-      this.classification = [{ name: 'All', color: '#f00', _id: '' }].concat(d);
+    this._blogService.classificationSubject.subscribe(d => {
+      this.classification = d;
     });
   }
 }

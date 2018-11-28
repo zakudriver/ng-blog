@@ -32,16 +32,16 @@ export class HeaderComponent implements OnInit {
   isScrolling = false;
   scrollState = 'top';
 
-  constructor(@Inject(APP_CONFIG) private config: AppConfig) {
+  constructor(@Inject(APP_CONFIG) private _config: AppConfig) {
     const clientWidth = document.documentElement.clientWidth;
-    this.isDesktop = clientWidth > config.headerDesktopLimit;
-    this.router = config.router;
+    this.isDesktop = clientWidth > _config.headerDesktopLimit;
+    this.router = _config.router;
   }
 
   onResize() {
     const el = fromEvent(window, 'resize');
     el.subscribe(e => {
-      this.isDesktop = (e.target as Window).innerWidth > this.config.headerDesktopLimit;
+      this.isDesktop = (e.target as Window).innerWidth > this._config.headerDesktopLimit;
     });
   }
 
@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit {
     const el = fromEvent(window, 'scroll');
     el.subscribe(e => {
       const navTop = document.documentElement.scrollTop || document.body.scrollTop;
-      const isTop = navTop > this.config.headerScrollLimit;
+      const isTop = navTop > this._config.headerScrollLimit;
       this.isScrolling = isTop;
       this.scrollState = isTop ? 'scrolling' : 'top';
     });

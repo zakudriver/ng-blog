@@ -1,11 +1,22 @@
 <div class="toolbar">
-  <app-search [(chips)]="classification"></app-search>
+  <app-search [chips]="searchResult" [inChips]="selectedChip" (search)="onSearch($event)"></app-search>
   <div class="chip-list">
-    <mat-chip-list selectable="selectable">
-      <mat-chip *ngFor="let i of classification" color="red" selectable="selectable" (selectionChange)="selectionChip($event)">{{i.name}}</mat-chip>
-      <!-- <mat-chip>Two fish</mat-chip>
-      <mat-chip color="primary" selected>Primary fish</mat-chip>
-      <mat-chip color="accent" selected>Accent fish</mat-chip> -->
+    <mat-chip-list selectable="true">
+      <mat-chip
+        *ngFor="let i of classification; let idx = index"
+        color="primary"
+        selectable="true"
+        [selected]="selectedChip && i.name === selectedChip.name"
+        (click)="onChip(i)"
+        >{{ i.name }}</mat-chip
+      >
+      <!--
+        <mat-chip>Two fish</mat-chip>
+        <mat-chip color="primary" selected>Primary fish</mat-chip>
+        <mat-chip color="accent" selected>Accent fish</mat-chip>
+      -->
     </mat-chip-list>
   </div>
 </div>
+
+<div for></div>

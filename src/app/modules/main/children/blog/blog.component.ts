@@ -9,9 +9,9 @@ import { IClassification } from '@app/interface';
 })
 export class BlogComponent implements OnInit {
   classification: IClassification;
-  constructor(private blogService: BlogService) {}
+  constructor(private _blogService: BlogService) {}
 
   ngOnInit() {
-    this.blogService.getClassification();
+    this._blogService.getClassification();
   }
 }
