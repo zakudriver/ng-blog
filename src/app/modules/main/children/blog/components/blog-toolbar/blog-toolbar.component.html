@@ -1,5 +1,5 @@
 <div class="toolbar">
-  <app-search [chips]="searchResult" [inChips]="selectedChip" (search)="onSearch($event)"></app-search>
+  <app-search [chips]="searchResult" [(inChips)]="selectedChip" (search)="onSearch($event)"></app-search>
   <div class="chip-list">
     <mat-chip-list selectable="true">
       <mat-chip
@@ -16,6 +16,7 @@
         <mat-chip color="accent" selected>Accent fish</mat-chip>
       -->
     </mat-chip-list>
+    <!-- <button mat-stroked-button color="primary">Primary</button> -->
   </div>
 </div>
 

@@ -1,14 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ViewChild,
-  ElementRef,
-  Output,
-  EventEmitter,
-  OnChanges,
-  SimpleChanges
-} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
@@ -26,6 +16,8 @@ export class SearchComponent implements OnInit, OnChanges {
   chips: any[] = [];
   @Input()
   inChips: IClassification;
+  @Output()
+  inChipsChange = new EventEmitter();
 
   @Output()
   search = new EventEmitter();
@@ -34,21 +26,48 @@ export class SearchComponent implements OnInit, OnChanges {
   selectable = true;
   removable = true;
   addOnBlur = false;
+  date: string;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   searchFormControl = new FormControl();
-  filteredChips: Observable<any[]>;
   selectedChips: any[] = [];
+  selectedChipsMap: any = {
+    classification: 0,
+    title: 0,
+    start: 0,
+    end: 0
+  };
 
   @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>;
 
   constructor() {}
 
+  get selecteds() {
+    const selectedArr = [];
+    for (const k in this.selectedChipsMap) {
+      if (this.selectedChipsMap[k]) {
+        selectedArr.push(this.selectedChipsMap[k]);
+      }
+    }
+    return selectedArr;
+  }
+
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
 
-    if ((value || '').trim()) {
-      this.selectedChips.push({ name: value });
+    if (value.length === 8 && !isNaN(Number(value))) {
+      const date = Number(value);
+      if (this.selectedChipsMap.start.name <= date) {
+        this.selectedChipsMap.end = { name: date, key: 'end' };
+      } else {
+        this.selectedChipsMap.start = { name: date, key: 'start' };
+      }
+    } else if (value !== '') {
+      this.selectedChipsMap.title = { name: value, key: 'title' };
+    }
+
+    if (value !== '') {
+      this._handleSearch();
     }
 
     if (input) {
@@ -56,14 +75,28 @@ export class SearchComponent implements OnInit, OnChanges {
     }
 
     this.searchFormControl.setValue(null);
-    this.search.emit(this.selectedChips);
   }
 
-  remove(value: { name: string }): void {
-    const index = this.selectedChips.findIndex(i => i.name === value.name);
+  remove(value: any): void {
+    // switch (true) {
+    //   case typeof value._id === 'string':
+    //     break;
+    //   case value.name === this.selectedChipsMap.start.name:
+    //     this.selectedChipsMap.start = 0;
+    //     break;
+    //   case value.name === this.selectedChipsMap.end.name:
+    //     this.selectedChipsMap.end = 0;
+    //     break;
+    //   case value.name === this.selectedChipsMap.title.name:
+    //     this.selectedChipsMap.title = 0;
+    //     break;
+    // }
 
-    if (index >= 0) {
-      this.selectedChips.splice(index, 1);
+    if (value._id) {
+      this.selectedChipsMap.classification = 0;
+      this.inChipsChange.emit(null);
+    } else {
+      this.selectedChipsMap[value.key] = 0;
     }
   }
 
@@ -75,11 +108,41 @@ export class SearchComponent implements OnInit, OnChanges {
     this.searchFormControl.setValue(null);
   }
 
-  handleInChipsChange(inChips: IClassification) {
-    if (inChips) {
-      this.selectedChips.push(inChips);
-      // this.selectedChips.splice(0, 0, inChips);
+  handleChipsColor(chip: { key: string }) {
+    switch (chip.key) {
+      case 'title':
+        return 'accent';
+      case 'start':
+        return 'warn';
+      case 'end':
+        return 'warn';
+      default:
+        return 'primary';
     }
+  }
+
+  private _handleSearch() {
+    const emit = {};
+    for (const k in this.selectedChipsMap) {
+      if (this.selectedChipsMap[k]) {
+        emit[k] = this.selectedChipsMap[k]._id || this.selectedChipsMap[k].name;
+      }
+    }
+    this.search.emit(emit);
+  }
+
+  private _handleInChipsChange(inChips: IClassification) {
+    if (inChips) {
+      this.selectedChipsMap.classification = inChips;
+      this._handleSearch();
+    }
+  }
+
+  private _getDate() {
+    const date = new Date();
+    const m = date.getMonth();
+    const d = date.getDate();
+    this.date = `${date.getFullYear()}${m < 10 ? `0${m}` : m}${m < 10 ? `0${d}` : d}`;
   }
 
   private _filter(value: string): string[] {
@@ -89,13 +152,10 @@ export class SearchComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.filteredChips = this.searchFormControl.valueChanges.pipe(
-      startWith(null),
-      map((d: string | null) => (d ? this._filter(d) : this.chips))
-    );
+    this._getDate();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.handleInChipsChange(changes.inChips.currentValue as IClassification);
+    this._handleInChipsChange(changes.inChips.currentValue as IClassification);
   }
 }

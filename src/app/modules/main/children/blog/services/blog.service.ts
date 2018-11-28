@@ -23,13 +23,11 @@ export class BlogService {
     return this._http
       .get('/classification')
       .pipe(
-        map((d: IResponse) => [{ name: 'All', color: '#f00', _id: '' }, ...d.data]),
+        map((d: IResponse) => d.data),
         tap(d => {
           this.logger.responseLog(d, 'getClassification');
         }),
-        catchError(
-          BlogService.handleError<IClassification[]>('getClassification', [{ name: 'All', color: '#f00', _id: '' }])
-        )
+        catchError(BlogService.handleError<IClassification[]>('getClassification', []))
       )
       .subscribe(d => {
         this.classificationSubject.next(d);
