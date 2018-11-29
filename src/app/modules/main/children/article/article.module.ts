@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { ArticleRoutingModule } from './article-routing.module';
 import { ArticleComponent } from './article.component';
+import { SharedModule } from '@app/shared/shared.module';
+import { ReplyComponent } from './components/reply/reply.component';
 
 @NgModule({
-  declarations: [ArticleComponent],
-  imports: [
-    CommonModule,
-    ArticleRoutingModule
-  ]
+  declarations: [ArticleComponent, ReplyComponent],
+  imports: [CommonModule, ArticleRoutingModule, SharedModule]
 })
-export class ArticleModule { }
+export class ArticleModule {}

@@ -1,5 +1,5 @@
 <mat-form-field class="search">
-  <mat-chip-list #chipList multiple selectable="false">
+  <mat-chip-list #chipList multiple>
     <mat-chip *ngFor="let i of selecteds" selected color="{{handleChipsColor(i)}}" [removable]="removable" (removed)="remove(i)">
       {{i.name}}
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>

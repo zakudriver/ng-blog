@@ -17,11 +17,11 @@ export const appConfig = {
       name: 'BLOG',
       icon: 'border_color'
     },
-    {
-      path: '/contact',
-      name: 'CONTACT',
-      icon: 'import_contacts'
-    }
+    // {
+    //   path: '/contact',
+    //   name: 'CONTACT',
+    //   icon: 'import_contacts'
+    // }
   ]
 };
 export type AppConfig = typeof appConfig;
