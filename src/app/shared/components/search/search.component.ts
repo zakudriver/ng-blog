@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { IClassification } from '@app/interface';
+import { ICategory } from '@app/interface';
 
 @Component({
   selector: 'app-search',
@@ -15,7 +15,7 @@ export class SearchComponent implements OnInit, OnChanges {
   @Input()
   chips: any[] = [];
   @Input()
-  inChips: IClassification;
+  inChips: ICategory;
   @Output()
   inChipsChange = new EventEmitter();
 
@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit, OnChanges {
   searchFormControl = new FormControl();
   selectedChips: any[] = [];
   selectedChipsMap: any = {
-    classification: 0,
+    category: 0,
     title: 0,
     start: 0,
     end: 0
@@ -93,7 +93,7 @@ export class SearchComponent implements OnInit, OnChanges {
     // }
 
     if (value._id) {
-      this.selectedChipsMap.classification = 0;
+      this.selectedChipsMap.category = 0;
       this.inChipsChange.emit(null);
     } else {
       this.selectedChipsMap[value.key] = 0;
@@ -131,9 +131,9 @@ export class SearchComponent implements OnInit, OnChanges {
     this.search.emit(emit);
   }
 
-  private _handleInChipsChange(inChips: IClassification) {
+  private _handleInChipsChange(inChips: ICategory) {
     if (inChips) {
-      this.selectedChipsMap.classification = inChips;
+      this.selectedChipsMap.category = inChips;
       this._handleSearch();
     }
   }
@@ -156,6 +156,6 @@ export class SearchComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this._handleInChipsChange(changes.inChips.currentValue as IClassification);
+    this._handleInChipsChange(changes.inChips.currentValue as ICategory);
   }
 }

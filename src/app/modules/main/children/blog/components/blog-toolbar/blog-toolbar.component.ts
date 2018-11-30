@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from '@app/modules/main/children/blog/services/blog.service';
-import { IClassification } from '@app/interface';
+import { ICategory } from '@app/interface';
 import { MatChipListChange, MatChipSelectionChange } from '@angular/material';
 
 @Component({
@@ -9,16 +9,16 @@ import { MatChipListChange, MatChipSelectionChange } from '@angular/material';
   styleUrls: ['./blog-toolbar.component.styl']
 })
 export class BlogToolbarComponent implements OnInit {
-  classification: IClassification[];
+  category: ICategory[];
 
-  selectedChip: IClassification;
+  selectedChip: ICategory;
 
   searchResult: any = [];
 
   selectable = true;
   constructor(private _blogService: BlogService) {}
 
-  onChip(chip: IClassification) {
+  onChip(chip: ICategory) {
     console.log(chip);
     this.selectedChip = chip;
   }
@@ -28,8 +28,8 @@ export class BlogToolbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._blogService.classificationSubject.subscribe(d => {
-      this.classification = d;
+    this._blogService.categorySubject.subscribe(d => {
+      this.category = d;
     });
   }
 }

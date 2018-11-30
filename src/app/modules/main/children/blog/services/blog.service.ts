@@ -4,11 +4,11 @@ import { LoggerService } from '@app/core/services/logger.service';
 import { Observable, of, Subject } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 
-import { IClassification } from '@app/interface';
+import { ICategory } from '@app/interface';
 
 @Injectable()
 export class BlogService {
-  classificationSubject = new Subject<IClassification[]>();
+  categorySubject = new Subject<ICategory[]>();
 
   static handleError<T>(func = 'func', result?: T) {
     return (error: any): Observable<T> => {
@@ -19,18 +19,18 @@ export class BlogService {
 
   constructor(private _http: HttpClient, private logger: LoggerService) {}
 
-  getClassification() {
+  getCategory() {
     return this._http
-      .get('/classification')
+      .get('/category')
       .pipe(
         map((d: IResponse) => d.data),
         tap(d => {
-          this.logger.responseLog(d, 'getClassification');
+          this.logger.responseLog(d, 'getCategory');
         }),
-        catchError(BlogService.handleError<IClassification[]>('getClassification', []))
+        catchError(BlogService.handleError<ICategory[]>('getCategory', []))
       )
       .subscribe(d => {
-        this.classificationSubject.next(d);
+        this.categorySubject.next(d);
       });
   }
 }

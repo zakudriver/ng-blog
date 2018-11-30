@@ -4,7 +4,7 @@
       {{i.name}}
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>
-    <input placeholder="{{'Classification _ Title _ 20121225 _ '+date}}" #searchInput [formControl]="searchFormControl"
+    <input placeholder="{{'Category _ Title _ 20121225 _ '+date}}" #searchInput [formControl]="searchFormControl"
       [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
       [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
   </mat-chip-list>

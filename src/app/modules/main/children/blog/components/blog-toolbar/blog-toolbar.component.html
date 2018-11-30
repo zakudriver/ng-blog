@@ -3,7 +3,7 @@
   <div class="chip-list">
     <mat-chip-list selectable="true">
       <mat-chip
-        *ngFor="let i of classification; let idx = index"
+        *ngFor="let i of category; let idx = index"
         color="primary"
         selectable="true"
         [selected]="selectedChip && i.name === selectedChip.name"
