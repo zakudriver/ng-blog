@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { IArticle } from '@app/interface';
 
 @Component({
   selector: 'app-blog-list',
@@ -6,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./blog-list.component.styl']
 })
 export class BlogListComponent implements OnInit {
+  @Input()
+  data: IArticle[];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

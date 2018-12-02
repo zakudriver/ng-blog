@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from './services/blog.service';
-import { ICategory } from '@app/interface';
+import { IArticle } from '@app/interface';
 
 @Component({
   selector: 'app-blog',
@@ -8,10 +8,12 @@ import { ICategory } from '@app/interface';
   styleUrls: ['./blog.component.styl']
 })
 export class BlogComponent implements OnInit {
-  category: ICategory;
+  articleList: IArticle[] = [];
   constructor(private _blogService: BlogService) {}
 
   ngOnInit() {
-    this._blogService.getCategory();
+    this._blogService.getArticleList().subscribe(d => {
+      this.articleList = d;
+    });
   }
 }

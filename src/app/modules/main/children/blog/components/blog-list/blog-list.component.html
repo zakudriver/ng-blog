@@ -1,6 +1,22 @@
 <div class="list">
   <mat-list>
-    <mat-list-item>
+    <ng-container *ngFor="let i of data">
+      <mat-list-item>
+        <article class="li">
+          <div class="li-l">
+            <div class="li-l-img"><img src="assets/img/image.jpg" /></div>
+          </div>
+          <div class="li-r">
+            <h1><a href="">{{i.title}}</a></h1>
+            <span class="category">class</span>
+            <div markdown [data]="i.content"></div>
+            <time>{{i.updateTime}}</time>
+          </div>
+        </article>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </ng-container>
+    <!-- <mat-list-item>
       <article class="li">
         <div class="li-l">
           <div class="li-l-img"><img src="assets/img/image.jpg" /></div>
@@ -16,7 +32,7 @@
         </div>
       </article>
     </mat-list-item>
-    <mat-divider></mat-divider>
+    <mat-divider></mat-divider> -->
     <mat-list-item>Item 2</mat-list-item>
     <mat-list-item>Item 3</mat-list-item>
     <mat-list-item>Item 2</mat-list-item>
