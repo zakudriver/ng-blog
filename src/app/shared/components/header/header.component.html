@@ -1,10 +1,10 @@
-<header [ngClass]="{ 'header-scroll': isScrolling }" (click)="(onStopPropagation($event))" [@scroll]="scrollState">
-  <nav>
+<header class="header" [ngClass]="{ 'header-scroll': isScrolling }" (click)="(onStopPropagation($event))" [@scroll]="scrollState">
+  <nav class="nav">
     <div class="logo"><a routerLink="/">Zyhua's BLOG</a></div>
 
     <ng-container *ngIf="isDesktop; else: mobile">
       <div class="nav-right">
-        <ul>
+        <ul class="ul">
           <li *ngFor="let i of router">
             <a routerLink="{{i.path}}"><button mat-button matTooltip="blog" matTooltipClass="nav-btn-tooltip">{{i.name}}</button></a>
           </li>

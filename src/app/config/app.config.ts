@@ -10,16 +10,19 @@ export const appConfig = {
     {
       path: '',
       name: 'HOME',
+      title: '',
       icon: 'home'
     },
     {
       path: '/blog',
       name: 'BLOG',
+      title: 'Blog',
       icon: 'border_color'
-    },
+    }
     // {
     //   path: '/contact',
     //   name: 'CONTACT',
+    //   title:'Contact',
     //   icon: 'import_contacts'
     // }
   ]

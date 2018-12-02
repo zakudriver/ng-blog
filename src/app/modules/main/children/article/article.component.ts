@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./article.component.styl']
 })
 export class ArticleComponent implements OnInit {
+  markdown="# title"
 
   constructor() { }
 

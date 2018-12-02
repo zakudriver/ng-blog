@@ -10,19 +10,22 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: HomeComponent
+        component: HomeComponent,
+        data: { title: '' }
       },
       {
         path: 'blog',
-        loadChildren: './children/blog/blog.module#BlogModule'
+        loadChildren: './children/blog/blog.module#BlogModule',
+        data: { title: 'Blog' }
       },
-      {
-        path: 'contact',
-        loadChildren: './children/contact/contact.module#ContactModule'
-      },
+      // {
+      //   path: 'contact',
+      //   loadChildren: './children/contact/contact.module#ContactModule',
+      // },
       {
         path: 'article',
-        loadChildren: './children/article/article.module#ArticleModule'
+        loadChildren: './children/article/article.module#ArticleModule',
+        data: { title: 'Article' }
       }
     ]
   }

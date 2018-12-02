@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+
+import { MainService } from './services/main.service';
 
 @Component({
   selector: 'app-main',
@@ -6,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main.component.styl']
 })
 export class MainComponent implements OnInit {
-  constructor() {}
+  title: string;
+  constructor(private _mainService: MainService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._mainService.title.subscribe((d: string) => {
+      this.title = d;
+    });
+  }
 }
