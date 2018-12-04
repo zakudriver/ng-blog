@@ -31,10 +31,10 @@ export class SearchComponent implements OnInit, OnChanges {
   searchFormControl = new FormControl();
   selectedChips: any[] = [];
   selectedChipsMap: any = {
-    category: 0,
-    title: 0,
-    start: 0,
-    end: 0
+    category: '',
+    title: '',
+    start: '',
+    end: ''
   };
 
   @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>;
@@ -55,12 +55,16 @@ export class SearchComponent implements OnInit, OnChanges {
     const input = event.input;
     const value = event.value;
 
-    if (value.length === 8 && !isNaN(Number(value))) {
-      const date = Number(value);
-      if (this.selectedChipsMap.start.name <= date) {
-        this.selectedChipsMap.end = { name: date, key: 'end' };
+    // console.log(value.replace(/-/g, ''));
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+      if (
+        this._handleDateStr(this.selectedChipsMap.start.name) <= this._handleDateStr(value) &&
+        this.selectedChipsMap.start.name
+      ) {
+        this.selectedChipsMap.end = { name: value, key: 'end' };
       } else {
-        this.selectedChipsMap.start = { name: date, key: 'start' };
+        this.selectedChipsMap.start = { name: value, key: 'start' };
       }
     } else if (value !== '') {
       this.selectedChipsMap.title = { name: value, key: 'title' };
@@ -121,6 +125,14 @@ export class SearchComponent implements OnInit, OnChanges {
     }
   }
 
+  private _handleDateStr(date: string): number {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      return parseInt(date.replace(/-/g, ''), 10);
+    } else {
+      return 0;
+    }
+  }
+
   private _handleSearch() {
     const emit = {};
     for (const k in this.selectedChipsMap) {
@@ -142,7 +154,7 @@ export class SearchComponent implements OnInit, OnChanges {
     const date = new Date();
     const m = date.getMonth();
     const d = date.getDate();
-    this.date = `${date.getFullYear()}${m < 10 ? `0${m}` : m}${m < 10 ? `0${d}` : d}`;
+    this.date = `${date.getFullYear()}-${m < 10 ? `0${m}` : m}-${m < 10 ? `0${d}` : d}`;
   }
 
   private _filter(value: string): string[] {

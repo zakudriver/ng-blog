@@ -1,23 +1,25 @@
 <div class="reply">
   <h3 class="title">Leave a Reply</h3>
 
-  <form class="form">
+  <form class="form" [formGroup]="replyForm" (ngSubmit)="onSubmit($event)">
     <div class="form-row">
       <mat-form-field class="input">
-        <input mat-prefix matInput placeholder="Name*">
+        <input mat-prefix matInput formControlName="name" placeholder="Name*">
+        <mat-error *ngIf="replyForm.invalid">{{getErrorMessage('name')}}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="input">
-        <input matInput placeholder="Email*">
+        <input matInput formControlName="email" placeholder="Email*">
+        <mat-error *ngIf="replyForm.invalid">{{getErrorMessage('email')}}</mat-error>
       </mat-form-field>
     </div>
 
     <mat-form-field>
-      <textarea matInput rows="5" placeholder="What's on your mind?"></textarea>
+      <textarea matInput rows="5" formControlName="text" placeholder="What's on your mind?"></textarea>
     </mat-form-field>
 
     <div class="form-submit">
-      <button mat-raised-button color="primary">Post Comment</button>
+      <button mat-raised-button color="primary" [disabled]="!replyForm.valid">Post Comment</button>
     </div>
   </form>
 </div>

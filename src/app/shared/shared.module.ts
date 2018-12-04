@@ -14,15 +14,8 @@ import { BlackboxDirective } from './directives/blackbox/blackbox.directive';
 import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule, MaterialModule, RouterModule, MarkdownModule],
-  declarations: [
-    HeaderComponent,
-    FooterComponent,
-    BannerComponent,
-    ToolbarComponent,
-    BlackboxDirective,
-    SearchComponent
-  ],
+  imports: [CommonModule, ReactiveFormsModule, MaterialModule, RouterModule, MarkdownModule, ReactiveFormsModule],
+  declarations: [HeaderComponent, FooterComponent, BannerComponent, ToolbarComponent, BlackboxDirective, SearchComponent],
   exports: [
     HeaderComponent,
     FooterComponent,
@@ -31,7 +24,8 @@ import { SearchComponent } from './components/search/search.component';
     BlackboxDirective,
     SearchComponent,
     MaterialModule,
-    MarkdownModule
+    MarkdownModule,
+    ReactiveFormsModule
   ]
   // providers: [{ provide: APP_CONFIG, useValue: appConfig }]
 })

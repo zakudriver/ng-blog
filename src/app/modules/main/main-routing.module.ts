@@ -23,7 +23,7 @@ const routes: Routes = [
       //   loadChildren: './children/contact/contact.module#ContactModule',
       // },
       {
-        path: 'article',
+        path: 'article/:id',
         loadChildren: './children/article/article.module#ArticleModule',
         data: { title: 'Article' }
       }

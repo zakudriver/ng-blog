@@ -1,12 +1,12 @@
 <article class="article">
-  <div markdown [data]="markdown" class="markdown"></div>
+  <div markdown [data]="content" class="markdown"></div>
 
   <div class="footer">
     <div class="footer-l">
       <label>Categories:</label>
       <mat-chip-list>
         <mat-chip selectable="false" selected>
-          11111
+          {{category.name}}
         </mat-chip>
       </mat-chip-list>
     </div>
@@ -24,5 +24,5 @@
     </div>
   </div>
 
-  <app-reply></app-reply>
+  <app-reply [id]="id"></app-reply>
 </article>

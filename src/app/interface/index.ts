@@ -5,8 +5,11 @@ export interface ICategory {
 }
 
 export interface IArticle {
+  _id: string;
   title: string;
-  category: string;
+  category: {
+    name: string;
+  };
   content: string;
   createTime: string;
   updateTime: string;
