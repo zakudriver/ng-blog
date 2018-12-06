@@ -78,7 +78,7 @@ export class BlogService {
       tap(d => {
         this._logger.responseLog(d, 'search');
       }),
-      catchError(HandleResponseService.handleErrorData<IArticle[]>('search', []))
+      catchError(HandleResponseService.handleErrorData<{ title: string }[]>('search', []))
     );
   }
 
