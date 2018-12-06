@@ -15,3 +15,10 @@ export interface IArticle {
   updateTime: string;
   uploads: { name: string; url: string }[];
 }
+
+export interface ISearchMap {
+  category: string;
+  title: string;
+  start: string;
+  end: string;
+}

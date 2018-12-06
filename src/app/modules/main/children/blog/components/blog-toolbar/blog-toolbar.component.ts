@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from '@app/modules/main/children/blog/services/blog.service';
-import { ICategory } from '@app/interface';
-import { MatChipListChange, MatChipSelectionChange } from '@angular/material';
+import { ICategory, ISearchMap } from '@app/interface';
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-blog-toolbar',
@@ -13,18 +14,32 @@ export class BlogToolbarComponent implements OnInit {
 
   selectedChip: ICategory;
 
-  searchResult: any = [];
+  searchResult: any;
+  searchTitleResult: { title: string }[] = [];
 
   selectable = true;
   constructor(private _blogService: BlogService) {}
 
   onChip(chip: ICategory) {
-    console.log(chip);
     this.selectedChip = chip;
   }
 
-  onSearch(value: any) {
+  onSearch(value: ISearchMap) {
     console.log(value);
+    this._blogService.saerchResult(value);
+  }
+
+  onSearchChange(inputing: Observable<string>) {
+    console.log(inputing);
+    inputing
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap(i => this._blogService.searchTitle(i))
+      )
+      .subscribe(d => {
+        this.searchTitleResult = d;
+      });
   }
 
   ngOnInit() {

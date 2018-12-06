@@ -9,8 +9,8 @@
       [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
   </mat-chip-list>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-    <mat-option *ngFor="let i of filteredChips | async" [value]="i.name">
-      {{i.name}}
+    <mat-option *ngFor="let i of searchTitleResult" [value]="i.title">
+      {{i.title}}
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>

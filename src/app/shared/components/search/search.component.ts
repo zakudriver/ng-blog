@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
 import { MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { ICategory } from '@app/interface';
@@ -14,13 +12,20 @@ import { ICategory } from '@app/interface';
 export class SearchComponent implements OnInit, OnChanges {
   @Input()
   chips: any[] = [];
+
+  @Input()
+  searchTitleResult: { title: string }[] = [];
+
   @Input()
   inChips: ICategory;
   @Output()
   inChipsChange = new EventEmitter();
 
   @Output()
-  search = new EventEmitter();
+  onSearch = new EventEmitter();
+
+  @Output()
+  onSearchChange = new EventEmitter();
 
   visible = true;
   selectable = true;
@@ -55,24 +60,7 @@ export class SearchComponent implements OnInit, OnChanges {
     const input = event.input;
     const value = event.value;
 
-    // console.log(value.replace(/-/g, ''));
-
-    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
-      if (
-        this._handleDateStr(this.selectedChipsMap.start.name) <= this._handleDateStr(value) &&
-        this.selectedChipsMap.start.name
-      ) {
-        this.selectedChipsMap.end = { name: value, key: 'end' };
-      } else {
-        this.selectedChipsMap.start = { name: value, key: 'start' };
-      }
-    } else if (value !== '') {
-      this.selectedChipsMap.title = { name: value, key: 'title' };
-    }
-
-    if (value !== '') {
-      this._handleSearch();
-    }
+    this._addChipsMap(value);
 
     if (input) {
       input.value = '';
@@ -82,34 +70,20 @@ export class SearchComponent implements OnInit, OnChanges {
   }
 
   remove(value: any): void {
-    // switch (true) {
-    //   case typeof value._id === 'string':
-    //     break;
-    //   case value.name === this.selectedChipsMap.start.name:
-    //     this.selectedChipsMap.start = 0;
-    //     break;
-    //   case value.name === this.selectedChipsMap.end.name:
-    //     this.selectedChipsMap.end = 0;
-    //     break;
-    //   case value.name === this.selectedChipsMap.title.name:
-    //     this.selectedChipsMap.title = 0;
-    //     break;
-    // }
-
     if (value._id) {
       this.selectedChipsMap.category = 0;
       this.inChipsChange.emit(null);
     } else {
       this.selectedChipsMap[value.key] = 0;
     }
+    this._handleSearch();
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
     const selectValue = event.option.viewValue;
-    const selected = this.chips.find(i => selectValue.trim() === i.name);
-    this.selectedChips.push(selected);
-    this.searchInput.nativeElement.value = '';
+    this._addChipsMap(selectValue);
     this.searchFormControl.setValue(null);
+    this.searchInput.nativeElement.value = '';
   }
 
   handleChipsColor(chip: { key: string }) {
@@ -122,6 +96,28 @@ export class SearchComponent implements OnInit, OnChanges {
         return 'warn';
       default:
         return 'primary';
+    }
+  }
+
+  private _emitSearchFormControl() {
+    this.onSearchChange.emit(this.searchFormControl.valueChanges);
+  }
+
+  private _addChipsMap(value: string) {
+    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+      if (
+        this._handleDateStr(this.selectedChipsMap.start.name) <= this._handleDateStr(value) &&
+        this.selectedChipsMap.start.name
+      ) {
+        this.selectedChipsMap.end = { name: value, key: 'end' };
+      } else {
+        this.selectedChipsMap.start = { name: value, key: 'start' };
+      }
+    } else if (value !== '') {
+      this.selectedChipsMap.title = { name: value, key: 'title' };
+    }
+    if (value !== '') {
+      this._handleSearch();
     }
   }
 
@@ -140,14 +136,12 @@ export class SearchComponent implements OnInit, OnChanges {
         emit[k] = this.selectedChipsMap[k]._id || this.selectedChipsMap[k].name;
       }
     }
-    this.search.emit(emit);
+    this.onSearch.emit(emit);
   }
 
-  private _handleInChipsChange(inChips: ICategory) {
-    if (inChips) {
-      this.selectedChipsMap.category = inChips;
-      this._handleSearch();
-    }
+  private _watchInChipsChange() {
+    this.selectedChipsMap.category = this.inChips;
+    this._handleSearch();
   }
 
   private _getDate() {
@@ -165,9 +159,10 @@ export class SearchComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this._getDate();
+    this._emitSearchFormControl();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this._handleInChipsChange(changes.inChips.currentValue as ICategory);
+  ngOnChanges(): void {
+    this._watchInChipsChange();
   }
 }
