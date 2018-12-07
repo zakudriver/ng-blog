@@ -1,3 +1,4 @@
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
@@ -9,7 +10,13 @@ import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserAnimationsModule, AppRoutingModule, CoreModule, SharedModule],
+  imports: [
+    BrowserModule.withServerTransition({ appId: 'my-app' }),
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    CoreModule,
+    SharedModule
+  ],
   bootstrap: [AppComponent],
   providers: [{ provide: APP_CONFIG, useValue: appConfig }]
 })
