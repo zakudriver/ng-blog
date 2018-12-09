@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { map, tap, catchError, retry } from 'rxjs/operators';
 
 import { LoggerService } from '@app/core/services/logger.service';
@@ -67,6 +67,7 @@ export class BlogService {
       .subscribe(d => {
         this.articleListSubject.next(d);
       });
+    return this.articleListSubject;
   }
 
   searchTitle(value: string) {

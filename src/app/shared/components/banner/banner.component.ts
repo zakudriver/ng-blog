@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject, PLATFORM_ID } from '@angular/core';
 import { fromEvent } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-banner',
@@ -12,7 +13,7 @@ export class BannerComponent implements OnInit {
   @Input()
   title: string;
 
-  constructor() {}
+  constructor(@Inject(PLATFORM_ID) private _platformId: object) {}
 
   onScroll() {
     const el = fromEvent(window, 'scroll');
@@ -22,6 +23,8 @@ export class BannerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.onScroll();
+    if (isPlatformBrowser(this._platformId)) {
+      this.onScroll();
+    }
   }
 }

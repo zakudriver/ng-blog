@@ -1,5 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { fromEvent } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
+
 import { animate, style, transition, trigger, state } from '@angular/animations';
 import { APP_CONFIG, AppConfig, AppConfigRouter } from '@app/config/app.config';
 
@@ -32,9 +34,7 @@ export class HeaderComponent implements OnInit {
   isScrolling = false;
   scrollState = 'top';
 
-  constructor(@Inject(APP_CONFIG) private _config: AppConfig) {
-    const clientWidth = document.documentElement.clientWidth;
-    this.isDesktop = clientWidth > _config.headerDesktopLimit;
+  constructor(@Inject(APP_CONFIG) private _config: AppConfig, @Inject(PLATFORM_ID) private _platformId: AppConfig) {
     this.router = _config.router;
   }
 
@@ -65,7 +65,11 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.onResize();
-    this.onScroll();
+    if (isPlatformBrowser(this._platformId)) {
+      const clientWidth = document.documentElement.clientWidth;
+      this.isDesktop = clientWidth > this._config.headerDesktopLimit;
+      this.onResize();
+      this.onScroll();
+    }
   }
 }

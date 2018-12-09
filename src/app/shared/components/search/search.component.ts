@@ -140,8 +140,10 @@ export class SearchComponent implements OnInit, OnChanges {
   }
 
   private _watchInChipsChange() {
-    this.selectedChipsMap.category = this.inChips;
-    this._handleSearch();
+    if (this.inChips) {
+      this.selectedChipsMap.category = this.inChips;
+      this._handleSearch();
+    }
   }
 
   private _getDate() {
@@ -157,7 +159,7 @@ export class SearchComponent implements OnInit, OnChanges {
     return this.chips.filter(d => d.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._getDate();
     this._emitSearchFormControl();
   }
