@@ -22,10 +22,14 @@ export class ReplyComponent implements OnInit {
     text: ['']
   });
 
-  constructor(private _fb: FormBuilder, private _http: HttpClient, private _handleResponseService: HandleResponseService) {}
+  constructor(
+    private _fb: FormBuilder,
+    private _http: HttpClient,
+    private _handleResponseService: HandleResponseService
+  ) {}
 
   onSubmit(e: Event) {
-    const data = Object.assign({ _id: this.id }, this.replyForm.value);
+    const data = Object.assign({ article: this.id }, this.replyForm.value);
     this._http
       .post('/article/message', data)
       .pipe<IResponse>(catchError(err => of(err)))
@@ -40,6 +44,7 @@ export class ReplyComponent implements OnInit {
         if (this.replyForm.get('email').hasError('required')) {
           return 'You must enter a value';
         }
+        break;
       case 'email':
         if (this.replyForm.get('email').hasError('required')) {
           return 'You must enter a value';
