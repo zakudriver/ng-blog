@@ -12,8 +12,9 @@ export class MainComponent implements OnInit {
   constructor(private _mainService: MainService) {}
 
   ngOnInit() {
-    this._mainService.title.subscribe((d: string) => {
+    this._mainService.titleSubject.subscribe((d: string) => {
       this.title = d;
     });
+    this._mainService.getProfile();
   }
 }

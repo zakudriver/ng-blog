@@ -17,7 +17,7 @@ export class HandleResponseService {
 
   constructor(private _matSnackBar: MatSnackBar) {}
 
-  handleReaction(response: IResponse) {
+  handleReaction(response: IResponse<any>) {
     if (response.code === 0) {
       this._matSnackBar.open(response.msg);
     } else {

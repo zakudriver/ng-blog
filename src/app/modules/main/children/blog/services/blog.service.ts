@@ -24,10 +24,10 @@ export class BlogService {
    */
   getCategory() {
     return this._http
-      .get('/category')
+      .get<IResponse<ICategory[]>>('/category')
       .pipe(
         retry(3),
-        map((d: IResponse) => d.data),
+        map(d => d.data),
         tap(d => {
           this._logger.responseLog(d, 'getCategory');
         }),
@@ -55,10 +55,10 @@ export class BlogService {
       params: new HttpParams({ fromObject: params })
     };
     this._http
-      .get('/article/list', options)
+      .get<IResponse<IArticle[]>>('/article/list', options)
       .pipe(
         retry(3),
-        map((d: IResponse) => d.data),
+        map(d => d.data),
         tap(d => {
           this._logger.responseLog(d, 'getArticleList');
         }),
@@ -74,8 +74,8 @@ export class BlogService {
     const options = {
       params: new HttpParams({ fromObject: { title: value } })
     };
-    return this._http.get(`/article/search`, options).pipe(
-      map((d: IResponse) => d.data),
+    return this._http.get<IResponse<{ title: string }[]>>(`/article/search`, options).pipe(
+      map(d => d.data),
       tap(d => {
         this._logger.responseLog(d, 'search');
       }),
@@ -88,9 +88,9 @@ export class BlogService {
       params: new HttpParams({ fromObject: <any>value })
     };
     this._http
-      .get(`/article/search`, options)
+      .get<IResponse<IArticle[]>>(`/article/search`, options)
       .pipe(
-        map((d: IResponse) => d.data),
+        map(d => d.data),
         tap(d => {
           this._logger.responseLog(d, 'search');
         }),

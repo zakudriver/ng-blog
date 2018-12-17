@@ -1,24 +1,22 @@
 <div class="home">
   <div class="profile">
     <div class="avatar">
-      <img src="assets/img/J0003_m.97851d87.png" alt="avatar">
+      <img [src]="profile.avatar" alt="avatar">
     </div>
     <div class="name">
-      <h3>Zyhua</h3>
-      <h6>Coder</h6>
+      <h3>{{profile.name}}</h3>
+      <h6>{{profile.profile}}</h6>
       <ul class="ul links">
-        <li><button mat-button>Basic</button></li>
-        <li><button mat-button>Basic</button></li>
-        <li><button mat-button>Basic</button></li>
+        <li><a href="https://github.com/Zhan9Yunhua" target="_Blank" mat-button><mat-icon fontSet="fa" fontIcon="fa-github" inline></mat-icon></a></li>
+        <li><a href="mailto:zy.hua1122@outlook.com" mat-button><mat-icon inline>alternate_email</mat-icon></a></li>
+        <li><a href="http://admin.zyhua.cn" target="_Blank" mat-button><mat-icon inline>settings</mat-icon></a></li>
       </ul>
     </div>
   </div>
 
   <div class="description">
     <p>
-      codecodecodecode,codecodecod,
-      codecodecodecode,
-      codecodecodecodecodecod,
+      {{profile.description}}
     </p>
   </div>
 </div>

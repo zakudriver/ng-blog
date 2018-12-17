@@ -1,7 +1,7 @@
 // export as namespace Net;
 
-declare interface IResponse {
+declare interface IResponse<T> {
   code: number;
-  data: any;
+  data: T;
   msg: string;
 }

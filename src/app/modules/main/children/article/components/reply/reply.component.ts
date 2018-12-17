@@ -31,8 +31,8 @@ export class ReplyComponent implements OnInit {
   onSubmit(e: Event) {
     const data = Object.assign({ article: this.id }, this.replyForm.value);
     this._http
-      .post('/article/message', data)
-      .pipe<IResponse>(catchError(err => of(err)))
+      .post<IResponse<any>>('/article/message', data)
+      .pipe(catchError(err => of(err)))
       .subscribe(d => {
         this._handleResponseService.handleReaction(d);
       });

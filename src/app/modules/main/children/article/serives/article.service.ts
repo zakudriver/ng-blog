@@ -18,9 +18,9 @@ export class ArticleService {
   getArticle(id: string) {
     const options = { params: new HttpParams().set('_id', id) };
     this._http
-      .get('/article', options)
+      .get<IResponse<IArticle>>('/article', options)
       .pipe(
-        map((d: IResponse) => d.data),
+        map(d => d.data),
         tap(d => {
           this._logger.responseLog(d, 'getArticle');
         }),

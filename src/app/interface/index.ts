@@ -22,3 +22,10 @@ export interface ISearchMap {
   start: string;
   end: string;
 }
+
+export interface IProfile {
+  avatar: string;
+  name: string;
+  profile: string;
+  description: string;
+}
