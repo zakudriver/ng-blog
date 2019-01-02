@@ -4,7 +4,7 @@ import { Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 
-import { HandleResponseService } from '@app/core/services/handle-response.service';
+import { ReponseHandlerService } from '@app/core/services/reponse-handler.service';
 import { of } from 'rxjs';
 
 @Component({
@@ -25,7 +25,7 @@ export class ReplyComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _http: HttpClient,
-    private _handleResponseService: HandleResponseService
+    private _reponseHandlerService: ReponseHandlerService
   ) {}
 
   onSubmit(e: Event) {
@@ -34,7 +34,7 @@ export class ReplyComponent implements OnInit {
       .post<IResponse<any>>('/article/message', data)
       .pipe(catchError(err => of(err)))
       .subscribe(d => {
-        this._handleResponseService.handleReaction(d);
+        this._reponseHandlerService.handleReaction(d);
       });
   }
 

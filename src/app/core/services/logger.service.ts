@@ -16,7 +16,7 @@ export class LoggerService {
 
   responseLog(data: any, func = 'function', color = '#fff', background = '#f44336') {
     console.log(`%c function: ${func}`, `color:${color};background:${background}`);
-    console.log(data)
+    console.log(data);
   }
 
   error(msg: string, obj = {}) {

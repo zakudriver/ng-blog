@@ -6,7 +6,7 @@ import { Subject, Observable } from 'rxjs';
 
 import { ArticleService } from '@app/modules/main/children/article/serives/article.service';
 import { LoggerService } from '@app/core/services/logger.service';
-import { HandleResponseService } from '@app/core/services/handle-response.service';
+import { ReponseHandlerService } from '@app/core/services/reponse-handler.service';
 import { IProfile } from '@app/interface';
 
 @Injectable()
@@ -48,7 +48,7 @@ export class MainService {
             this._logger.responseLog(d, 'getArticle');
           },
           catchError(
-            HandleResponseService.handleErrorData<IProfile>('getArticle', {
+            ReponseHandlerService.handleErrorData<IProfile>('getArticle', {
               avatar: '',
               name: 'Zyhua',
               profile: 'coder',

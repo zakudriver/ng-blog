@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { map, tap, catchError, retry } from 'rxjs/operators';
 
 import { LoggerService } from '@app/core/services/logger.service';
-import { HandleResponseService } from '@app/core/services/handle-response.service';
+import { ReponseHandlerService } from '@app/core/services/reponse-handler.service';
 import { ICategory, IArticle, ISearchMap } from '@app/interface';
 
 @Injectable()
@@ -31,7 +31,7 @@ export class BlogService {
         tap(d => {
           this._logger.responseLog(d, 'getCategory');
         }),
-        catchError(HandleResponseService.handleErrorData<ICategory[]>('getCategory', []))
+        catchError(ReponseHandlerService.handleErrorData<ICategory[]>('getCategory', []))
       )
       .subscribe(d => {
         this.categorySubject.next(d);
@@ -62,7 +62,7 @@ export class BlogService {
         tap(d => {
           this._logger.responseLog(d, 'getArticleList');
         }),
-        catchError(HandleResponseService.handleErrorData<IArticle[]>('getArticleList', []))
+        catchError(ReponseHandlerService.handleErrorData<IArticle[]>('getArticleList', []))
       )
       .subscribe(d => {
         this.articleListSubject.next(d);
@@ -79,7 +79,7 @@ export class BlogService {
       tap(d => {
         this._logger.responseLog(d, 'search');
       }),
-      catchError(HandleResponseService.handleErrorData<{ title: string }[]>('search', []))
+      catchError(ReponseHandlerService.handleErrorData<{ title: string }[]>('search', []))
     );
   }
 
@@ -94,7 +94,7 @@ export class BlogService {
         tap(d => {
           this._logger.responseLog(d, 'search');
         }),
-        catchError(HandleResponseService.handleErrorData<IArticle[]>('search', []))
+        catchError(ReponseHandlerService.handleErrorData<IArticle[]>('search', []))
       )
       .subscribe(d => {
         this.articleListSubject.next(d);

@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, tap, catchError } from 'rxjs/operators';
 
 import { LoggerService } from '@app/core/services/logger.service';
-import { HandleResponseService } from '@app/core/services/handle-response.service';
+import { ReponseHandlerService } from '@app/core/services/reponse-handler.service';
 import { IArticle } from '@app/interface';
 import { Subject } from 'rxjs';
 
@@ -25,7 +25,7 @@ export class ArticleService {
           this._logger.responseLog(d, 'getArticle');
         }),
         catchError(
-          HandleResponseService.handleErrorData<IArticle>('getArticle', {
+          ReponseHandlerService.handleErrorData<IArticle>('getArticle', {
             title: 'Error',
             category: {
               name: 'error'
