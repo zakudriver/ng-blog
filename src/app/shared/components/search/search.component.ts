@@ -1,4 +1,14 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  ElementRef,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -66,7 +76,7 @@ export class SearchComponent implements OnInit, OnChanges {
       input.value = '';
     }
 
-    this.searchFormControl.setValue(null);
+    this._resetForm();
   }
 
   remove(value: any): void {
@@ -82,8 +92,8 @@ export class SearchComponent implements OnInit, OnChanges {
   selected(event: MatAutocompleteSelectedEvent): void {
     const selectValue = event.option.viewValue;
     this._addChipsMap(selectValue);
-    this.searchFormControl.setValue(null);
     this.searchInput.nativeElement.value = '';
+    this._resetForm();
   }
 
   handleChipsColor(chip: { key: string }) {
@@ -157,6 +167,10 @@ export class SearchComponent implements OnInit, OnChanges {
     const filterValue = value.toLowerCase();
 
     return this.chips.filter(d => d.name.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  private _resetForm() {
+    this.searchFormControl.reset();
   }
 
   ngOnInit(): void {
