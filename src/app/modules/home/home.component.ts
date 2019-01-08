@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MainService } from '../../services/main.service';
+import { AppService } from '@app/services/app.service';
 import { IProfile } from '@app/interface';
 
 @Component({
@@ -8,17 +8,17 @@ import { IProfile } from '@app/interface';
   styleUrls: ['./home.component.styl']
 })
 export class HomeComponent implements OnInit {
-  profile: IProfile = this._mainService.profile || {
+  profile: IProfile = this._appService.profile || {
     name: '',
     avatar: '',
     profile: '',
     description: ''
   };
 
-  constructor(private _mainService: MainService) {}
+  constructor(private _appService: AppService) {}
 
   ngOnInit() {
-    this._mainService.profileSubject.subscribe(d => {
+    this._appService.profileSubject.subscribe(d => {
       this.profile = d;
     });
   }

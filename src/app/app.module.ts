@@ -7,9 +7,11 @@ import { AppComponent } from './app.component';
 import { APP_CONFIG, appConfig } from '@app/config/app.config';
 import { CoreModule } from '@app/core/core.module';
 import { SharedModule } from '@app/shared/shared.module';
+import { AppService } from './services/app.service';
+import { HomeComponent } from './modules/home/home.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HomeComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'my-app' }),
     BrowserAnimationsModule,
@@ -18,6 +20,6 @@ import { SharedModule } from '@app/shared/shared.module';
     SharedModule
   ],
   bootstrap: [AppComponent],
-  providers: [{ provide: APP_CONFIG, useValue: appConfig }]
+  providers: [{ provide: APP_CONFIG, useValue: appConfig }, AppService]
 })
 export class AppModule {}

@@ -9,7 +9,7 @@ import { IArticle } from '@app/interface';
   styleUrls: ['./article.component.styl']
 })
 export class ArticleComponent implements OnInit {
-  content: string = '# content';
+  content = '# content';
   category: { name: string } = { name: 'category' };
   id: string;
 
