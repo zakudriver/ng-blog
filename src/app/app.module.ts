@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { APP_CONFIG, appConfig } from '@app/config/app.config';
 import { CoreModule } from '@app/core/core.module';
 import { SharedModule } from '@app/shared/shared.module';
-import { AppService } from './services/app.service';
+import { AppService } from './modules/app.service';
 import { HomeComponent } from './modules/home/home.component';
 
 @NgModule({

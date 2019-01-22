@@ -3,7 +3,8 @@ import { InjectionToken } from '@angular/core';
 export const APP_CONFIG = new InjectionToken<AppConfig>('app.config');
 
 export const appConfig = {
-  api: 'http://127.0.0.1:8999',
+  // api: 'http://127.0.0.1:8999',
+  api: 'http://api.zyhua.cn',
   headerDesktopLimit: 500,
   headerScrollLimit: 60,
   router: [

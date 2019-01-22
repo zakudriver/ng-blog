@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from '@app/services/app.service';
+import { AppService } from '@app/modules/app.service';
 import { IProfile } from '@app/interface';
 
 @Component({
