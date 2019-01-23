@@ -5,6 +5,7 @@ import { BlogComponent } from './blog.component';
 const routes: Routes = [
   {
     path: '',
+    data: { title: 'Blog' },
     component: BlogComponent
   }
 ];

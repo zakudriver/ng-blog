@@ -1,27 +1,27 @@
-:host(app-toolbar)
-  .toolbar
+
+.toolbar
+  position fixed
+  right 0
+  top 40%
+  z-index 10
+  background-color rgba(#d8d8d8, 0.6)
+  border-radius 3px 0 0 3px
+  height auto
+  &-drawer
+    width 400px
     position fixed
     right 0
-    top 40%
-    z-index 10
-    background-color rgba(#d8d8d8, 0.6)
-    border-radius 3px 0 0 3px
-    height auto
-    &-drawer
-      width 400px
-      position fixed
-      right 0
-      top 0
-      z-index 100
-      background-color #fff
-      box-shadow 3px 0px 50px -2px rgba(0, 0, 0, 0.14)
-    &-btn
-      padding 0 10px
-      min-width 40px
-  .mat-drawer-side.mat-drawer-end
-    border none
-  .mat-drawer-container
-    z-index 10
-  @media (max-width: 500px)
-    .toolbar-drawer
-      width 260px
+    top 0
+    z-index 100
+    background-color #fff
+    box-shadow 3px 0px 50px -2px rgba(0, 0, 0, 0.14)
+  &-btn
+    padding 0 10px
+    min-width 40px
+.mat-drawer-side.mat-drawer-end
+  border none
+.mat-drawer-container
+  z-index 10
+@media (max-width: 500px)
+  .toolbar-drawer
+    width 260px

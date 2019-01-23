@@ -12,6 +12,8 @@ export class BannerComponent implements OnInit {
 
   @Input()
   title: string;
+  @Input()
+  backgroundUrl: string = 'assets/img/bg2.jpg';
 
   constructor(@Inject(PLATFORM_ID) private _platformId: object) {}
 

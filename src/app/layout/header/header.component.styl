@@ -1,0 +1,62 @@
+@import 'index.styl'
+header
+  padding 25px 15px 10px
+  height 50px
+  line-height 50px
+  position fixed
+  z-index 3
+  left 0
+  right 0
+  .mat-button
+    color #fff
+  nav
+    display flex
+    justify-content space-between
+    align-items center
+    width 100%
+    margin 0 auto
+  a
+    text-decoration none
+.nav
+  &-right
+    display flex
+    flex-grow 1
+    &>ul
+      display flex
+      margin-left auto
+    &>button
+      margin-left auto
+  &-icon
+    color #fff
+.header-scroll
+  background-color #fff
+  box-shadow 0 4px 18px 0 rgba(0, 0, 0, 0.12), 0 7px 10px -5px rgba(0, 0, 0, 0.15)
+  padding 10px 15px
+  .mat-button, .nav-icon, .logo a
+    color $fontColor
+.drawer
+  position fixed
+  right 0
+  top 0
+  width 230px
+  padding 0 15px
+  z-index 9
+.logo
+  font-weight 300
+  font-size 18px
+  a
+    color #fff
+.mat-drawer-side.mat-drawer-end
+  border none
+@media (min-width: 576px)
+  nav
+    max-width 540px
+@media (min-width: 768px)
+  nav
+    max-width 720px
+@media (min-width: 992px)
+  nav
+    max-width 960px
+@media (min-width: 1200px)
+  nav
+    max-width 1140px

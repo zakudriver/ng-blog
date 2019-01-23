@@ -1,22 +1,28 @@
 <div class="home">
   <div class="profile">
     <div class="avatar">
-      <img [src]="profile.avatar" alt="avatar">
+      <img [src]="appService.profile.avatar" alt="avatar">
     </div>
     <div class="name">
-      <h3>{{profile.name}}</h3>
-      <h6>{{profile.profile}}</h6>
+      <h3>{{appService.profile.name}}</h3>
+      <h6>{{appService.profile.profile}}</h6>
       <ul class="ul links">
-        <li><a href="https://github.com/Zhan9Yunhua" target="_Blank" mat-button><mat-icon fontSet="fa" fontIcon="fa-github" inline></mat-icon></a></li>
-        <li><a href="mailto:zy.hua1122@outlook.com" mat-button><mat-icon inline>alternate_email</mat-icon></a></li>
-        <li><a href="http://admin.zyhua.cn" target="_Blank" mat-button><mat-icon inline>settings</mat-icon></a></li>
+        <li><a href="https://github.com/Zhan9Yunhua" target="_Blank" mat-button>
+            <mat-icon fontSet="fa" fontIcon="fa-github" inline></mat-icon>
+          </a></li>
+        <li><a href="mailto:zy.hua1122@outlook.com" mat-button>
+            <mat-icon inline>alternate_email</mat-icon>
+          </a></li>
+        <li><a href="http://admin.zyhua.cn" target="_Blank" mat-button>
+            <mat-icon inline>settings</mat-icon>
+          </a></li>
       </ul>
     </div>
   </div>
 
   <div class="description">
     <p>
-      {{profile.description}}
+      {{appService.profile.description}}
     </p>
   </div>
 </div>

@@ -3,17 +3,12 @@ import { AppService } from './modules/app.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.styl']
+  template: '<router-outlet></router-outlet>'
 })
 export class AppComponent implements OnInit {
-  title: string;
   constructor(private _appService: AppService) {}
 
   ngOnInit() {
-    this._appService.titleSubject.subscribe((d: string) => {
-      this.title = d;
-    });
     this._appService.getProfile();
   }
 }

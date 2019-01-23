@@ -10,6 +10,7 @@ export interface IArticle {
   category: {
     name: string;
   };
+  cover: string;
   content: string;
   createTime: string;
   updateTime: string;
@@ -28,4 +29,5 @@ export interface IProfile {
   name: string;
   profile: string;
   description: string;
+  cover: string[];
 }

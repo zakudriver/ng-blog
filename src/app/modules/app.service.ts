@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { catchError, map, tap, filter } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { ReponseHandlerService } from '@app/core/services/reponse-handler.service';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 
@@ -11,19 +10,16 @@ import { ArticleService } from '@app/modules/article/serives/article.service';
 
 @Injectable()
 export class AppService {
-  titleSubject = new Subject();
   profileSubject = new Subject<IProfile>();
-  profile: IProfile;
+  profile: IProfile = {
+    name: '',
+    avatar: '',
+    profile: '',
+    description: '',
+    cover: []
+  };
 
-  constructor(
-    private _route: ActivatedRoute,
-    private _router: Router,
-    private _articleService: ArticleService,
-    private _http: HttpClient,
-    private _logger: LoggerService
-  ) {
-    this._subNavigationEnd();
-  }
+  constructor(private _articleService: ArticleService, private _http: HttpClient, private _logger: LoggerService) {}
 
   getProfile() {
     this._http
@@ -32,14 +28,15 @@ export class AppService {
         map(d => d.data),
         tap(
           d => {
-            this._logger.responseLog(d, 'getArticle');
+            this._logger.responseLog(d, 'getProfile');
           },
           catchError(
-            ReponseHandlerService.handleErrorData<IProfile>('getArticle', {
+            ReponseHandlerService.handleErrorData<IProfile>('getProfile', {
               avatar: '',
               name: 'Zyhua',
               profile: 'coder',
-              description: 'code'
+              description: 'code',
+              cover: []
             })
           )
         )
@@ -48,19 +45,5 @@ export class AppService {
         this.profileSubject.next(d);
         this.profile = d;
       });
-  }
-
-  private _subNavigationEnd() {
-    this._router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(e => this._titleHandler());
-  }
-
-  private _titleHandler() {
-    const t = this._route.firstChild;
-    (t.data || t.firstChild.data).subscribe(d => {
-      this.titleSubject.next(d.title);
-    });
-    this._articleService.articleSubject.subscribe(d => {
-      this.titleSubject.next(d.title);
-    });
   }
 }

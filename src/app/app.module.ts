@@ -9,9 +9,13 @@ import { CoreModule } from '@app/core/core.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { AppService } from './modules/app.service';
 import { HomeComponent } from './modules/home/home.component';
+import { LayoutComponent } from './layout/layout.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { FooterComponent } from './layout/footer/footer.component';
+import { BannerComponent } from './layout/banner/banner.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, LayoutComponent, HeaderComponent, FooterComponent, BannerComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'my-app' }),
     BrowserAnimationsModule,
