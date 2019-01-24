@@ -7,7 +7,7 @@ import { LoggerService } from '@app/core/services/logger.service';
 
 @Injectable()
 export class TimingService implements HttpInterceptor {
-  constructor(private _logger: LoggerService) {}
+  constructor(private _loggerSer: LoggerService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const started = Date.now();
@@ -15,7 +15,7 @@ export class TimingService implements HttpInterceptor {
       tap(event => {
         if (event instanceof HttpResponse) {
           const elapsed = Date.now() - started;
-          this._logger.log(`Request for ${req.urlWithParams} took ${elapsed} ms.`, '#ffe411', '#111');
+          this._loggerSer.log(`Request for ${req.urlWithParams} took ${elapsed} ms.`, '#ffe411', '#111');
         }
       })
     );

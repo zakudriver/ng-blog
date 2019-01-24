@@ -1,14 +1,14 @@
 <div class="home">
   <div class="profile">
     <div class="avatar">
-      <img [src]="appService.profile.avatar" alt="avatar">
+      <img [src]="appSer.profile.avatar" alt="avatar">
     </div>
     <div class="name">
-      <h3>{{appService.profile.name}}</h3>
-      <h6>{{appService.profile.profile}}</h6>
+      <h3>{{appSer.profile.name}}</h3>
+      <h6>{{appSer.profile.profile}}</h6>
       <ul class="ul links">
         <li><a href="https://github.com/Zhan9Yunhua" target="_Blank" mat-button>
-            <mat-icon fontSet="fa" fontIcon="fa-github" inline></mat-icon>
+            <mat-icon fontSet="iconfont" inline>&#xe6f6;</mat-icon>
           </a></li>
         <li><a href="mailto:zy.hua1122@outlook.com" mat-button>
             <mat-icon inline>alternate_email</mat-icon>
@@ -22,7 +22,7 @@
 
   <div class="description">
     <p>
-      {{appService.profile.description}}
+      {{appSer.profile.description}}
     </p>
   </div>
 </div>

@@ -18,7 +18,7 @@ export class BlogToolbarComponent implements OnInit {
   searchTitleResult: { title: string }[];
 
   selectable = true;
-  constructor(private _blogService: BlogService) {}
+  constructor(private _blogSer: BlogService) {}
 
   onChip(chip: ICategory) {
     this.selectedChip = chip;
@@ -26,7 +26,7 @@ export class BlogToolbarComponent implements OnInit {
 
   onSearch(value: ISearchMap) {
     console.log(value);
-    this._blogService.saerchResult(value);
+    this._blogSer.saerchResult(value);
   }
 
   onSearchChange(inputing: Observable<string>) {
@@ -34,7 +34,7 @@ export class BlogToolbarComponent implements OnInit {
       .pipe(
         debounceTime(500),
         distinctUntilChanged(),
-        switchMap(i => this._blogService.searchTitle(i))
+        switchMap(i => this._blogSer.searchTitle(i))
       )
       .subscribe(d => {
         this.searchTitleResult = d;
@@ -42,7 +42,7 @@ export class BlogToolbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._blogService.categorySubject.subscribe(d => {
+    this._blogSer.categorySubject.subscribe(d => {
       this.category = d;
     });
   }

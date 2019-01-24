@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, tap, catchError } from 'rxjs/operators';
 
 import { LoggerService } from '@app/core/services/logger.service';
-import { ReponseHandlerService } from '@app/core/services/reponse-handler.service';
+import { ResponseHandlerService } from '@app/core/services/response-handler.service';
 import { IArticle } from '@app/interface';
 import { Subject } from 'rxjs';
 
@@ -13,7 +13,7 @@ import { Subject } from 'rxjs';
 export class ArticleService {
   articleSubject = new Subject<IArticle>();
 
-  constructor(private _http: HttpClient, private _logger: LoggerService) {}
+  constructor(private _http: HttpClient, private _loggerSer: LoggerService) {}
 
   getArticle(id: string) {
     const options = { params: new HttpParams().set('_id', id) };
@@ -22,10 +22,10 @@ export class ArticleService {
       .pipe(
         map(d => d.data),
         tap(d => {
-          this._logger.responseLog(d, 'getArticle');
+          this._loggerSer.responseLog(d, 'getArticle');
         }),
         catchError(
-          ReponseHandlerService.handleErrorData<IArticle>('getArticle', {
+          ResponseHandlerService.handleErrorData<IArticle>('getArticle', {
             title: 'Error',
             category: {
               name: 'error'

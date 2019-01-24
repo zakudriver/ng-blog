@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material';
 @Injectable({
   providedIn: 'root'
 })
-export class ReponseHandlerService {
+export class ResponseHandlerService {
   static handleErrorData<T>(func = 'func', result?: T) {
     return (error: any): Observable<T> => {
       LoggerService.log(`${func} failed: ${error.message}`, 'red');

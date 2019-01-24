@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { catchError, map, tap } from 'rxjs/operators';
-import { ReponseHandlerService } from '@app/core/services/reponse-handler.service';
+import { ResponseHandlerService } from '@app/core/services/response-handler.service';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 
@@ -19,7 +19,7 @@ export class AppService {
     cover: []
   };
 
-  constructor(private _articleService: ArticleService, private _http: HttpClient, private _logger: LoggerService) {}
+  constructor(private _articleSer: ArticleService, private _http: HttpClient, private _loggerSer: LoggerService) {}
 
   getProfile() {
     this._http
@@ -28,10 +28,10 @@ export class AppService {
         map(d => d.data),
         tap(
           d => {
-            this._logger.responseLog(d, 'getProfile');
+            this._loggerSer.responseLog(d, 'getProfile');
           },
           catchError(
-            ReponseHandlerService.handleErrorData<IProfile>('getProfile', {
+            ResponseHandlerService.handleErrorData<IProfile>('getProfile', {
               avatar: '',
               name: 'Zyhua',
               profile: 'coder',

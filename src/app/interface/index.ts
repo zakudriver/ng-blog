@@ -15,6 +15,7 @@ export interface IArticle {
   createTime: string;
   updateTime: string;
   uploads: { name: string; url: string }[];
+  color?: string;
 }
 
 export interface ISearchMap {

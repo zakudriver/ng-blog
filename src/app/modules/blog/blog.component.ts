@@ -9,10 +9,10 @@ import { IArticle } from '@app/interface';
 })
 export class BlogComponent implements OnInit {
   articleList: IArticle[] = [];
-  constructor(private _blogService: BlogService) {}
+  constructor(private _blogSer: BlogService) {}
 
   ngOnInit() {
-    this._blogService.getArticleList().subscribe(d => {
+    this._blogSer.getArticleList().subscribe(d => {
       this.articleList = d;
     });
   }

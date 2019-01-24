@@ -1,14 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ViewChild,
-  ElementRef,
-  Output,
-  EventEmitter,
-  OnChanges,
-  SimpleChanges
-} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -158,7 +148,7 @@ export class SearchComponent implements OnInit, OnChanges {
 
   private _getDate() {
     const date = new Date();
-    const m = date.getMonth();
+    const m = date.getMonth() + 1;
     const d = date.getDate();
     this.date = `${date.getFullYear()}-${m < 10 ? `0${m}` : m}-${m < 10 ? `0${d}` : d}`;
   }

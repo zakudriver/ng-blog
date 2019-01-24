@@ -6,9 +6,9 @@ import { AppService } from './modules/app.service';
   template: '<router-outlet></router-outlet>'
 })
 export class AppComponent implements OnInit {
-  constructor(private _appService: AppService) {}
+  constructor(private _appSer: AppService) {}
 
   ngOnInit() {
-    this._appService.getProfile();
+    this._appSer.getProfile();
   }
 }

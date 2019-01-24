@@ -5,9 +5,10 @@ import { ArticleRoutingModule } from './article-routing.module';
 import { ArticleComponent } from './article.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { ReplyComponent } from './components/reply/reply.component';
+import { ShareComponent } from './components/share/share.component';
 
 @NgModule({
-  declarations: [ArticleComponent, ReplyComponent],
+  declarations: [ArticleComponent, ReplyComponent, ShareComponent],
   imports: [CommonModule, ArticleRoutingModule, SharedModule]
 })
 export class ArticleModule {}

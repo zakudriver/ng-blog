@@ -13,13 +13,13 @@ export class ArticleComponent implements OnInit {
   category: { name: string } = { name: 'category' };
   id: string;
 
-  constructor(private _router: ActivatedRoute, private _articleService: ArticleService) {}
+  constructor(private _router: ActivatedRoute, private _articleSer: ArticleService) {}
 
   ngOnInit() {
     const id = this._router.snapshot.paramMap.get('id');
-    this._articleService.getArticle(id);
+    this._articleSer.getArticle(id);
 
-    this._articleService.articleSubject.subscribe(d => {
+    this._articleSer.articleSubject.subscribe(d => {
       const { content, category } = d;
       this.content = content;
       this.category = category;

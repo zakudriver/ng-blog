@@ -8,7 +8,7 @@ import { IProfile } from '@app/interface';
   styleUrls: ['./home.component.styl']
 })
 export class HomeComponent implements OnInit {
-  constructor(public appService: AppService) {}
+  constructor(public appSer: AppService) {}
 
   ngOnInit() {}
 }
