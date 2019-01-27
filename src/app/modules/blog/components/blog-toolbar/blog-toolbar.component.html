@@ -3,7 +3,7 @@
     [searchTitleResult]="searchTitleResult"></app-search>
   <div class="chip-list">
     <mat-chip-list selectable="true">
-      <mat-chip *ngFor="let i of category; let idx = index" color="primary" selectable="true" [selected]="selectedChip && i.name === selectedChip.name"
+      <mat-chip *ngFor="let i of blogSer.categories; let idx = index" color="primary" selectable="true" [selected]="selectedChip && i.name === selectedChip.name"
         (click)="onChip(i)">{{ i.name }}</mat-chip>
       <!--
         <mat-chip>Two fish</mat-chip>

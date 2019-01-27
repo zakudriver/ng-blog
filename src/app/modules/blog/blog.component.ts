@@ -8,12 +8,12 @@ import { IArticle } from '@app/interface';
   styleUrls: ['./blog.component.styl']
 })
 export class BlogComponent implements OnInit {
-  articleList: IArticle[] = [];
-  constructor(private _blogSer: BlogService) {}
+  constructor(public blogSer: BlogService) {}
 
   ngOnInit() {
-    this._blogSer.getArticleList().subscribe(d => {
-      this.articleList = d;
-    });
+    // this._blogSer.getArticleList().subscribe(d => {
+    //   this.articleList = d;
+    // });
+    this.blogSer.getArticles();
   }
 }

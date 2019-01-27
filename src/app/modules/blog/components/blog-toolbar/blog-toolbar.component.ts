@@ -10,15 +10,14 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
   styleUrls: ['./blog-toolbar.component.styl']
 })
 export class BlogToolbarComponent implements OnInit {
-  category: ICategory[];
-
+  // category: ICategory[];
   selectedChip: ICategory;
 
   searchResult: any;
   searchTitleResult: { title: string }[];
 
   selectable = true;
-  constructor(private _blogSer: BlogService) {}
+  constructor(public blogSer: BlogService) {}
 
   onChip(chip: ICategory) {
     this.selectedChip = chip;
@@ -26,7 +25,7 @@ export class BlogToolbarComponent implements OnInit {
 
   onSearch(value: ISearchMap) {
     console.log(value);
-    this._blogSer.saerchResult(value);
+    this.blogSer.saerchResult(value);
   }
 
   onSearchChange(inputing: Observable<string>) {
@@ -34,7 +33,7 @@ export class BlogToolbarComponent implements OnInit {
       .pipe(
         debounceTime(500),
         distinctUntilChanged(),
-        switchMap(i => this._blogSer.searchTitle(i))
+        switchMap(i => this.blogSer.searchTitle(i))
       )
       .subscribe(d => {
         this.searchTitleResult = d;
@@ -42,8 +41,8 @@ export class BlogToolbarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._blogSer.categorySubject.subscribe(d => {
-      this.category = d;
-    });
+    // this.blogSer.categorySubject.subscribe(d => {
+    //   this.category = d;
+    // });
   }
 }

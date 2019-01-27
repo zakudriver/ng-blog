@@ -6,9 +6,11 @@ import { ArticleComponent } from './article.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { ReplyComponent } from './components/reply/reply.component';
 import { ShareComponent } from './components/share/share.component';
+import { ArticleService } from './serives/article.service';
 
 @NgModule({
   declarations: [ArticleComponent, ReplyComponent, ShareComponent],
-  imports: [CommonModule, ArticleRoutingModule, SharedModule]
+  imports: [CommonModule, ArticleRoutingModule, SharedModule],
+  providers: [ArticleService]
 })
 export class ArticleModule {}

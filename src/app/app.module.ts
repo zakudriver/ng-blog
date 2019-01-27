@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
@@ -18,6 +18,7 @@ import { BannerComponent } from './layout/banner/banner.component';
   declarations: [AppComponent, HomeComponent, LayoutComponent, HeaderComponent, FooterComponent, BannerComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'my-app' }),
+    BrowserTransferStateModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     CoreModule,

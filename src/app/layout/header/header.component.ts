@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
   isScrolling = false;
   scrollState = 'top';
 
-  constructor(@Inject(APP_CONFIG) private _config: AppConfig, @Inject(PLATFORM_ID) private _platformId: AppConfig) {
+  constructor(@Inject(APP_CONFIG) private _config: AppConfig, @Inject(PLATFORM_ID) private _platformId: object) {
     this.router = _config.router;
   }
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { TransferState, makeStateKey } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 import { map, tap, catchError, retry } from 'rxjs/operators';
 
@@ -7,46 +8,19 @@ import { LoggerService } from '@app/core/services/logger.service';
 import { ResponseHandlerService } from '@app/core/services/response-handler.service';
 import { ICategory, IArticle, ISearchMap } from '@app/interface';
 
+const CATEGORIES_KEY = makeStateKey<ICategory[]>('categories');
+// const ARTICLES_SUBJECT_KEY = makeStateKey<Subject<IArticle[]>>('articlesSubject');
+
 @Injectable()
 export class BlogService {
-  categorySubject = new Subject<ICategory[]>();
-  articleListSubject = new Subject<IArticle[]>();
+  articlesSubject = new Subject<IArticle[]>();
+  categories: ICategory[];
 
-  constructor(private _http: HttpClient, private _loggerSer: LoggerService) {
-    this.getCategory();
+  constructor(private _http: HttpClient, private _loggerSer: LoggerService, private _state: TransferState) {
+    this._getCategory();
   }
 
-  /**
-   * 获取分类
-   *
-   * @returns
-   * @memberof BlogService
-   */
-  getCategory() {
-    return this._http
-      .get<IResponse<ICategory[]>>('/category')
-      .pipe(
-        retry(3),
-        map(d => d.data),
-        tap(d => {
-          this._loggerSer.responseLog(d, 'getCategory');
-        }),
-        catchError(ResponseHandlerService.handleErrorData<ICategory[]>('getCategory', []))
-      )
-      .subscribe(d => {
-        this.categorySubject.next(d);
-      });
-  }
-
-  /**
-   * 获取文章列表
-   *
-   * @param {string} [index='1']
-   * @param {string} [limit='5']
-   * @returns
-   * @memberof BlogService
-   */
-  getArticleList(index = '1', limit = '5') {
+  getArticles(index = '1', limit = '5') {
     const params = {
       index,
       limit
@@ -60,14 +34,13 @@ export class BlogService {
         retry(3),
         map(d => d.data),
         tap(d => {
-          this._loggerSer.responseLog(d, 'getArticleList');
+          this._loggerSer.responseLog(d, 'getArticles');
         }),
-        catchError(ResponseHandlerService.handleErrorData<IArticle[]>('getArticleList', []))
+        catchError(ResponseHandlerService.handleErrorData<IArticle[]>('getArticles', []))
       )
       .subscribe(d => {
-        this.articleListSubject.next(d);
+        this.articlesSubject.next(d);
       });
-    return this.articleListSubject;
   }
 
   searchTitle(value: string) {
@@ -97,7 +70,31 @@ export class BlogService {
         catchError(ResponseHandlerService.handleErrorData<IArticle[]>('search', []))
       )
       .subscribe(d => {
-        this.articleListSubject.next(d);
+        this.articlesSubject.next(d);
       });
+  }
+
+  private _getCategory() {
+    const category = this._state.get(CATEGORIES_KEY, null);
+
+    if (category) {
+      // this.categorySubject.next(category);
+      this.categories = category;
+    } else {
+      this._http
+        .get<IResponse<ICategory[]>>('/category')
+        .pipe(
+          retry(3),
+          map(d => d.data),
+          tap(d => {
+            this._loggerSer.responseLog(d, '_getCategory');
+          }),
+          catchError(ResponseHandlerService.handleErrorData<ICategory[]>('_getCategory', []))
+        )
+        .subscribe(d => {
+          this._state.set(CATEGORIES_KEY, d);
+          this.categories = d;
+        });
+    }
   }
 }
