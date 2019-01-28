@@ -15,12 +15,14 @@ const CATEGORIES_KEY = makeStateKey<ICategory[]>('categories');
 export class BlogService {
   articlesSubject = new Subject<IArticle[]>();
   categories: ICategory[];
+  isLoading = false;
 
   constructor(private _http: HttpClient, private _loggerSer: LoggerService, private _state: TransferState) {
     this._getCategory();
   }
 
   getArticles(index = '1', limit = '5') {
+    this.isLoading = true;
     const params = {
       index,
       limit
@@ -40,6 +42,7 @@ export class BlogService {
       )
       .subscribe(d => {
         this.articlesSubject.next(d);
+        this.isLoading = false;
       });
   }
 
@@ -78,7 +81,6 @@ export class BlogService {
     const category = this._state.get(CATEGORIES_KEY, null);
 
     if (category) {
-      // this.categorySubject.next(category);
       this.categories = category;
     } else {
       this._http

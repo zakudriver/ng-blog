@@ -3,10 +3,10 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { ResponseHandlerService } from '@app/core/services/response-handler.service';
 import { HttpClient } from '@angular/common/http';
 import { makeStateKey, TransferState } from '@angular/platform-browser';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 import { IProfile } from '@app/interface';
 import { LoggerService } from '@app/core/services/logger.service';
-import { ArticleService } from '@app/modules/article/serives/article.service';
 
 const PROFILE_KEY = makeStateKey<IProfile>('profile');
 
@@ -17,19 +17,29 @@ export class AppService {
     avatar: '',
     profile: '',
     description: '',
-    cover: []
+    cover: {
+      home: '',
+      blog: ''
+    }
   };
+  profileSubject = new BehaviorSubject<IProfile>({
+    name: '',
+    avatar: '',
+    profile: '',
+    description: '',
+    cover: {
+      home: '',
+      blog: ''
+    }
+  });
 
-  constructor(
-    private _http: HttpClient,
-    private _loggerSer: LoggerService,
-    private _state: TransferState
-  ) {}
+  constructor(private _http: HttpClient, private _loggerSer: LoggerService, private _state: TransferState) {}
 
   getProfile() {
     const profile = this._state.get(PROFILE_KEY, null);
 
     if (profile) {
+      this.profileSubject.next(profile);
       this.profile = profile;
     } else {
       this._http
@@ -46,13 +56,17 @@ export class AppService {
                 name: 'Zyhua',
                 profile: 'coder',
                 description: 'code',
-                cover: []
+                cover: {
+                  home: '',
+                  blog: ''
+                }
               })
             )
           )
         )
         .subscribe(d => {
           this._state.set(PROFILE_KEY, d);
+          this.profileSubject.next(d);
           this.profile = d;
         });
     }

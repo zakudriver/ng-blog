@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Input, Inject, PLATFORM_ID, OnChanges } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -29,4 +29,10 @@ export class BannerComponent implements OnInit {
       this.onScroll();
     }
   }
+
+  // ngOnChanges() {
+  //   if (!this.backgroundUrl) {
+  //     this.backgroundUrl = 'assets/img/bg2.jpg';
+  //   }
+  // }
 }

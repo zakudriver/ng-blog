@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from './services/blog.service';
-import { IArticle } from '@app/interface';
 
 @Component({
   selector: 'app-blog',
@@ -10,10 +9,11 @@ import { IArticle } from '@app/interface';
 export class BlogComponent implements OnInit {
   constructor(public blogSer: BlogService) {}
 
+  onScrollBottom() {
+    console.log('b');
+  }
+
   ngOnInit() {
-    // this._blogSer.getArticleList().subscribe(d => {
-    //   this.articleList = d;
-    // });
     this.blogSer.getArticles();
   }
 }

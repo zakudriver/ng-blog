@@ -30,5 +30,8 @@ export interface IProfile {
   name: string;
   profile: string;
   description: string;
-  cover: string[];
+  cover: {
+    home: string;
+    blog: string;
+  };
 }

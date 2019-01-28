@@ -8,12 +8,20 @@ import { MarkdownModule } from './modules/markdown.module';
 
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { BlackboxDirective } from './directives/blackbox/blackbox.directive';
+import { ScrollDirective } from './directives/scroll/scroll.directive';
 import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, MaterialModule, RouterModule, MarkdownModule, ReactiveFormsModule],
-  declarations: [ToolbarComponent, BlackboxDirective, SearchComponent],
-  exports: [ToolbarComponent, BlackboxDirective, SearchComponent, MaterialModule, MarkdownModule, ReactiveFormsModule]
-  // providers: [{ provide: APP_CONFIG, useValue: appConfig }]
+  declarations: [ToolbarComponent, BlackboxDirective, ScrollDirective, SearchComponent],
+  exports: [
+    ToolbarComponent,
+    BlackboxDirective,
+    ScrollDirective,
+    SearchComponent,
+    MaterialModule,
+    MarkdownModule,
+    ReactiveFormsModule
+  ]
 })
 export class SharedModule {}

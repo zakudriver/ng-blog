@@ -8,9 +8,8 @@ import { ResponseHandlerService } from '@app/core/services/response-handler.serv
 import { IArticle } from '@app/interface';
 import { Subject } from 'rxjs';
 import { LayoutService } from '@app/layout/layout.service';
-import { isPlatformBrowser } from '@angular/common';
 
-const ARTICLE_KEY = makeStateKey<IArticle>('article');
+// const ARTICLE_KEY = makeStateKey<IArticle>('article');
 
 @Injectable()
 export class ArticleService {
@@ -25,42 +24,28 @@ export class ArticleService {
   ) {}
 
   getArticle(id: string) {
-    const article = this._state.get(ARTICLE_KEY, null);
-
-    console.log(isPlatformBrowser(this._platformId));
-
-    if (article) {
-      this.articleSubject.next(article);
-      this._layoutSer.titleHandler(article.title);
-      this._layoutSer.backgroundUrHandler(article.cover);
-      this._state.set(ARTICLE_KEY, null);
-      console.log(true);
-    } else {
-      const options = { params: new HttpParams().set('_id', id) };
-      this._http
-        .get<IResponse<IArticle>>('/article', options)
-        .pipe(
-          map(d => d.data),
-          tap(d => {
-            this._loggerSer.responseLog(d, 'getArticle');
-          }),
-          catchError(
-            ResponseHandlerService.handleErrorData<IArticle>('getArticle', {
-              title: 'Error',
-              category: {
-                name: 'error'
-              },
-              content: 'error!!'
-            } as IArticle)
-          )
+    const options = { params: new HttpParams().set('_id', id) };
+    this._http
+      .get<IResponse<IArticle>>('/article', options)
+      .pipe(
+        map(d => d.data),
+        tap(d => {
+          this._loggerSer.responseLog(d, 'getArticle');
+        }),
+        catchError(
+          ResponseHandlerService.handleErrorData<IArticle>('getArticle', {
+            title: 'Error',
+            category: {
+              name: 'error'
+            },
+            content: 'error!!'
+          } as IArticle)
         )
-        .subscribe(d => {
-          this._state.set(ARTICLE_KEY, d);
-          this.articleSubject.next(d);
-          this._layoutSer.titleHandler(d.title);
-          this._layoutSer.backgroundUrHandler(d.cover);
-          console.log(false);
-        });
-    }
+      )
+      .subscribe(d => {
+        this.articleSubject.next(d);
+        this._layoutSer.titleHandler(d.title);
+        this._layoutSer.backgroundUrHandler(d.cover);
+      });
   }
 }

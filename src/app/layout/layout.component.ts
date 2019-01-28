@@ -1,8 +1,4 @@
-import { Component, OnInit, AfterContentInit } from '@angular/core';
-import { AppService } from '@app/modules/app.service';
-import { Router, ActivationEnd } from '@angular/router';
-import { ArticleService } from '@app/modules/article/serives/article.service';
-import { Title } from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
 import { LayoutService } from './layout.service';
 
 @Component({
@@ -11,15 +7,11 @@ import { LayoutService } from './layout.service';
   styleUrls: ['./layout.component.styl']
 })
 export class LayoutComponent implements OnInit {
-  title: string;
-  backgroundUrl: string;
+  constructor(public layoutSer: LayoutService) {}
 
-  constructor(public layoutSer: LayoutService) {
-    layoutSer.backgroundUrlSubject.subscribe(d => {
-      this.backgroundUrl = d;
-    });
+  onScrollBottom() {
+    this.layoutSer.scrollBottom();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

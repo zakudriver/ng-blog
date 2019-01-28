@@ -1,7 +1,9 @@
-<app-header></app-header>
-<app-banner [title]="layoutSer.titleSubject | async" [backgroundUrl]="layoutSer.backgroundUrlSubject | async"></app-banner>
-<main class="main">
-  <router-outlet></router-outlet>
-</main>
+<div class="body" appScroll (onScrollBottom)="onScrollBottom()" >
+  <app-header></app-header>
+  <app-banner [title]="layoutSer.titleSubject | async" [backgroundUrl]="layoutSer.backgroundUrlSubject | async"></app-banner>
+  <main class="main">
+    <router-outlet></router-outlet>
+  </main>
 
-<app-footer></app-footer>
+  <app-footer></app-footer>
+</div>
