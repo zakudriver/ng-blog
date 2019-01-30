@@ -6,14 +6,21 @@ import { map, tap, catchError } from 'rxjs/operators';
 import { LoggerService } from '@app/core/services/logger.service';
 import { ResponseHandlerService } from '@app/core/services/response-handler.service';
 import { IArticle } from '@app/interface';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { LayoutService } from '@app/layout/layout.service';
 
 // const ARTICLE_KEY = makeStateKey<IArticle>('article');
 
 @Injectable()
 export class ArticleService {
-  articleSubject = new Subject<IArticle>();
+  articleSubject = new BehaviorSubject<IArticle>({
+    _id: '',
+    title: 'Title',
+    category: {
+      name: 'category'
+    },
+    content: '# content'
+  });
 
   constructor(
     private _http: HttpClient,

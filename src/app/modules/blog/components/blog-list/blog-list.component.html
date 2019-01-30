@@ -1,5 +1,5 @@
 <mat-list role="list">
-  <ng-container *ngFor="let i of data">
+  <ng-container *ngFor="let i of articles">
     <mat-list-item role="listitem" class="li">
       <div class="li-l">
         <div class="li-l-img"><img [src]="i.cover||'assets/img/image.jpg'" /></div>
@@ -14,3 +14,6 @@
     <mat-divider></mat-divider>
   </ng-container>
 </mat-list>
+
+<mat-progress-spinner class="progress" *ngIf="blogSer.isLoading" color="accent" mode="indeterminate" [diameter]="40">
+</mat-progress-spinner>

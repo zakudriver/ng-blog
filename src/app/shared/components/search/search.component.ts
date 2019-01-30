@@ -27,6 +27,8 @@ export class SearchComponent implements OnInit, OnChanges {
   @Output()
   onSearchChange = new EventEmitter();
 
+  endTime = new Date();
+  startTime = new Date(this.endTime.getTime() - 31536000000);
   visible = true;
   selectable = true;
   removable = true;

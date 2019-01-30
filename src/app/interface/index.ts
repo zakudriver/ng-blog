@@ -10,11 +10,11 @@ export interface IArticle {
   category: {
     name: string;
   };
-  cover: string;
+  cover?: string;
   content: string;
-  createTime: string;
-  updateTime: string;
-  uploads: { name: string; url: string }[];
+  createTime?: string;
+  updateTime?: string;
+  uploads?: { name: string; url: string }[];
   color?: string;
 }
 

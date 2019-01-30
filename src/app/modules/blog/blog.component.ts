@@ -9,10 +9,6 @@ import { BlogService } from './services/blog.service';
 export class BlogComponent implements OnInit {
   constructor(public blogSer: BlogService) {}
 
-  onScrollBottom() {
-    console.log('b');
-  }
-
   ngOnInit() {
     this.blogSer.getArticles();
   }

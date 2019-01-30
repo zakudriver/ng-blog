@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { AppService } from '@app/modules/app.service';
 import { Title } from '@angular/platform-browser';
 import { ActivationEnd, Router, ActivatedRoute } from '@angular/router';
-import { Subject, BehaviorSubject } from 'rxjs';
-import { merge, switchMap } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { switchMap, filter } from 'rxjs/operators';
 import { BlogService } from '@app/modules/blog/services/blog.service';
 import { Location } from '@angular/common';
 
@@ -37,10 +37,11 @@ export class LayoutService {
             this._cover = d.cover;
             this.backgroundUrHandler();
             return _router.events;
-          })
+          }),
+          filter((e: ActivationEnd) => e instanceof ActivationEnd)
         )
         .subscribe(e => {
-          if (e instanceof ActivationEnd && typeof e.snapshot.data.title === 'string') {
+          if (typeof e.snapshot.data.title === 'string') {
             this._title = e.snapshot.data.title;
             this.titleHandler(this._title);
             this.backgroundUrHandler();

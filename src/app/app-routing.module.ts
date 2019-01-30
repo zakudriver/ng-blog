@@ -28,15 +28,18 @@ const routes: Routes = [
         data: { title: '' }
       }
     ]
+  },
+  {
+    path: '**',
+    loadChildren: './modules/not-found/not-found.module#NotFoundModule'
   }
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      // enableTracing: true,
       scrollPositionRestoration: 'top',
-      preloadingStrategy: PreloadAllModules
+      // preloadingStrategy: PreloadAllModules
     })
   ],
   exports: [RouterModule]

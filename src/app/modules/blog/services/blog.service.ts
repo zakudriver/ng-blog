@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { map, tap, catchError, retry } from 'rxjs/operators';
 
 import { LoggerService } from '@app/core/services/logger.service';
@@ -13,7 +13,7 @@ const CATEGORIES_KEY = makeStateKey<ICategory[]>('categories');
 
 @Injectable()
 export class BlogService {
-  articlesSubject = new Subject<IArticle[]>();
+  articlesSubject = new BehaviorSubject<IArticle[]>([]);
   categories: ICategory[];
   isLoading = false;
 

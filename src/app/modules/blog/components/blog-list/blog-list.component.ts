@@ -9,13 +9,17 @@ import { BlogService } from '../../services/blog.service';
   styleUrls: ['./blog-list.component.styl']
 })
 export class BlogListComponent implements OnInit {
-  data: IArticle[];
-  constructor(public blogSer: BlogService, private _utilsSer: UtilsService) {}
+  articles: IArticle[];
+  constructor(public blogSer: BlogService, private _utilsSer: UtilsService) {
+    blogSer.articlesSubject.subscribe(d => {
+      this._coloerHandler(d);
+    });
+  }
 
   _coloerHandler(d: IArticle[]) {
     const colors = this._utilsSer.colors;
     let ci = 0;
-    this.data = d.map(i => {
+    this.articles = d.map(i => {
       i.color = colors[ci++];
       if (ci > colors.length) {
         ci = 0;
@@ -24,9 +28,5 @@ export class BlogListComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.blogSer.articlesSubject.subscribe(d => {
-      this._coloerHandler(d);
-    });
-  }
+  ngOnInit() {}
 }

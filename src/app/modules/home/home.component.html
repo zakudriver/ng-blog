@@ -1,11 +1,11 @@
 <div class="home">
   <div class="profile">
     <div class="avatar">
-      <img [src]="appSer.profile.avatar" alt="avatar">
+      <img [src]="(appSer.profileSubject|async).avatar" alt="avatar">
     </div>
     <div class="name">
-      <h3>{{appSer.profile.name}}</h3>
-      <h6>{{appSer.profile.profile}}</h6>
+      <h3>{{(appSer.profileSubject|async).name}}</h3>
+      <h6>{{(appSer.profileSubject|async).profile}}</h6>
       <ul class="ul links">
         <li><a href="https://github.com/Zhan9Yunhua" target="_Blank" mat-button>
             <mat-icon fontSet="iconfont" inline>&#xe6f6;</mat-icon>
@@ -22,7 +22,7 @@
 
   <div class="description">
     <p>
-      {{appSer.profile.description}}
+      {{(appSer.profileSubject|async).description}}
     </p>
   </div>
 </div>

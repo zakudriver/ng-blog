@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from './serives/article.service';
 import { ActivatedRoute } from '@angular/router';
-import { IArticle } from '@app/interface';
 
 @Component({
   selector: 'app-article',
@@ -9,21 +8,10 @@ import { IArticle } from '@app/interface';
   styleUrls: ['./article.component.styl']
 })
 export class ArticleComponent implements OnInit {
-  content = '# content';
-  category: { name: string } = { name: 'category' };
-  id: string;
-
-  constructor(private _router: ActivatedRoute, private _articleSer: ArticleService) {}
+  constructor(private _router: ActivatedRoute, public articleSer: ArticleService) {}
 
   ngOnInit() {
     const id = this._router.snapshot.paramMap.get('id');
-    this._articleSer.getArticle(id);
-
-    this._articleSer.articleSubject.subscribe(d => {
-      const { content, category } = d;
-      this.content = content;
-      this.category = category;
-      this.id = d._id;
-    });
+    this.articleSer.getArticle(id);
   }
 }
