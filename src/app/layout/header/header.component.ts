@@ -39,6 +39,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onResize() {
+    console.log('onResize');
     const el = fromEvent(window, 'resize');
     el.subscribe(e => {
       this.isDesktop = (e.target as Window).innerWidth > this._config.headerDesktopLimit;
