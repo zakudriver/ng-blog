@@ -19,8 +19,8 @@ import { BlogService } from './modules/blog/services/blog.service';
   declarations: [AppComponent, HomeComponent, LayoutComponent, HeaderComponent, FooterComponent, BannerComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'my-app' }),
-    BrowserTransferStateModule,
     BrowserAnimationsModule,
+    BrowserTransferStateModule,
     AppRoutingModule,
     CoreModule,
     SharedModule

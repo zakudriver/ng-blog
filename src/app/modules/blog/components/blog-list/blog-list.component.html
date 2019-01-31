@@ -1,26 +1,6 @@
-<!-- <mat-list role="list">
-  <ng-container *ngFor="let i of articles">
-    <mat-list-item role="listitem">
-      <article class="li">
-        <div class="li-l">
-          <div class="li-l-img"><img [src]="i.cover || 'assets/img/image.jpg'" /></div>
-        </div>
-        <div class="li-r">
-          <h1>
-            <a [routerLink]="['/article', i._id]">{{ i.title }}</a>
-          </h1>
-          <mat-chip disabled selected [color]="i.color">{{ i.category.name }}</mat-chip>
-          <div markdown [data]="i.content"></div>
-          <time>{{ i.updateTime | date }}</time>
-        </div>
-      </article>
-    </mat-list-item>
-    <mat-divider></mat-divider>
-  </ng-container>
-</mat-list> -->
 
-<ul>
-  <li *ngFor="let i of articles">
+<div>
+  <ng-container *ngFor="let i of articles">
     <article class="li">
       <div class="li-l">
         <div class="li-l-img"><img [src]="i.cover || 'assets/img/image.jpg'" /></div>
@@ -35,8 +15,8 @@
       </div>
     </article>
     <mat-divider></mat-divider>
-  </li>
-</ul>
+  </ng-container>
+</div>
 
 <mat-progress-spinner class="progress" *ngIf="blogSer.isLoading" color="accent" mode="indeterminate" [diameter]="40">
 </mat-progress-spinner>

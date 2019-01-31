@@ -6,6 +6,8 @@ import { Directive, HostListener, Output, EventEmitter, ElementRef } from '@angu
 export class ScrollDirective {
   @Output()
   onScrollBottom = new EventEmitter();
+  @Output()
+  onScrolling = new EventEmitter();
 
   constructor(private _el: ElementRef) {}
 
@@ -15,5 +17,10 @@ export class ScrollDirective {
     if (el.scrollHeight - el.scrollTop === el.clientHeight) {
       this.onScrollBottom.emit();
     }
+  }
+
+  @HostListener('window:scroll')
+  onScrollGlobal() {
+    this.onScrolling.emit();
   }
 }

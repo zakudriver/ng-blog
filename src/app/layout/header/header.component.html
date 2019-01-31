@@ -1,8 +1,9 @@
-<header class="header" [ngClass]="{ 'header-scroll': isScrolling }" (click)="(onStopPropagation($event))" [@scroll]="scrollState">
+<header class="header" [ngClass]="{ 'header-scroll': isScrolling }" (click)="onStopPropagation($event)" appScroll
+  (onScrolling)="onScroll()" [@scroll]="scrollState">
   <nav class="nav">
     <div class="logo"><a routerLink="/">Zyhua's BLOG</a></div>
 
-    <ng-container *ngIf="isDesktop; else: mobile">
+    <ng-container *ngIf="isDesktop; else: Mobile">
       <div class="nav-right">
         <ul class="ul">
           <li *ngFor="let i of router">
@@ -11,7 +12,7 @@
         </ul>
       </div>
     </ng-container>
-    <ng-template #mobile>
+    <ng-template #Mobile>
       <div class="nav-right">
         <button mat-icon-button mat-button matTooltip="menu" matTooltipClass="nav-btn-tooltip" (click)="onDrawer($event)">
           <mat-icon aria-label="icon-button with a menu icon" class="nav-icon">menu</mat-icon>
@@ -22,7 +23,7 @@
           <mat-list>
             <mat-list-item *ngFor="let i of router">
               <mat-icon mat-list-icon>{{i.icon}}</mat-icon>
-              <a mat-line routerLink="{{i.path}}">{{i.name}}</a>
+              <a class="mobile-a" mat-line routerLink="{{i.path}}">{{i.name}}</a>
               <mat-divider></mat-divider>
             </mat-list-item>
           </mat-list>

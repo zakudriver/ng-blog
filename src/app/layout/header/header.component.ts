@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, HostListener } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -39,7 +39,6 @@ export class HeaderComponent implements OnInit {
   }
 
   onResize() {
-    console.log('onResize');
     const el = fromEvent(window, 'resize');
     el.subscribe(e => {
       this.isDesktop = (e.target as Window).innerWidth > this._config.headerDesktopLimit;
@@ -47,13 +46,10 @@ export class HeaderComponent implements OnInit {
   }
 
   onScroll() {
-    const el = fromEvent(window, 'scroll');
-    el.subscribe(e => {
-      const navTop = document.documentElement.scrollTop || document.body.scrollTop;
-      const isTop = navTop > this._config.headerScrollLimit;
-      this.isScrolling = isTop;
-      this.scrollState = isTop ? 'scrolling' : 'top';
-    });
+    const navTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const isTop = navTop > this._config.headerScrollLimit;
+    this.isScrolling = isTop;
+    this.scrollState = isTop ? 'scrolling' : 'top';
   }
 
   onDrawer(e: Event) {
@@ -70,7 +66,6 @@ export class HeaderComponent implements OnInit {
       const clientWidth = document.documentElement.clientWidth;
       this.isDesktop = clientWidth > this._config.headerDesktopLimit;
       this.onResize();
-      this.onScroll();
     }
   }
 }
