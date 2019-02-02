@@ -21,11 +21,11 @@ export class BlogService {
     this._getCategory();
   }
 
-  getArticles(index = '1', limit = '5') {
+  getArticles(index: number, limit: number) {
     this.isLoading = true;
     const params = {
-      index,
-      limit
+      index: index.toString(),
+      limit: limit.toString()
     };
     const options = {
       params: new HttpParams({ fromObject: params })

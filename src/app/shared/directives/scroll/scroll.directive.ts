@@ -7,6 +7,8 @@ export class ScrollDirective {
   @Output()
   onScrollBottom = new EventEmitter();
   @Output()
+  onScrollHtmlBottom = new EventEmitter();
+  @Output()
   onScrolling = new EventEmitter();
 
   constructor(private _el: ElementRef) {}
@@ -22,5 +24,9 @@ export class ScrollDirective {
   @HostListener('window:scroll')
   onScrollGlobal() {
     this.onScrolling.emit();
+    const el = document.querySelector('html');
+    if (el.scrollHeight - el.scrollTop === el.clientHeight) {
+      this.onScrollHtmlBottom.emit();
+    }
   }
 }

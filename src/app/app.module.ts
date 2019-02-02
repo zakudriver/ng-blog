@@ -13,7 +13,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { BannerComponent } from './layout/banner/banner.component';
-import { BlogService } from './modules/blog/services/blog.service';
+import { LayoutService } from './layout/layout.service';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, LayoutComponent, HeaderComponent, FooterComponent, BannerComponent],
@@ -26,6 +26,6 @@ import { BlogService } from './modules/blog/services/blog.service';
     SharedModule
   ],
   bootstrap: [AppComponent],
-  providers: [{ provide: APP_CONFIG, useValue: appConfig }, AppService, BlogService]
+  providers: [{ provide: APP_CONFIG, useValue: appConfig }, AppService, LayoutService]
 })
 export class AppModule {}

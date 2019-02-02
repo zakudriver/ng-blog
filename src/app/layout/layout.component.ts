@@ -9,9 +9,5 @@ import { LayoutService } from './layout.service';
 export class LayoutComponent implements OnInit {
   constructor(public layoutSer: LayoutService) {}
 
-  onScrollBottom() {
-    this.layoutSer.scrollBottom();
-  }
-
   ngOnInit() {}
 }
