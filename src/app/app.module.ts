@@ -8,15 +8,15 @@ import { APP_CONFIG, appConfig } from '@app/config/app.config';
 import { CoreModule } from '@app/core/core.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { AppService } from './modules/app.service';
-import { HomeComponent } from './modules/home/home.component';
 import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { BannerComponent } from './layout/banner/banner.component';
 import { LayoutService } from './layout/layout.service';
+import { PreloadingService } from './core/services/preloading.service';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LayoutComponent, HeaderComponent, FooterComponent, BannerComponent],
+  declarations: [AppComponent, LayoutComponent, HeaderComponent, FooterComponent, BannerComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'my-app' }),
     BrowserAnimationsModule,
@@ -26,6 +26,6 @@ import { LayoutService } from './layout/layout.service';
     SharedModule
   ],
   bootstrap: [AppComponent],
-  providers: [{ provide: APP_CONFIG, useValue: appConfig }, AppService, LayoutService]
+  providers: [{ provide: APP_CONFIG, useValue: appConfig }, PreloadingService, AppService, LayoutService]
 })
 export class AppModule {}

@@ -16,6 +16,7 @@ export class BlogService {
   articlesSubject = new BehaviorSubject<IArticle[]>([]);
   categories: ICategory[];
   isLoading = false;
+  isMore = false;
 
   constructor(private _http: HttpClient, private _loggerSer: LoggerService, private _state: TransferState) {
     this._getCategory();
@@ -45,6 +46,8 @@ export class BlogService {
         this.isLoading = false;
       });
   }
+
+  private _checkIsMore() {}
 
   searchTitle(value: string) {
     const options = {

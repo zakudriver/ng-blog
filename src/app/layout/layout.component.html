@@ -1,3 +1,4 @@
+<!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
 <div class="body">
   <app-header></app-header>
   <app-banner [title]="layoutSer.titleSubject | async" [backgroundUrl]="layoutSer.backgroundUrlSubject | async"></app-banner>
@@ -7,3 +8,4 @@
 
   <app-footer></app-footer>
 </div>
+<app-loading-placeholder [width]="'200px'" [height]="'1rem'"></app-loading-placeholder>

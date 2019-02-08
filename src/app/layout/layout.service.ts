@@ -14,9 +14,6 @@ export class LayoutService {
   private _cover: { home: string; blog: string };
   private _title: string;
 
-  // private _index = 1;
-  // private _size = 5;
-
   constructor(
     private _appSer: AppService,
     private _router: Router,

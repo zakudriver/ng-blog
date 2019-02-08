@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { HomeComponent } from '@app/modules/home/home.component';
 import { LayoutComponent } from './layout/layout.component';
+import { PreloadingService } from './core/services/preloading.service';
 
 const routes: Routes = [
   {
@@ -10,13 +10,13 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: HomeComponent,
-        data: { title: '' }
+        loadChildren: './modules/home/home.module#HomeModule',
+        data: { title: '', preload: true }
       },
       {
         path: 'blog',
         loadChildren: './modules/blog/blog.module#BlogModule',
-        data: { title: 'Blog' }
+        data: { title: 'Blog', preload: true }
       },
       // {
       //   path: 'contact',
@@ -39,7 +39,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, {
       scrollPositionRestoration: 'top',
-      // preloadingStrategy: PreloadAllModules
+      preloadingStrategy: PreloadingService
     })
   ],
   exports: [RouterModule]
