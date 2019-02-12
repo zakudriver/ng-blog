@@ -4,9 +4,9 @@
       {{i.name}}
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>
-    <input placeholder="{{ 'Category _ Title _ ' + (startTime | date: 'yyyy-MM-dd') + ' _ ' + (endTime | date: 'yyyy-MM-dd') }}" #searchInput [formControl]="searchFormControl"
-      [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-      [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+    <input placeholder="{{ 'Category _ Title _ ' + (startTime | date: 'yyyy-MM-dd') + ' _ ' + (endTime | date: 'yyyy-MM-dd') }}"
+      #searchInput [formControl]="searchFormControl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
   </mat-chip-list>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
     <mat-option *ngFor="let i of searchTitleResult" [value]="i.title">

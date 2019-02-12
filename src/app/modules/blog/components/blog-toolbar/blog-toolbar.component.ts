@@ -13,7 +13,7 @@ export class BlogToolbarComponent implements OnInit {
   // category: ICategory[];
   selectedChip: ICategory;
 
-  searchResult: any;
+  // searchResult: any;
   searchTitleResult: { title: string }[];
 
   selectable = true;
@@ -24,7 +24,6 @@ export class BlogToolbarComponent implements OnInit {
   }
 
   onSearch(value: ISearchMap) {
-    console.log(value);
     this.blogSer.saerchResult(value);
   }
 

@@ -13,16 +13,17 @@ import { SearchComponent } from './components/search/search.component';
 import { LoadingPlaceholderComponent } from './components/loading-placeholder/loading-placeholder.component';
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule, MaterialModule, RouterModule, MarkdownModule, ReactiveFormsModule],
+  imports     : [CommonModule, ReactiveFormsModule, MaterialModule, RouterModule, MarkdownModule, ReactiveFormsModule],
   declarations: [ToolbarComponent, BlackboxDirective, ScrollDirective, SearchComponent, LoadingPlaceholderComponent],
-  exports: [
+  exports     : [
     ToolbarComponent,
     BlackboxDirective,
     ScrollDirective,
     SearchComponent,
     MaterialModule,
     MarkdownModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LoadingPlaceholderComponent
   ]
 })
 export class SharedModule {}

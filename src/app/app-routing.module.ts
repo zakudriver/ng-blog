@@ -11,12 +11,12 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: './modules/home/home.module#HomeModule',
-        data: { title: '', preload: true }
+        data: { title: '', preload: true, animation: 'home' }
       },
       {
         path: 'blog',
         loadChildren: './modules/blog/blog.module#BlogModule',
-        data: { title: 'Blog', preload: true }
+        data: { title: 'Blog', preload: true, animation: 'blog' }
       },
       // {
       //   path: 'contact',
@@ -25,7 +25,7 @@ const routes: Routes = [
       {
         path: 'article/:id',
         loadChildren: './modules/article/article.module#ArticleModule',
-        data: { title: '' }
+        data: { title: '', animation: 'article' }
       }
     ]
   },

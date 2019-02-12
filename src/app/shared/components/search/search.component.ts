@@ -1,18 +1,29 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  ViewChild,
+  ElementRef,
+  Output,
+  EventEmitter,
+  OnChanges,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { ICategory } from '@app/interface';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.styl']
+  selector       : 'app-search',
+  templateUrl    : './search.component.html',
+  styleUrls      : ['./search.component.styl'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent implements OnInit, OnChanges {
-  @Input()
-  chips: any[] = [];
-
+  // @Input()
+  // chips: any[] = [];
   @Input()
   searchTitleResult: { title: string }[] = [];
 
@@ -27,26 +38,26 @@ export class SearchComponent implements OnInit, OnChanges {
   @Output()
   onSearchChange = new EventEmitter();
 
-  endTime = new Date();
-  startTime = new Date(this.endTime.getTime() - 31536000000);
-  visible = true;
+  endTime    = new Date();
+  startTime  = new Date(this.endTime.getTime() - 31536000000);
+  visible    = true;
   selectable = true;
-  removable = true;
-  addOnBlur = false;
-  date: string;
+  removable  = true;
+  addOnBlur  = false;
+  date              : string;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   searchFormControl = new FormControl();
-  selectedChips: any[] = [];
+  // selectedChips: any[] = [];
   selectedChipsMap: any = {
     category: '',
-    title: '',
-    start: '',
-    end: ''
+    title   : '',
+    start   : '',
+    end     : ''
   };
 
   @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>;
 
-  constructor() {}
+  constructor(private _cdr: ChangeDetectorRef) {}
 
   get selecteds() {
     const selectedArr = [];
@@ -155,11 +166,11 @@ export class SearchComponent implements OnInit, OnChanges {
     this.date = `${date.getFullYear()}-${m < 10 ? `0${m}` : m}-${m < 10 ? `0${d}` : d}`;
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+  // private _filter(value: string): string[] {
+  //   const filterValue = value.toLowerCase();
 
-    return this.chips.filter(d => d.name.toLowerCase().indexOf(filterValue) === 0);
-  }
+  //   return this.chips.filter(d => d.name.toLowerCase().indexOf(filterValue) === 0);
+  // }
 
   private _resetForm() {
     this.searchFormControl.reset();

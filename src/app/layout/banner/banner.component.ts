@@ -3,9 +3,9 @@ import { fromEvent } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
-  selector: 'app-banner',
+  selector   : 'app-banner',
   templateUrl: './banner.component.html',
-  styleUrls: ['./banner.component.styl']
+  styleUrls  : ['./banner.component.styl']
 })
 export class BannerComponent implements OnInit {
   scrollPixel = 'translate3d(0, 0, 0)';

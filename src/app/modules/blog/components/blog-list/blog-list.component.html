@@ -15,6 +15,29 @@
   <mat-divider></mat-divider>
 </ng-container>
 
+<ng-container *ngIf="!articles.length">
+  <article class="li">
+    <div class="li-l">
+      <div class="li-l-img">
+        <app-loading-placeholder class="loading-placeholder"></app-loading-placeholder>
+      </div>
+    </div>
+    <div class="li-r">
+      <h1>
+        <app-loading-placeholder height="30px"></app-loading-placeholder>
+      </h1>
+      <app-loading-placeholder height="32px" width="80px"></app-loading-placeholder>
+      <div class="margin__t-10">
+        <app-loading-placeholder height="76px"></app-loading-placeholder>
+      </div>
+      <div class="margin__t-10">
+        <app-loading-placeholder height="18px" width="100px"></app-loading-placeholder>
+      </div>
+    </div>
+  </article>
+  <mat-divider></mat-divider>
+</ng-container>
+
 <mat-progress-spinner class="progress" *ngIf="blogSer.isLoading" color="accent" mode="indeterminate" [diameter]="40">
 </mat-progress-spinner>
-<p *ngIf="blogSer.isMore">no more</p>
+<p *ngIf="blogSer.isMoreSubject | async" class="nomore">no more</p>

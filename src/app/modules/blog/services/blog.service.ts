@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
-import { BehaviorSubject } from 'rxjs';
-import { map, tap, catchError, retry } from 'rxjs/operators';
+import { BehaviorSubject, of, Subscription } from 'rxjs';
+import { map, tap, catchError, retry, skip } from 'rxjs/operators';
 
 import { LoggerService } from '@app/core/services/logger.service';
 import { ResponseHandlerService } from '@app/core/services/response-handler.service';
@@ -15,15 +15,21 @@ const CATEGORIES_KEY = makeStateKey<ICategory[]>('categories');
 export class BlogService {
   articlesSubject = new BehaviorSubject<IArticle[]>([]);
   categories: ICategory[];
-  isLoading = false;
-  isMore = false;
+  isMoreLoading = false;
+  isMoreSubject = new BehaviorSubject<boolean>(false);
+  isSearch = false;
+
+  private _checkIsMoreSub: Subscription;
 
   constructor(private _http: HttpClient, private _loggerSer: LoggerService, private _state: TransferState) {
     this._getCategory();
   }
 
   getArticles(index: number, limit: number) {
-    this.isLoading = true;
+    if (this.isSearch) {
+      return;
+    }
+    this.isMoreLoading = true;
     const params = {
       index: index.toString(),
       limit: limit.toString()
@@ -42,12 +48,16 @@ export class BlogService {
         catchError(ResponseHandlerService.handleErrorData<IArticle[]>('getArticles', []))
       )
       .subscribe(d => {
+        this._checkIsMore(d);
+
         this.articlesSubject.next(d);
-        this.isLoading = false;
+        this.isMoreLoading = false;
       });
   }
 
-  private _checkIsMore() {}
+  private _checkIsMore(v: IArticle[]) {
+    this.isMoreSubject.next(v.length === this.articlesSubject.value.length);
+  }
 
   searchTitle(value: string) {
     const options = {

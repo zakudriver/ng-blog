@@ -17,7 +17,7 @@ import { PreloadingService } from './core/services/preloading.service';
 
 @NgModule({
   declarations: [AppComponent, LayoutComponent, HeaderComponent, FooterComponent, BannerComponent],
-  imports: [
+  imports     : [
     BrowserModule.withServerTransition({ appId: 'my-app' }),
     BrowserAnimationsModule,
     BrowserTransferStateModule,

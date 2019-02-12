@@ -1,36 +1,36 @@
 export interface ICategory {
-  name: string;
+  name : string;
   color: string;
-  _id: string;
+  _id  : string;
 }
 
 export interface IArticle {
-  _id: string;
-  title: string;
+  _id     : string;
+  title   : string;
   category: {
     name: string;
   };
-  cover?: string;
-  content: string;
+  cover?     : string;
+  content    : string;
   createTime?: string;
   updateTime?: string;
-  uploads?: { name: string; url: string }[];
-  color?: string;
+  uploads?   : { name: string; url: string }[];
+  color?     : string;
 }
 
 export interface ISearchMap {
   category: string;
-  title: string;
-  start: string;
-  end: string;
+  title   : string;
+  start   : string;
+  end     : string;
 }
 
 export interface IProfile {
-  avatar: string;
-  name: string;
-  profile: string;
+  avatar     : string;
+  name       : string;
+  profile    : string;
   description: string;
-  cover: {
+  cover      : {
     home: string;
     blog: string;
   };

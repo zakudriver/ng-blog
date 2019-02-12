@@ -6,10 +6,10 @@ import { animate, style, transition, trigger, state } from '@angular/animations'
 import { APP_CONFIG, AppConfig, AppConfigRouter } from '@app/config/app.config';
 
 @Component({
-  selector: 'app-header',
+  selector   : 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.styl'],
-  animations: [
+  styleUrls  : ['./header.component.styl'],
+  animations : [
     trigger('scroll', [
       state(
         'top',
@@ -29,10 +29,10 @@ import { APP_CONFIG, AppConfig, AppConfigRouter } from '@app/config/app.config';
 })
 export class HeaderComponent implements OnInit {
   router: AppConfigRouter;
-  isDesktop = true;
+  isDesktop    = true;
   isMobileMenu = false;
-  isScrolling = false;
-  scrollState = 'top';
+  isScrolling  = false;
+  scrollState  = 'top';
 
   constructor(@Inject(APP_CONFIG) private _config: AppConfig, @Inject(PLATFORM_ID) private _platformId: object) {
     this.router = _config.router;

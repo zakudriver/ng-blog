@@ -23,11 +23,11 @@ export class AppService {
   //   }
   // };
   profileSubject = new BehaviorSubject<IProfile>({
-    name: '',
-    avatar: '',
-    profile: '',
+    name       : '',
+    avatar     : '',
+    profile    : '',
     description: '',
-    cover: {
+    cover      : {
       home: '',
       blog: ''
     }

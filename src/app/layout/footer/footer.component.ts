@@ -2,9 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { APP_CONFIG, AppConfig, AppConfigRouter } from '@app/config/app.config';
 
 @Component({
-  selector: 'app-footer',
+  selector   : 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.styl']
+  styleUrls  : ['./footer.component.styl']
 })
 export class FooterComponent implements OnInit {
   router: AppConfigRouter;
