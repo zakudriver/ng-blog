@@ -35,3 +35,10 @@ export interface IProfile {
     blog: string;
   };
 }
+
+export interface ISelectedChipsMap {
+  category: any;
+  title   : any;
+  start   : any;
+  end     : any;
+}

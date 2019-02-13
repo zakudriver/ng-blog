@@ -100,9 +100,9 @@
     "typedef-whitespace": [
       true,
       {
-        "call-signature": "nospace",
+        // "call-signature": "nospace",
         "index-signature": "nospace",
-        "parameter": "nospace",
+        // "parameter": "nospace",
         "property-declaration": "nospace",
         "variable-declaration": "nospace"
       }
@@ -117,7 +117,7 @@
       "check-separator",
       "check-type"
     ],
-    "no-output-on-prefix": true,
+    "no-output-on-prefix": false,
     "use-input-property-decorator": true,
     "use-output-property-decorator": true,
     "use-host-property-decorator": true,

@@ -6,7 +6,7 @@ import { map, tap, catchError, retry, skip } from 'rxjs/operators';
 
 import { LoggerService } from '@app/core/services/logger.service';
 import { ResponseHandlerService } from '@app/core/services/response-handler.service';
-import { ICategory, IArticle, ISearchMap } from '@app/interface';
+import { ICategory, IArticle, ISearchMap, ISelectedChipsMap } from '@app/interface';
 
 const CATEGORIES_KEY = makeStateKey<ICategory[]>('categories');
 // const ARTICLES_SUBJECT_KEY = makeStateKey<Subject<IArticle[]>>('articlesSubject');
@@ -19,6 +19,8 @@ export class BlogService {
   isMoreSubject = new BehaviorSubject<boolean>(false);
   isSearch = false;
 
+  searchMap: ISelectedChipsMap | object = {};
+
   private _checkIsMoreSub: Subscription;
 
   constructor(private _http: HttpClient, private _loggerSer: LoggerService, private _state: TransferState) {
@@ -26,9 +28,18 @@ export class BlogService {
   }
 
   getArticles(index: number, limit: number) {
+    const vs = Object.values(this.searchMap);
+    vs.forEach(i => {
+      if (i) {
+        this.isSearch = true;
+        return;
+      }
+      this.isSearch = false;
+    });
     if (this.isSearch) {
       return;
     }
+
     this.isMoreLoading = true;
     const params = {
       index: index.toString(),
@@ -88,6 +99,10 @@ export class BlogService {
       .subscribe(d => {
         this.articlesSubject.next(d);
       });
+  }
+
+  changeSearchMap(v: { [i: string]: any }) {
+    this.searchMap = { ...this.searchMap, ...v };
   }
 
   private _getCategory() {

@@ -1,10 +1,20 @@
 <div class="toolbar">
-  <app-search [(inChips)]="selectedChip" (onSearch)="onSearch($event)" (onSearchChange)="onSearchChange($event)"
-    [searchTitleResult]="searchTitleResult"></app-search>
+  <app-search
+    (onSearch)="onSearch($event)"
+    (onInputChange)="onInputChange($event)"
+    [searchTitleResult]="searchTitleResult"
+    [(ngModel)]="blogSer.searchMap"
+  ></app-search>
   <div class="chip-list">
-    <mat-chip-list selectable="true">
-      <mat-chip *ngFor="let i of blogSer.categories; let idx = index" color="primary" selectable="true" [selected]="selectedChip && i.name === selectedChip.name"
-        (click)="onChip(i)">{{ i.name }}</mat-chip>
+    <mat-chip-list [selectable]="true">
+      <mat-chip
+        *ngFor="let i of blogSer.categories; let idx = index"
+        color="primary"
+        [selectable]="true"
+        [selected]="selectedChip && i.name === selectedChip.name"
+        (click)="onChip(i)"
+        >{{ i.name }}</mat-chip
+      >
     </mat-chip-list>
   </div>
 </div>

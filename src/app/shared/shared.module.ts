@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MaterialModule } from './modules/material.module';
 import { MarkdownModule } from './modules/markdown.module';
@@ -13,15 +13,16 @@ import { SearchComponent } from './components/search/search.component';
 import { LoadingPlaceholderComponent } from './components/loading-placeholder/loading-placeholder.component';
 
 @NgModule({
-  imports     : [CommonModule, ReactiveFormsModule, MaterialModule, RouterModule, MarkdownModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule, RouterModule, MarkdownModule],
   declarations: [ToolbarComponent, BlackboxDirective, ScrollDirective, SearchComponent, LoadingPlaceholderComponent],
-  exports     : [
+  exports: [
     ToolbarComponent,
     BlackboxDirective,
     ScrollDirective,
     SearchComponent,
     MaterialModule,
     MarkdownModule,
+    FormsModule,
     ReactiveFormsModule,
     LoadingPlaceholderComponent
   ]

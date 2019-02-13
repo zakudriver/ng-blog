@@ -1,16 +1,31 @@
 <mat-form-field class="search">
   <mat-chip-list #chipList multiple>
-    <mat-chip *ngFor="let i of selecteds" selected color="{{handleChipsColor(i)}}" [removable]="removable" (removed)="remove(i)">
-      {{i.name}}
-      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    <mat-chip
+      *ngFor="let i of selectedChips"
+      selected
+      color="{{ chipsColorHandler(i) }}"
+      [removable]="true"
+      (removed)="remove(i)"
+    >
+      {{ i.name }}
+      <mat-icon matChipRemove>cancel</mat-icon>
     </mat-chip>
-    <input placeholder="{{ 'Category _ Title _ ' + (startTime | date: 'yyyy-MM-dd') + ' _ ' + (endTime | date: 'yyyy-MM-dd') }}"
-      #searchInput [formControl]="searchFormControl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
-      [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+    <input
+      placeholder="{{
+        'Category _ Title _ ' + (startTime | date: 'yyyy-MM-dd') + ' _ ' + (endTime | date: 'yyyy-MM-dd')
+      }}"
+      #searchInput
+      [formControl]="searchFormControl"
+      [matAutocomplete]="auto"
+      [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      [matChipInputAddOnBlur]="false"
+      (matChipInputTokenEnd)="add($event)"
+    />
   </mat-chip-list>
-  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="select($event)">
     <mat-option *ngFor="let i of searchTitleResult" [value]="i.title">
-      {{i.title}}
+      {{ i.title }}
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
