@@ -12,17 +12,7 @@ const PROFILE_KEY = makeStateKey<IProfile>('profile');
 
 @Injectable()
 export class AppService {
-  // profile: IProfile = {
-  //   name: '',
-  //   avatar: '',
-  //   profile: '',
-  //   description: '',
-  //   cover: {
-  //     home: '',
-  //     blog: ''
-  //   }
-  // };
-  profileSubject = new BehaviorSubject<IProfile>({
+  profile$ = new BehaviorSubject<IProfile>({
     name       : '',
     avatar     : '',
     profile    : '',
@@ -39,7 +29,7 @@ export class AppService {
     const profile = this._state.get(PROFILE_KEY, null);
 
     if (profile) {
-      this.profileSubject.next(profile);
+      this.profile$.next(profile);
     } else {
       this._http
         .get<IResponse<IProfile>>('/config/front')
@@ -65,7 +55,7 @@ export class AppService {
         )
         .subscribe(d => {
           this._state.set(PROFILE_KEY, d);
-          this.profileSubject.next(d);
+          this.profile$.next(d);
         });
     }
   }

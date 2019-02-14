@@ -4,13 +4,13 @@
   <form class="form" [formGroup]="replyForm" (ngSubmit)="onSubmit($event)">
     <div class="form-row">
       <mat-form-field class="input">
-        <input mat-prefix matInput formControlName="name" placeholder="Name*">
-        <mat-error *ngIf="replyForm.invalid">{{getErrorMessage('name')}}</mat-error>
+        <input mat-prefix matInput formControlName="name" placeholder="Name*" />
+        <mat-error *ngIf="replyForm.invalid">{{ getErrorMessage('name') }}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="input">
-        <input matInput formControlName="email" placeholder="Email*">
-        <mat-error *ngIf="replyForm.invalid">{{getErrorMessage('email')}}</mat-error>
+        <input matInput formControlName="email" placeholder="Email*" />
+        <mat-error *ngIf="replyForm.invalid">{{ getErrorMessage('email') }}</mat-error>
       </mat-form-field>
     </div>
 

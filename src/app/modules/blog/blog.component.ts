@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BlogService } from './services/blog.service';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
@@ -9,33 +9,29 @@ import { debounceTime } from 'rxjs/operators';
   styleUrls: ['./blog.component.styl']
 })
 export class BlogComponent implements OnInit, OnDestroy {
-  private _index = 1;
-  private _size = 5;
-  private _subGetArticles = new Subject();
-
-  constructor(public blogSer: BlogService) {
-    this._subGetArticles.pipe(debounceTime(800)).subscribe(() => {
-      if (this._index === 1) {
-        this.blogSer.getArticles(1, this._size);
-      } else {
-        const sum = this._index * this._size;
-        this.blogSer.getArticles(1, sum);
-      }
-      this._index++;
-    });
-  }
+  private _getArticles$ = new Subject();
+  private _subGetArticles: Subscription;
+  constructor(public blogSer: BlogService) {}
 
   scrollBottom() {
     if (!this.blogSer.isMoreLoading) {
-      this._subGetArticles.next();
+      this._getArticles$.next();
     }
   }
 
   ngOnInit() {
-    this._subGetArticles.next();
+    this.blogSer.getArticle(null);
+    this._subGetArticles = this._getArticles$.pipe(debounceTime(800)).subscribe(() => {
+      if (!this.blogSer.isSearch && !this.blogSer.isMore$.value) {
+        this.blogSer.index++;
+      }
+      this.blogSer.getArticle(null);
+    });
   }
 
   ngOnDestroy(): void {
-    this.blogSer.articlesSubject.next([]);
+    this.blogSer.articles$.next([]);
+    this.blogSer.searchMap = {};
+    this._subGetArticles.unsubscribe();
   }
 }

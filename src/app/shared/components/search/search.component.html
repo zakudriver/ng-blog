@@ -11,9 +11,7 @@
       <mat-icon matChipRemove>cancel</mat-icon>
     </mat-chip>
     <input
-      placeholder="{{
-        'Category _ Title _ ' + (startTime | date: 'yyyy-MM-dd') + ' _ ' + (endTime | date: 'yyyy-MM-dd')
-      }}"
+      placeholder="{{ 'Category _ Title _ ' + (startTime | date: 'yyyy-MM-dd') + ' _ ' + (endTime | date: 'yyyy-MM-dd') }}"
       #searchInput
       [formControl]="searchFormControl"
       [matAutocomplete]="auto"

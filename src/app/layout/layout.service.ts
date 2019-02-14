@@ -8,8 +8,8 @@ import { Location } from '@angular/common';
 
 @Injectable()
 export class LayoutService {
-  titleSubject = new BehaviorSubject<string>('');
-  backgroundUrlSubject = new BehaviorSubject<string>('');
+  title$ = new BehaviorSubject<string>('');
+  backgroundUrl$ = new BehaviorSubject<string>('');
 
   private _cover: { home: string; blog: string };
   private _title: string;
@@ -24,7 +24,7 @@ export class LayoutService {
     _activatedRoute.firstChild.firstChild.data.subscribe(d => {
       this._title = d.title;
 
-      _appSer.profileSubject
+      _appSer.profile$
         .pipe(
           switchMap(d => {
             this._cover = d.cover;
@@ -45,14 +45,14 @@ export class LayoutService {
 
   backgroundUrHandler(url?: string) {
     if (url) {
-      this.backgroundUrlSubject.next(url);
+      this.backgroundUrl$.next(url);
     } else if (this._cover) {
-      this.backgroundUrlSubject.next(this._cover[(this._title || 'home').toLocaleLowerCase()]);
+      this.backgroundUrl$.next(this._cover[(this._title || 'home').toLocaleLowerCase()]);
     }
   }
 
   titleHandler(tlt: string) {
-    this.titleSubject.next(tlt);
+    this.title$.next(tlt);
     this._titleSet.setTitle(`zyhua _ ${tlt || 'Home'}`);
   }
 }

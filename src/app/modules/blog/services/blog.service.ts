@@ -9,41 +9,39 @@ import { ResponseHandlerService } from '@app/core/services/response-handler.serv
 import { ICategory, IArticle, ISearchMap, ISelectedChipsMap } from '@app/interface';
 
 const CATEGORIES_KEY = makeStateKey<ICategory[]>('categories');
-// const ARTICLES_SUBJECT_KEY = makeStateKey<Subject<IArticle[]>>('articlesSubject');
+// const ARTICLES_SUBJECT_KEY = makeStateKey<Subject<IArticle[]>>('articles$');
 
 @Injectable()
 export class BlogService {
-  articlesSubject = new BehaviorSubject<IArticle[]>([]);
   categories: ICategory[];
+  articles$ = new BehaviorSubject<IArticle[]>([]);
   isMoreLoading = false;
-  isMoreSubject = new BehaviorSubject<boolean>(false);
+  isLoading$ = new BehaviorSubject<boolean>(false);
+  isMore$ = new BehaviorSubject<boolean>(false);
   isSearch = false;
 
   searchMap: ISelectedChipsMap | object = {};
 
-  private _checkIsMoreSub: Subscription;
-
+  index = 1;
+  private _size = 5;
+  private _isLoading = true;
   constructor(private _http: HttpClient, private _loggerSer: LoggerService, private _state: TransferState) {
     this._getCategory();
   }
 
-  getArticles(index: number, limit: number) {
-    const vs = Object.values(this.searchMap);
-    vs.forEach(i => {
-      if (i) {
-        this.isSearch = true;
-        return;
-      }
-      this.isSearch = false;
-    });
+  private _getArticles() {
     if (this.isSearch) {
       return;
     }
 
+    if (this._isLoading) {
+      this.isLoading$.next(true);
+    }
+
     this.isMoreLoading = true;
     const params = {
-      index: index.toString(),
-      limit: limit.toString()
+      index: '1',
+      limit: (this.index * this._size).toString()
     };
     const options = {
       params: new HttpParams({ fromObject: params })
@@ -54,20 +52,22 @@ export class BlogService {
         retry(3),
         map(d => d.data),
         tap(d => {
-          this._loggerSer.responseLog(d, 'getArticles');
+          this._loggerSer.responseLog(d, '_getArticles');
         }),
-        catchError(ResponseHandlerService.handleErrorData<IArticle[]>('getArticles', []))
+        catchError(ResponseHandlerService.handleErrorData<IArticle[]>('_getArticles', []))
       )
       .subscribe(d => {
-        this._checkIsMore(d);
+        this.articles$.next(d);
 
-        this.articlesSubject.next(d);
+        this._checkIsMore(d);
         this.isMoreLoading = false;
+        this.isLoading$.next(false);
+        this._isLoading = false;
       });
   }
 
   private _checkIsMore(v: IArticle[]) {
-    this.isMoreSubject.next(v.length === this.articlesSubject.value.length);
+    this.isMore$.next(v.length === this.articles$.value.length);
   }
 
   searchTitle(value: string) {
@@ -83,7 +83,12 @@ export class BlogService {
     );
   }
 
-  saerchResult(value: ISearchMap) {
+  private _saerchResult(value: ISearchMap) {
+    if (!this.isSearch) {
+      return;
+    }
+    this.isMoreLoading = true;
+    this.isLoading$.next(true);
     const options = {
       params: new HttpParams({ fromObject: <any>value })
     };
@@ -92,17 +97,38 @@ export class BlogService {
       .pipe(
         map(d => d.data),
         tap(d => {
-          this._loggerSer.responseLog(d, 'search');
+          this._loggerSer.responseLog(d, '_saerchResult');
         }),
-        catchError(ResponseHandlerService.handleErrorData<IArticle[]>('search', []))
+        catchError(ResponseHandlerService.handleErrorData<IArticle[]>('_saerchResult', []))
       )
       .subscribe(d => {
-        this.articlesSubject.next(d);
+        this.articles$.next(d);
+
+        this.isMoreLoading = false;
+        this.isSearch = true;
+        this._checkIsMore(d);
+        this.isLoading$.next(false);
       });
   }
 
   changeSearchMap(v: { [i: string]: any }) {
     this.searchMap = { ...this.searchMap, ...v };
+  }
+
+  getArticle(v: ISearchMap) {
+    const vs = Object.values(this.searchMap);
+    vs.forEach(i => {
+      if (i) {
+        this.isSearch = true;
+        return;
+      }
+      this.isSearch = false;
+    });
+    if (this.isSearch) {
+      this._saerchResult(v);
+    } else {
+      this._getArticles();
+    }
   }
 
   private _getCategory() {

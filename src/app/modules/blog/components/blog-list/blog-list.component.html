@@ -1,21 +1,23 @@
-<ng-container *ngFor="let i of articles">
-  <article class="li">
-    <div class="li-l">
-      <div class="li-l-img"><img [src]="i.cover || 'assets/img/image.jpg'" /></div>
-    </div>
-    <div class="li-r">
-      <h1>
-        <a [routerLink]="['/article', i._id]">{{ i.title }}</a>
-      </h1>
-      <mat-chip disabled selected [color]="i.color">{{ i.category.name }}</mat-chip>
-      <div markdown [data]="i.content"></div>
-      <time>{{ i.updateTime | date }}</time>
-    </div>
-  </article>
-  <mat-divider></mat-divider>
-</ng-container>
+<ng-template #List>
+  <ng-container *ngFor="let i of articles">
+    <article class="li">
+      <div class="li-l">
+        <div class="li-l-img"><img [src]="i.cover || 'assets/img/image.jpg'" /></div>
+      </div>
+      <div class="li-r">
+        <h1>
+          <a [routerLink]="['/article', i._id]">{{ i.title }}</a>
+        </h1>
+        <mat-chip disabled selected [color]="i.color">{{ i.category.name }}</mat-chip>
+        <div markdown [data]="i.content"></div>
+        <time>{{ i.updateTime | date }}</time>
+      </div>
+    </article>
+    <mat-divider></mat-divider>
+  </ng-container>
+</ng-template>
 
-<ng-container *ngIf="!articles.length">
+<ng-container *ngIf="isLoading; else List">
   <article class="li">
     <div class="li-l">
       <div class="li-l-img">
@@ -38,6 +40,7 @@
   <mat-divider></mat-divider>
 </ng-container>
 
-<mat-progress-spinner class="progress" *ngIf="blogSer.isLoading" color="accent" mode="indeterminate" [diameter]="40">
+<mat-progress-spinner class="progress" *ngIf="blogSer.isMoreLoading" color="accent" mode="indeterminate" [diameter]="40">
 </mat-progress-spinner>
-<p *ngIf="blogSer.isMoreSubject | async" class="nomore">no more</p>
+<p *ngIf="(blogSer.isMore$ | async) && blogSer.isSearch" class="nomore nomore-search">search</p>
+<p *ngIf="blogSer.isMore$ | async" class="nomore">no more</p>

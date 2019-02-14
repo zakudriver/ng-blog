@@ -1,19 +1,18 @@
 <article class="article">
-  <div markdown [data]="(articleSer.articleSubject|async).content" class="markdown"></div>
+  <div markdown [data]="(articleSer.articleSubject | async).content" class="markdown"></div>
 
   <div class="footer">
     <div class="footer-l">
       <label>Categories:</label>
       <mat-chip-list>
         <mat-chip selectable="false" selected>
-          {{(articleSer.articleSubject|async).category.name}}
+          {{ (articleSer.articleSubject | async).category.name }}
         </mat-chip>
       </mat-chip-list>
     </div>
 
     <app-share class="footer-r"></app-share>
-
   </div>
 
-  <app-reply [id]="(articleSer.articleSubject|async)._id"></app-reply>
+  <app-reply [id]="(articleSer.articleSubject | async)._id"></app-reply>
 </article>

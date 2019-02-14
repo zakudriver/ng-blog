@@ -6,31 +6,32 @@ import {
   ElementRef,
   Output,
   EventEmitter,
-  OnChanges,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  forwardRef
+  forwardRef,
+  OnDestroy
 } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { MatChipInputEvent, MatAutocompleteSelectedEvent } from '@angular/material';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Observable } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { ISelectedChipsMap } from '@app/interface';
+import { skip } from 'rxjs/operators';
 
 @Component({
-  selector       : 'app-search',
-  templateUrl    : './search.component.html',
-  styleUrls      : ['./search.component.styl'],
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.styl'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers      : [
+  providers: [
     {
-      provide    : NG_VALUE_ACCESSOR,
+      provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => SearchComponent),
-      multi      : true
+      multi: true
     }
   ]
 })
-export class SearchComponent implements OnInit, OnChanges, ControlValueAccessor {
+export class SearchComponent implements OnInit, OnDestroy, ControlValueAccessor {
   @Input()
   searchTitleResult: { title: string }[] = [];
   @Output()
@@ -44,11 +45,13 @@ export class SearchComponent implements OnInit, OnChanges, ControlValueAccessor 
   startTime = new Date(this.endTime.getTime() - 31536000000);
 
   private _searchMap: ISelectedChipsMap = {
-    category: null,
-    title: null,
-    start: null,
-    end: null
+    category: '',
+    title: '',
+    start: '',
+    end: ''
   };
+  private _searchHandler$ = new Subject();
+  private _subSearchHandler: Subscription;
 
   @ViewChild('searchInput') searchInput: ElementRef<HTMLInputElement>;
 
@@ -59,8 +62,9 @@ export class SearchComponent implements OnInit, OnChanges, ControlValueAccessor 
   writeValue(value: ISelectedChipsMap): void {
     this._searchMap = value;
     this._cdr.markForCheck();
-
-    this._searchHandler();
+    if (this._searchMap) {
+      this._searchHandler$.next();
+    }
   }
   registerOnChange(fn: (_: ISelectedChipsMap) => {}): void {
     this.onChange = fn;
@@ -93,13 +97,11 @@ export class SearchComponent implements OnInit, OnChanges, ControlValueAccessor 
 
   remove(value: any): void {
     if (value._id) {
-      this._searchMap.category = 0;
-      // this.inChipsChange.emit(null);
-      this.onChange(null);
+      this._searchMap.category = null;
     } else {
-      this._searchMap[value.key] = 0;
+      this._searchMap[value.key] = '';
     }
-    this._searchHandler();
+    this._searchHandler$.next();
   }
 
   select(e: MatAutocompleteSelectedEvent): void {
@@ -121,16 +123,9 @@ export class SearchComponent implements OnInit, OnChanges, ControlValueAccessor 
     }
   }
 
-  /**
-   * 添加chip
-   *
-   * @private
-   * @param {string} value
-   * @memberof SearchComponent
-   */
   private _addChipsMap(value: string) {
     if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
-      if (this._dateHandler(this._searchMap.start.name) <= this._dateHandler(value) && this._searchMap.start.name) {
+      if (this._searchMap.start && this._dateHandler(this._searchMap.start.name) <= this._dateHandler(value)) {
         this._searchMap.end = { name: value, key: 'end' };
       } else {
         this._searchMap.start = { name: value, key: 'start' };
@@ -139,18 +134,10 @@ export class SearchComponent implements OnInit, OnChanges, ControlValueAccessor 
       this._searchMap.title = { name: value, key: 'title' };
     }
     if (value !== '') {
-      this._searchHandler();
+      this._searchHandler$.next();
     }
   }
 
-  /**
-   *
-   *
-   * @private
-   * @param {string} date
-   * @returns {number}
-   * @memberof SearchComponent
-   */
   private _dateHandler(date: string): number {
     if (/^\d{4}-\d{2}-\d{2}$/.test(date)) {
       return parseInt(date.replace(/-/g, ''), 10);
@@ -169,28 +156,19 @@ export class SearchComponent implements OnInit, OnChanges, ControlValueAccessor 
     this.onSearch.emit(emit);
   }
 
-  // private _watchInChipsChange() {
-  //   if (this.inChips) {
-  //     this._searchMap.category = this.inChips;
-  //     this._searchHandler();
-  //   }
-  // }
-
-  // private _filter(value: string): string[] {
-  //   const filterValue = value.toLowerCase();
-
-  //   return this.chips.filter(d => d.name.toLowerCase().indexOf(filterValue) === 0);
-  // }
-
   private _resetForm() {
     this.searchFormControl.reset();
   }
 
   ngOnInit(): void {
     this.onInputChange.emit(this.searchFormControl.valueChanges);
+
+    this._subSearchHandler = this._searchHandler$.pipe(skip(1)).subscribe(() => {
+      this._searchHandler();
+    });
   }
 
-  ngOnChanges(): void {
-    // this._watchInChipsChange();
+  ngOnDestroy() {
+    this._subSearchHandler.unsubscribe();
   }
 }

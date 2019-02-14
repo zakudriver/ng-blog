@@ -1,28 +1,34 @@
 <div class="home">
   <div class="profile">
     <div class="avatar">
-      <img [src]="(appSer.profileSubject|async).avatar" alt="avatar">
+      <img [src]="(appSer.profile$ | async).avatar" alt="avatar" />
     </div>
     <div class="name">
-      <h3>{{(appSer.profileSubject|async).name}}</h3>
-      <h6>{{(appSer.profileSubject|async).profile}}</h6>
+      <h3>{{ (appSer.profile$ | async).name }}</h3>
+      <h6>{{ (appSer.profile$ | async).profile }}</h6>
       <ul class="ul links">
-        <li><a href="https://github.com/Zhan9Yunhua" target="_Blank" mat-button>
+        <li>
+          <a href="https://github.com/Zhan9Yunhua" target="_Blank" mat-button>
             <mat-icon fontSet="iconfont" inline>&#xe6f6;</mat-icon>
-          </a></li>
-        <li><a href="mailto:zy.hua1122@outlook.com" mat-button>
+          </a>
+        </li>
+        <li>
+          <a href="mailto:zy.hua1122@outlook.com" mat-button>
             <mat-icon inline>alternate_email</mat-icon>
-          </a></li>
-        <li><a href="http://admin.zyhua.cn" target="_Blank" mat-button>
+          </a>
+        </li>
+        <li>
+          <a href="http://admin.zyhua.cn" target="_Blank" mat-button>
             <mat-icon inline>settings</mat-icon>
-          </a></li>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
 
   <div class="description">
     <p>
-      {{(appSer.profileSubject|async).description}}
+      {{ (appSer.profile$ | async).description }}
     </p>
   </div>
 </div>
