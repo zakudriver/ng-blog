@@ -40,7 +40,5 @@
   <mat-divider></mat-divider>
 </ng-container>
 
-<mat-progress-spinner class="progress" *ngIf="blogSer.isMoreLoading" color="accent" mode="indeterminate" [diameter]="40">
-</mat-progress-spinner>
 <p *ngIf="(blogSer.isMore$ | async) && blogSer.isSearch" class="nomore nomore-search">search</p>
 <p *ngIf="blogSer.isMore$ | async" class="nomore">no more</p>

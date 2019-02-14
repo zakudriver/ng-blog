@@ -14,9 +14,7 @@ export class BlogComponent implements OnInit, OnDestroy {
   constructor(public blogSer: BlogService) {}
 
   scrollBottom() {
-    if (!this.blogSer.isMoreLoading) {
-      this._getArticles$.next();
-    }
+    this._getArticles$.next();
   }
 
   ngOnInit() {

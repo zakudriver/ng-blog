@@ -15,7 +15,7 @@ const CATEGORIES_KEY = makeStateKey<ICategory[]>('categories');
 export class BlogService {
   categories: ICategory[];
   articles$ = new BehaviorSubject<IArticle[]>([]);
-  isMoreLoading = false;
+
   isLoading$ = new BehaviorSubject<boolean>(false);
   isMore$ = new BehaviorSubject<boolean>(false);
   isSearch = false;
@@ -38,7 +38,6 @@ export class BlogService {
       this.isLoading$.next(true);
     }
 
-    this.isMoreLoading = true;
     const params = {
       index: '1',
       limit: (this.index * this._size).toString()
@@ -60,7 +59,6 @@ export class BlogService {
         this.articles$.next(d);
 
         this._checkIsMore(d);
-        this.isMoreLoading = false;
         this.isLoading$.next(false);
         this._isLoading = false;
       });
@@ -87,7 +85,6 @@ export class BlogService {
     if (!this.isSearch) {
       return;
     }
-    this.isMoreLoading = true;
     this.isLoading$.next(true);
     const options = {
       params: new HttpParams({ fromObject: <any>value })
@@ -104,7 +101,6 @@ export class BlogService {
       .subscribe(d => {
         this.articles$.next(d);
 
-        this.isMoreLoading = false;
         this.isSearch = true;
         this._checkIsMore(d);
         this.isLoading$.next(false);
