@@ -1,5 +1,5 @@
 <article class="article">
-  <div markdown [data]="(articleSer.articleSubject | async).content" class="markdown"></div>
+  <div app-markdown [text]="(articleSer.articleSubject | async).content" [code]="true" class="markdown"></div>
 
   <div class="footer">
     <div class="footer-l">

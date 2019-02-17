@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, PLATFORM_ID, HostListener } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, HostListener, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -6,10 +6,10 @@ import { animate, style, transition, trigger, state } from '@angular/animations'
 import { APP_CONFIG, AppConfig, AppConfigRouter } from '@app/config/app.config';
 
 @Component({
-  selector   : 'app-header',
+  selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls  : ['./header.component.styl'],
-  animations : [
+  styleUrls: ['./header.component.styl'],
+  animations: [
     trigger('scroll', [
       state(
         'top',
@@ -25,16 +25,21 @@ import { APP_CONFIG, AppConfig, AppConfigRouter } from '@app/config/app.config';
       ),
       transition('* => *', [animate(150)])
     ])
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
   router: AppConfigRouter;
-  isDesktop    = true;
+  isDesktop = true;
   isMobileMenu = false;
-  isScrolling  = false;
-  scrollState  = 'top';
+  isScrolling = false;
+  scrollState = 'top';
 
-  constructor(@Inject(APP_CONFIG) private _config: AppConfig, @Inject(PLATFORM_ID) private _platformId: object) {
+  constructor(
+    @Inject(APP_CONFIG) private _config: AppConfig,
+    @Inject(PLATFORM_ID) private _platformId: object,
+    private _cdr: ChangeDetectorRef
+  ) {
     this.router = _config.router;
   }
 
@@ -42,6 +47,7 @@ export class HeaderComponent implements OnInit {
     const el = fromEvent(window, 'resize');
     el.subscribe(e => {
       this.isDesktop = (e.target as Window).innerWidth > this._config.headerDesktopLimit;
+      this._cdr.markForCheck();
     });
   }
 
@@ -50,6 +56,7 @@ export class HeaderComponent implements OnInit {
     const isTop = navTop > this._config.headerScrollLimit;
     this.isScrolling = isTop;
     this.scrollState = isTop ? 'scrolling' : 'top';
+    this._cdr.markForCheck();
   }
 
   onDrawer(e: Event) {

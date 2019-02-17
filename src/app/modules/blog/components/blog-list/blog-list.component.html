@@ -9,7 +9,7 @@
           <a [routerLink]="['/article', i._id]">{{ i.title }}</a>
         </h1>
         <mat-chip disabled selected [color]="i.color">{{ i.category.name }}</mat-chip>
-        <div markdown [data]="i.content"></div>
+        <div app-markdown [text]="i.content"></div>
         <time>{{ i.updateTime | date }}</time>
       </div>
     </article>

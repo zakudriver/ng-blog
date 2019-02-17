@@ -28,6 +28,7 @@
               "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/app/styles/global.styl",
               "src/app/styles/iconfont.styl",
+              "node_modules/highlight.js/styles/monokai-sublime.css",
               "node_modules/prismjs/themes/prism-okaidia.css"
             ],
             "stylePreprocessorOptions": {

@@ -5,27 +5,35 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 
 import { MaterialModule } from './modules/material.module';
-import { MarkdownModule } from './modules/markdown.module';
+// import { MarkdownModule } from './modules/markdown.module';
 
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { BlackboxDirective } from './directives/blackbox/blackbox.directive';
 import { ScrollDirective } from './directives/scroll/scroll.directive';
 import { SearchComponent } from './components/search/search.component';
 import { LoadingPlaceholderComponent } from './components/loading-placeholder/loading-placeholder.component';
+import { MarkdownComponent } from './components/markdown/markdown.component';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule, RouterModule, MarkdownModule],
-  declarations: [ToolbarComponent, BlackboxDirective, ScrollDirective, SearchComponent, LoadingPlaceholderComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule, RouterModule],
+  declarations: [
+    ToolbarComponent,
+    BlackboxDirective,
+    ScrollDirective,
+    SearchComponent,
+    LoadingPlaceholderComponent,
+    MarkdownComponent
+  ],
   exports: [
     ToolbarComponent,
     BlackboxDirective,
     ScrollDirective,
     SearchComponent,
     MaterialModule,
-    MarkdownModule,
     FormsModule,
     ReactiveFormsModule,
-    LoadingPlaceholderComponent
+    LoadingPlaceholderComponent,
+    MarkdownComponent
   ],
   providers: [{ provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2000 } }]
 })
