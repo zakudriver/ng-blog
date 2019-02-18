@@ -1,11 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, ElementRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, ElementRef, ViewEncapsulation } from '@angular/core';
 import * as marked from 'marked';
-import * as hljs from 'highlight.js';
+import * as prism from 'prismjs';
 
 @Component({
   selector: '[app-markdown]',
   templateUrl: './markdown.component.html',
   styleUrls: ['./markdown.component.styl'],
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MarkdownComponent implements OnInit, OnChanges {
@@ -25,7 +26,7 @@ export class MarkdownComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this._marked.setOptions({
-      highlight: (code: string) => (this.code ? hljs.highlightAuto(code).value : code),
+      highlight: (code: string) => (this.code ? prism.highlight(code, prism.languages.clike) : code),
       breaks: true
     });
   }
