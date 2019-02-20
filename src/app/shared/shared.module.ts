@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 
 import { MaterialModule } from './modules/material.module';
-// import { MarkdownModule } from './modules/markdown.module';
 
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { BlackboxDirective } from './directives/blackbox/blackbox.directive';
