@@ -12,6 +12,7 @@ import {
   MatProgressBarModule,
   // MatProgressSpinnerModule,
   // MatSliderModule,
+  MatDialogModule,
   MatSnackBarModule,
   MatTooltipModule,
   MatSidenavModule,
@@ -33,7 +34,7 @@ import {
     // MatProgressSpinnerModule,
     MatTooltipModule,
     MatListModule,
-    // MatDialogModule,
+    MatDialogModule,
     MatSidenavModule,
     MatChipsModule
   ],
@@ -51,7 +52,7 @@ import {
     // MatProgressSpinnerModule,
     MatTooltipModule,
     MatListModule,
-    // MatDialogModule,
+    MatDialogModule,
     MatSidenavModule,
     MatChipsModule
   ]

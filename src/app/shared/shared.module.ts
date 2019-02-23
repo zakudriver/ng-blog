@@ -12,16 +12,19 @@ import { ScrollDirective } from './directives/scroll/scroll.directive';
 import { SearchComponent } from './components/search/search.component';
 import { LoadingPlaceholderComponent } from './components/loading-placeholder/loading-placeholder.component';
 import { MarkdownComponent } from './components/markdown/markdown.component';
+import { ImgDialogComponent } from './components/markdown/components/img-dialog/img-dialog.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, ReactiveFormsModule, MaterialModule, RouterModule],
+  entryComponents: [ImgDialogComponent],
   declarations: [
     ToolbarComponent,
     BlackboxDirective,
     ScrollDirective,
     SearchComponent,
     LoadingPlaceholderComponent,
-    MarkdownComponent
+    MarkdownComponent,
+    ImgDialogComponent
   ],
   exports: [
     ToolbarComponent,
