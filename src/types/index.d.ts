@@ -1,7 +1,14 @@
 // export as namespace Net;
+import * as Prism from 'prismjs';
 
-declare interface IResponse<T> {
-  code: number;
-  data: T;
-  msg: string;
+declare global {
+  interface Window {
+    Prism: typeof Prism;
+  }
+
+  interface IResponse<T> {
+    code: number;
+    data: T;
+    msg: string;
+  }
 }
