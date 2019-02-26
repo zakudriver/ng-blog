@@ -2,7 +2,6 @@ import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
 import { IArticle } from '@app/interface';
 import { UtilsService } from '@app/core/services/utils.service';
 import { BlogService } from '../../services/blog.service';
-import { throttleTime, map, throttle } from 'rxjs/operators';
 import { interval, Subscribable, Subscription } from 'rxjs';
 
 @Component({
@@ -11,20 +10,20 @@ import { interval, Subscribable, Subscription } from 'rxjs';
   styleUrls: ['./blog-list.component.styl']
 })
 export class BlogListComponent implements OnInit, OnDestroy {
-  articles: IArticle[];
+  // articles: IArticle[];
   isLoading = false;
 
   private _subIsLoading: Subscription;
   constructor(public blogSer: BlogService, private _utilsSer: UtilsService) {
-    blogSer.articles$.subscribe(d => {
-      this._coloerHandler(d);
-    });
+    // blogSer.articles$.subscribe(d => {
+    //   this.chipColoerHandler(d);
+    // });
   }
 
-  _coloerHandler(d: IArticle[]) {
+  chipColoerHandler(d: IArticle[]) {
     const colors = this._utilsSer.colors;
     let ci = 0;
-    this.articles = d.map(i => {
+    return d.map(i => {
       i.color = colors[ci++];
       if (ci > colors.length) {
         ci = 0;

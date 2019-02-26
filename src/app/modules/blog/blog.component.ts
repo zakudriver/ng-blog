@@ -10,7 +10,7 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class BlogComponent implements OnInit, OnDestroy {
   private _getArticles$ = new Subject();
-  private _subGetArticles: Subscription;
+  private _unSub: Subscription;
   constructor(public blogSer: BlogService) {}
 
   scrollBottom() {
@@ -19,10 +19,7 @@ export class BlogComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.blogSer.getArticle(null);
-    this._subGetArticles = this._getArticles$.pipe(debounceTime(800)).subscribe(() => {
-      if (!this.blogSer.isSearch && !this.blogSer.isMore$.value) {
-        this.blogSer.index++;
-      }
+    this._unSub = this._getArticles$.pipe(debounceTime(800)).subscribe(() => {
       this.blogSer.getArticle(null);
     });
   }
@@ -30,6 +27,6 @@ export class BlogComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.blogSer.articles$.next([]);
     this.blogSer.searchMap = {};
-    this._subGetArticles.unsubscribe();
+    this._unSub.unsubscribe();
   }
 }

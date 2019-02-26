@@ -1,5 +1,10 @@
 <ng-template #List>
-  <ng-container *ngFor="let i of articles">
+  <!-- <ng-container *ngIf="(blogSer.articles$ | async).length;else #Search"> -->
+  <ng-container
+    *ngFor="
+      let i of chipColoerHandler((blogSer.searchs$ | async).length ? (blogSer.searchs$ | async) : (blogSer.articles$ | async))
+    "
+  >
     <article class="li">
       <div class="li-l">
         <div class="li-l-img"><img [src]="i.cover || 'assets/img/image.jpg'" /></div>
@@ -15,6 +20,7 @@
     </article>
     <mat-divider></mat-divider>
   </ng-container>
+  <!-- </ng-container> -->
 </ng-template>
 
 <ng-container *ngIf="isLoading; else List">
@@ -41,4 +47,4 @@
 </ng-container>
 
 <p *ngIf="(blogSer.isMore$ | async) && blogSer.isSearch" class="nomore nomore-search">search</p>
-<p *ngIf="blogSer.isMore$ | async" class="nomore">no more</p>
+<p *ngIf="(blogSer.isMore$ | async)" class="nomore">no more</p>

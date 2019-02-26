@@ -15,6 +15,7 @@ const CATEGORIES_KEY = makeStateKey<ICategory[]>('categories');
 export class BlogService {
   categories: ICategory[];
   articles$ = new BehaviorSubject<IArticle[]>([]);
+  searchs$ = new BehaviorSubject<IArticle[]>([]);
 
   isLoading$ = new BehaviorSubject<boolean>(false);
   isMore$ = new BehaviorSubject<boolean>(false);
@@ -38,6 +39,10 @@ export class BlogService {
       this.isLoading$.next(true);
     }
 
+    if (this.searchs$.value.length) {
+      this.searchs$.next([]);
+    }
+
     const params = {
       index: '1',
       limit: (this.index * this._size).toString()
@@ -56,16 +61,20 @@ export class BlogService {
         catchError(ResponseHandlerService.handleErrorData<IArticle[]>('_getArticles', []))
       )
       .subscribe(d => {
-        this.articles$.next(d);
-
         this._checkIsMore(d);
+        this.articles$.next(d);
         this.isLoading$.next(false);
         this._isLoading = false;
       });
   }
 
   private _checkIsMore(v: IArticle[]) {
-    this.isMore$.next(v.length === this.articles$.value.length);
+    const is = v.length === this.articles$.value.length;
+    if (is) {
+      this.isMore$.next(is);
+    } else {
+      this.index++;
+    }
   }
 
   searchTitle(value: string) {
@@ -99,10 +108,8 @@ export class BlogService {
         catchError(ResponseHandlerService.handleErrorData<IArticle[]>('_saerchResult', []))
       )
       .subscribe(d => {
-        this.articles$.next(d);
-
+        this.searchs$.next(d);
         this.isSearch = true;
-        this._checkIsMore(d);
         this.isLoading$.next(false);
       });
   }
@@ -120,7 +127,7 @@ export class BlogService {
       }
       this.isSearch = false;
     });
-    if (this.isSearch) {
+    if (this.isSearch && v) {
       this._saerchResult(v);
     } else {
       this._getArticles();
