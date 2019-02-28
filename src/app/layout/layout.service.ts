@@ -15,19 +15,19 @@ export class LayoutService {
   private _title: string;
 
   constructor(
-    private _appSer        : AppService,
-    private _router        : Router,
-    private _titleSet      : Title,
+    private _appSer: AppService,
+    private _router: Router,
+    private _titleSet: Title,
     private _activatedRoute: ActivatedRoute,
-    private _location      : Location
+    private _location: Location
   ) {
     _activatedRoute.firstChild.firstChild.data.subscribe(d => {
       this._title = d.title;
 
       _appSer.profile$
         .pipe(
-          switchMap(d => {
-            this._cover = d.cover;
+          switchMap(da => {
+            this._cover = da.cover;
             this.backgroundUrHandler();
             return _router.events;
           }),

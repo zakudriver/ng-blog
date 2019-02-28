@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from '@app/modules/blog/services/blog.service';
-import { ICategory, ISearchMap, ISelectedChipsMap } from '@app/interface';
+import { ICategory, ISearchMap } from '@app/interface';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 

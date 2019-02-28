@@ -1,13 +1,13 @@
 import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { makeStateKey, TransferState } from '@angular/platform-browser';
-import { map, tap, catchError } from 'rxjs/operators';
+import { TransferState } from '@angular/platform-browser';
+import { catchError } from 'rxjs/operators';
 
 import { LoggerService } from '@app/core/services/logger.service';
 import { ResponseHandlerService } from '@app/core/services/response-handler.service';
 import { IArticle } from '@app/interface';
 import { BehaviorSubject } from 'rxjs';
 import { LayoutService } from '@app/layout/layout.service';
+import { HttpClientService } from '@app/core/services/http-client.service';
 
 // const ARTICLE_KEY = makeStateKey<IArticle>('article');
 
@@ -23,7 +23,7 @@ export class ArticleService {
   });
 
   constructor(
-    private _http: HttpClient,
+    private _http: HttpClientService,
     private _loggerSer: LoggerService,
     private _layoutSer: LayoutService,
     private _state: TransferState,
@@ -31,14 +31,10 @@ export class ArticleService {
   ) {}
 
   getArticle(id: string) {
-    const options = { params: new HttpParams().set('_id', id) };
+    // const options = { params: new HttpParams().set('_id', id) };
     this._http
-      .get<IResponse<IArticle>>('/article', options)
+      .get<IArticle>('getArticle', '/article', { _id: id })
       .pipe(
-        map(d => d.data),
-        tap(d => {
-          this._loggerSer.responseLog(d, 'getArticle');
-        }),
         catchError(
           ResponseHandlerService.handleErrorData<IArticle>('getArticle', {
             title: 'Error',

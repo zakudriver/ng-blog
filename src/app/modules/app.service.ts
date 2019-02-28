@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { ResponseHandlerService } from '@app/core/services/response-handler.service';
-import { HttpClient } from '@angular/common/http';
 import { makeStateKey, TransferState, Meta } from '@angular/platform-browser';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { IProfile } from '@app/interface';
 import { LoggerService } from '@app/core/services/logger.service';
+import { HttpClientService } from '@app/core/services/http-client.service';
 
 const PROFILE_KEY = makeStateKey<IProfile>('profile');
 
@@ -23,7 +23,12 @@ export class AppService {
     }
   });
 
-  constructor(private _http: HttpClient, private _loggerSer: LoggerService, private _meta: Meta, private _state: TransferState) {}
+  constructor(
+    private _http: HttpClientService,
+    private _loggerSer: LoggerService,
+    private _meta: Meta,
+    private _state: TransferState
+  ) {}
 
   getProfile() {
     const profile = this._state.get(PROFILE_KEY, null);
@@ -32,25 +37,19 @@ export class AppService {
       this.profile$.next(profile);
     } else {
       this._http
-        .get<IResponse<IProfile>>('/config/front')
+        .get<IProfile>('getProfile', '/config/front')
         .pipe(
-          map(d => d.data),
-          tap(
-            d => {
-              this._loggerSer.responseLog(d, 'getProfile');
-            },
-            catchError(
-              ResponseHandlerService.handleErrorData<IProfile>('getProfile', {
-                avatar: '',
-                name: 'Zyhua',
-                profile: 'coder',
-                description: 'code',
-                cover: {
-                  home: '',
-                  blog: ''
-                }
-              })
-            )
+          catchError(
+            ResponseHandlerService.handleErrorData<IProfile>('getProfile', {
+              avatar: '',
+              name: 'Zyhua',
+              profile: 'coder',
+              description: 'code',
+              cover: {
+                home: '',
+                blog: ''
+              }
+            })
           )
         )
         .subscribe(d => {

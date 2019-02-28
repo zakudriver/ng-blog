@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { TransferState, makeStateKey } from '@angular/platform-browser';
-import { BehaviorSubject, of, Subscription } from 'rxjs';
-import { map, tap, catchError, retry, skip } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
 import { LoggerService } from '@app/core/services/logger.service';
 import { ResponseHandlerService } from '@app/core/services/response-handler.service';
 import { ICategory, IArticle, ISearchMap, ISelectedChipsMap } from '@app/interface';
+import { HttpClientService } from '@app/core/services/http-client.service';
 
 const CATEGORIES_KEY = makeStateKey<ICategory[]>('categories');
 // const ARTICLES_SUBJECT_KEY = makeStateKey<Subject<IArticle[]>>('articles$');
@@ -26,7 +26,7 @@ export class BlogService {
   index = 1;
   private _size = 5;
   private _isLoading = true;
-  constructor(private _http: HttpClient, private _loggerSer: LoggerService, private _state: TransferState) {
+  constructor(private _http: HttpClientService, private _loggerSer: LoggerService, private _state: TransferState) {
     this._getCategory();
   }
 
@@ -47,17 +47,10 @@ export class BlogService {
       index: '1',
       limit: (this.index * this._size).toString()
     };
-    const options = {
-      params: new HttpParams({ fromObject: params })
-    };
     this._http
-      .get<IResponse<IArticle[]>>('/article/list', options)
+      .get<IArticle[]>('_getArticles', '/article/list', params)
       .pipe(
         retry(3),
-        map(d => d.data),
-        tap(d => {
-          this._loggerSer.responseLog(d, '_getArticles');
-        }),
         catchError(ResponseHandlerService.handleErrorData<IArticle[]>('_getArticles', []))
       )
       .subscribe(d => {
@@ -78,16 +71,9 @@ export class BlogService {
   }
 
   searchTitle(value: string) {
-    const options = {
-      params: new HttpParams({ fromObject: { title: value } })
-    };
-    return this._http.get<IResponse<{ title: string }[]>>(`/article/search`, options).pipe(
-      map(d => d.data),
-      tap(d => {
-        this._loggerSer.responseLog(d, 'search');
-      }),
-      catchError(ResponseHandlerService.handleErrorData<{ title: string }[]>('search', []))
-    );
+    return this._http
+      .get<{ title: string }[]>('searchTitle', '/article/search', { title: value })
+      .pipe(catchError(ResponseHandlerService.handleErrorData<{ title: string }[]>('search', [])));
   }
 
   private _saerchResult(value: ISearchMap) {
@@ -95,18 +81,10 @@ export class BlogService {
       return;
     }
     this.isLoading$.next(true);
-    const options = {
-      params: new HttpParams({ fromObject: <any>value })
-    };
+
     this._http
-      .get<IResponse<IArticle[]>>(`/article/search`, options)
-      .pipe(
-        map(d => d.data),
-        tap(d => {
-          this._loggerSer.responseLog(d, '_saerchResult');
-        }),
-        catchError(ResponseHandlerService.handleErrorData<IArticle[]>('_saerchResult', []))
-      )
+      .get<IArticle[]>('_saerchResult', '/article/search', value)
+      .pipe(catchError(ResponseHandlerService.handleErrorData<IArticle[]>('_saerchResult', [])))
       .subscribe(d => {
         this.searchs$.next(d);
         this.isSearch = true;
@@ -141,13 +119,9 @@ export class BlogService {
       this.categories = category;
     } else {
       this._http
-        .get<IResponse<ICategory[]>>('/category')
+        .get<ICategory[]>('_getCategory', '/category')
         .pipe(
           retry(3),
-          map(d => d.data),
-          tap(d => {
-            this._loggerSer.responseLog(d, '_getCategory');
-          }),
           catchError(ResponseHandlerService.handleErrorData<ICategory[]>('_getCategory', []))
         )
         .subscribe(d => {
