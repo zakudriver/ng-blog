@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { APP_CONFIG, appConfig } from '@app/config/app.config';
+import { APP_CONFIG, appConfig, APP_CONFIG_PROVIDER } from '@app/config/app.config';
 import { CoreModule } from '@app/core/core.module';
 import { SharedModule } from '@app/shared/shared.module';
 import { AppService } from './modules/app.service';
@@ -17,7 +17,7 @@ import { PreloadingService } from './core/services/preloading.service';
 
 @NgModule({
   declarations: [AppComponent, LayoutComponent, HeaderComponent, FooterComponent, BannerComponent],
-  imports     : [
+  imports: [
     BrowserModule.withServerTransition({ appId: 'my-app' }),
     BrowserAnimationsModule,
     BrowserTransferStateModule,
@@ -26,6 +26,6 @@ import { PreloadingService } from './core/services/preloading.service';
     SharedModule
   ],
   bootstrap: [AppComponent],
-  providers: [{ provide: APP_CONFIG, useValue: appConfig }, PreloadingService, AppService, LayoutService]
+  providers: [APP_CONFIG_PROVIDER, PreloadingService, AppService, LayoutService]
 })
 export class AppModule {}

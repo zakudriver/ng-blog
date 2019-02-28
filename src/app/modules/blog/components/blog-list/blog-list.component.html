@@ -2,7 +2,9 @@
   <!-- <ng-container *ngIf="(blogSer.articles$ | async).length;else #Search"> -->
   <ng-container
     *ngFor="
-      let i of chipColoerHandler((blogSer.searchs$ | async).length ? (blogSer.searchs$ | async) : (blogSer.articles$ | async))
+      let i of chipColoerHandler(
+        (blogSer.searchs$ | async).length ? (blogSer.searchs$ | async) : (blogSer.articles$ | async)
+      )
     "
   >
     <article class="li">
@@ -13,9 +15,10 @@
         <h1>
           <a [routerLink]="['/article', i._id]">{{ i.title }}</a>
         </h1>
-        <mat-chip disabled selected [color]="i.color">{{ i.category.name }}</mat-chip>
+        <mat-chip disabled selected [color]="i.color">{{ i.category.name }}</mat-chip
+        ><time class="margin__l-20">{{ i.updateTime | date }}</time>
         <div app-markdown [text]="i.content"></div>
-        <time>{{ i.updateTime | date }}</time>
+        <!-- <time>{{ i.updateTime | date }}</time> -->
       </div>
     </article>
     <mat-divider></mat-divider>
