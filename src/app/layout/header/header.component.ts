@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, PLATFORM_ID, HostListener, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -24,6 +24,21 @@ import { APP_CONFIG, AppConfig, AppConfigRouter } from '@app/config/app.config';
         })
       ),
       transition('* => *', [animate(150)])
+    ]),
+    trigger('menu', [
+      state(
+        'show',
+        style({
+          transform: 'rotate(270deg)'
+        })
+      ),
+      state(
+        'hidden',
+        style({
+          transform: 'rotate(0deg)'
+        })
+      ),
+      transition('* => *', [animate(150)])
     ])
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -31,9 +46,9 @@ import { APP_CONFIG, AppConfig, AppConfigRouter } from '@app/config/app.config';
 export class HeaderComponent implements OnInit {
   router: AppConfigRouter;
   isDesktop = true;
-  isMobileMenu = false;
   isScrolling = false;
   scrollState = 'top';
+  isVisable = 'hidden';
 
   constructor(
     @Inject(APP_CONFIG) private _config: AppConfig,
@@ -59,13 +74,12 @@ export class HeaderComponent implements OnInit {
     this._cdr.markForCheck();
   }
 
-  onDrawer(e: Event) {
-    e.stopPropagation();
-    this.isMobileMenu = !this.isMobileMenu;
+  onOpenMenu() {
+    this.isVisable = 'show';
   }
 
-  onStopPropagation(e: Event) {
-    e.stopPropagation();
+  onCloseMenu() {
+    this.isVisable = 'hidden';
   }
 
   ngOnInit() {

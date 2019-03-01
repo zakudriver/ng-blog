@@ -16,14 +16,9 @@ header
   a
     text-decoration none
 .nav
-  &-right
+  &-r
     display flex
-    flex-grow 1
-    &>ul
-      display flex
-      margin-left auto
-    &>button
-      margin-left auto
+    justify-content space-between
   &-icon
     color #fff
 .header-scroll
@@ -32,25 +27,18 @@ header
   padding 10px 15px
   .mat-button, .nav-icon, .logo a
     color $fontColor
-.drawer
-  position fixed
-  right 0
-  top 0
-  width 230px
-  padding 0 15px
-  z-index 9
 .logo
   font-weight 300
   font-size 18px
   a
     color #fff
-.mobile-a
-  &:visited
-    color #333
-.mat-drawer-container
-  overflow visible
-.mat-drawer-side.mat-drawer-end
-  border none
+.mobile
+  &-a
+    display block
+    line-height 48px
+::ng-deep.mobile
+  &-menu
+    background-color rgba(#fff, 0.8)
 @media (min-width: 576px)
   nav
     max-width 540px

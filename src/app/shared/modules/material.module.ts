@@ -8,7 +8,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatListModule,
-  // MatMenuModule,
+  MatMenuModule,
   MatProgressBarModule,
   // MatProgressSpinnerModule,
   // MatSliderModule,
@@ -22,7 +22,7 @@ import {
 @NgModule({
   imports: [
     MatButtonModule,
-    // MatMenuModule,
+    MatMenuModule,
     MatIconModule,
     // MatCardModule,
     // MatSliderModule,
@@ -40,7 +40,7 @@ import {
   ],
   exports: [
     MatButtonModule,
-    // MatMenuModule,
+    MatMenuModule,
     MatIconModule,
     // MatCardModule,
     // MatSliderModule,
