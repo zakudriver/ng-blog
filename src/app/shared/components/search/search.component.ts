@@ -146,13 +146,14 @@ export class SearchComponent implements OnInit, OnDestroy, ControlValueAccessor 
     }
   }
 
-  private _searchHandler() {
+  private _onSearch() {
     const emit = {};
     for (const k in this._searchMap) {
       if (this._searchMap[k]) {
         emit[k] = this._searchMap[k]._id || this._searchMap[k].name;
       }
     }
+
     this.onSearch.emit(emit);
   }
 
@@ -164,7 +165,7 @@ export class SearchComponent implements OnInit, OnDestroy, ControlValueAccessor 
     this.onInputChange.emit(this.searchFormControl.valueChanges);
 
     this._subSearchHandler = this._searchHandler$.pipe(skip(1)).subscribe(() => {
-      this._searchHandler();
+      this._onSearch();
     });
   }
 

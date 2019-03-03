@@ -21,11 +21,13 @@ export class ScrollDirective {
     }
   }
 
+  @HostListener('touchmove')
   @HostListener('window:scroll')
   onScrollGlobal() {
     this.onScrolling.emit();
     const el = document.querySelector('html');
-    if (el.scrollHeight - el.scrollTop === el.clientHeight) {
+    // window.pageYOffset + window.innerHeight >= document.documentElement.scrollHeight
+    if (window.pageYOffset + window.innerHeight === document.documentElement.scrollHeight) {
       this.onScrollHtmlBottom.emit();
     }
   }

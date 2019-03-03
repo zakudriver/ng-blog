@@ -16,12 +16,10 @@ export class BlogToolbarComponent implements OnInit {
   constructor(public blogSer: BlogService) {}
 
   onChip(chip: ICategory) {
-    // this.selectedChip = chip;
     this.blogSer.changeSearchMap({ category: chip });
   }
 
   onSearch(value: ISearchMap) {
-    // this.blogSer.saerchResult(value);
     this.blogSer.getArticle(value);
   }
 
