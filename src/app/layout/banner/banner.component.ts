@@ -1,12 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Inject,
-  PLATFORM_ID,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, OnInit, Input, Inject, PLATFORM_ID, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -23,8 +15,8 @@ export class BannerComponent implements OnInit {
   title: string;
   @Input()
   backgroundUrl = 'assets/img/bg2.jpg';
-  url = 'assets/img/bg2.jpg';
-
+  @Input()
+  date: string;
 
   constructor(@Inject(PLATFORM_ID) private _platformId: object, private _cdr: ChangeDetectorRef) {}
 

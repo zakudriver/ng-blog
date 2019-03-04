@@ -1,8 +1,7 @@
-<!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
 <div class="body">
   <app-header></app-header>
-  <app-banner [title]="layoutSer.title$ | async" [backgroundUrl]="layoutSer.backgroundUrl$ | async"></app-banner>
-  <main class="main" [@routeAnimation]="getAnimationData(routerOutlet)">
+  <app-banner [title]="layoutSer.title" [backgroundUrl]="layoutSer.backgroundUrl" [date]="layoutSer.date"></app-banner>
+  <main class="main" [@routeAnimation]="onAnimation(routerOutlet)">
     <router-outlet #routerOutlet="outlet"></router-outlet>
   </main>
 

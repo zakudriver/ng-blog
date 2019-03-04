@@ -12,7 +12,7 @@ import { slideInAnimation } from '@app/core/animations';
 export class LayoutComponent implements OnInit {
   constructor(public layoutSer: LayoutService) {}
 
-  getAnimationData(outlet: RouterOutlet) {
+  onAnimation(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 

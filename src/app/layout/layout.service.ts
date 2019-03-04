@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { AppService } from '@app/modules/app.service';
 import { Title } from '@angular/platform-browser';
 import { ActivationEnd, Router, ActivatedRoute } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
 import { switchMap, filter } from 'rxjs/operators';
 import { Location } from '@angular/common';
 
 @Injectable()
 export class LayoutService {
-  title$ = new BehaviorSubject<string>('');
-  backgroundUrl$ = new BehaviorSubject<string>('');
+  date: string;
+  title: string;
+  backgroundUrl: string;
 
   private _cover: { home: string; blog: string };
   private _title: string;
@@ -37,6 +37,7 @@ export class LayoutService {
           if (typeof e.snapshot.data.title === 'string') {
             this._title = e.snapshot.data.title;
             this.titleHandler(this._title);
+            this.dateHandler('');
             this.backgroundUrHandler();
           }
         });
@@ -45,14 +46,18 @@ export class LayoutService {
 
   backgroundUrHandler(url?: string) {
     if (url) {
-      this.backgroundUrl$.next(url);
+      this.backgroundUrl = url;
     } else if (this._cover) {
-      this.backgroundUrl$.next(this._cover[(this._title || 'home').toLocaleLowerCase()]);
+      this.backgroundUrl = this._cover[(this._title || 'home').toLocaleLowerCase()];
     }
   }
 
   titleHandler(tlt: string) {
-    this.title$.next(tlt);
+    this.title = tlt;
     this._titleSet.setTitle(`zyhua _ ${tlt || 'Home'}`);
+  }
+
+  dateHandler(date: string) {
+    this.date = date;
   }
 }

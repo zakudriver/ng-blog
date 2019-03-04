@@ -48,6 +48,7 @@ export class ArticleService {
       .subscribe(d => {
         this.articleSubject.next(d);
         this._layoutSer.titleHandler(d.title);
+        this._layoutSer.dateHandler(d.updateTime);
         this._layoutSer.backgroundUrHandler(d.cover);
       });
   }
