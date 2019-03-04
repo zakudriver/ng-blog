@@ -37,7 +37,7 @@ export const slideInAnimation = trigger('routeAnimation', [
     ]),
     query(':enter', animateChild())
   ]),
-  transition('* => article', [
+  transition('* <=> article', [
     style({ position: 'relative' }),
     query(':enter, :leave', [
       style({
@@ -47,10 +47,10 @@ export const slideInAnimation = trigger('routeAnimation', [
         width: '100%'
       })
     ]),
-    query(':enter', [style({ transform: 'translateY(-200px)' })]),
+    query(':enter', [style({ transform: 'translateY(-400px)' })]),
     query(':leave', animateChild()),
     group([
-      query(':leave', [animate('300ms ease-out', style({ transform: 'translateY(200px)' }))]),
+      query(':leave', [animate('300ms ease-out', style({ transform: 'translateY(400px)' }))]),
       query(':enter', [animate('300ms ease-out', style({ transform: 'translateY(0)' }))])
     ]),
     query(':enter', animateChild())
