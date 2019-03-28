@@ -20,7 +20,7 @@ export class BlogToolbarComponent implements OnInit {
   }
 
   onSearch(value: ISearchMap) {
-    this.blogSer.getArticle(value);
+    this.blogSer.getArticleList(value);
   }
 
   onInputChange(inputing: Observable<string>) {

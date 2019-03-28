@@ -18,15 +18,14 @@ export class BlogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.blogSer.getArticle(null);
+    this.blogSer.getArticleList();
     this._unSub = this._getArticles$.pipe(debounceTime(800)).subscribe(() => {
-      this.blogSer.getArticle(null);
+      this.blogSer.getArticleList();
     });
   }
 
   ngOnDestroy(): void {
-    this.blogSer.articles$.next([]);
-    this.blogSer.searchMap = {};
+    this.blogSer.restore();
     this._unSub.unsubscribe();
   }
 }

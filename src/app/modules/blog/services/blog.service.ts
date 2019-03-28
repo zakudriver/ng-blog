@@ -96,7 +96,7 @@ export class BlogService {
     this.searchMap = { ...this.searchMap, ...v };
   }
 
-  getArticle(v: ISearchMap) {
+  getArticleList(v?: ISearchMap) {
     const vs = Object.values(this.searchMap);
     vs.forEach(i => {
       if (i) {
@@ -129,5 +129,11 @@ export class BlogService {
           this.categories = d;
         });
     }
+  }
+
+  restore() {
+    this.index = 1;
+    this.articles$.next([]);
+    this.searchMap = {};
   }
 }
