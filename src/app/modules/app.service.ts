@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { ResponseHandlerService } from '@app/core/services/response-handler.service';
-import { makeStateKey, TransferState, Meta } from '@angular/platform-browser';
+import { makeStateKey, TransferState } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
 
 import { IProfile } from '@app/interface';
 import { LoggerService } from '@app/core/services/logger.service';
 import { HttpClientService } from '@app/core/services/http-client.service';
+import { MetaService } from '@app/core/services/meta.service';
 
 const PROFILE_KEY = makeStateKey<IProfile>('profile');
 
@@ -26,7 +27,7 @@ export class AppService {
   constructor(
     private _http: HttpClientService,
     private _loggerSer: LoggerService,
-    private _meta: Meta,
+    private _metaSer: MetaService,
     private _state: TransferState
   ) {}
 
@@ -55,7 +56,9 @@ export class AppService {
         .subscribe(d => {
           this._state.set(PROFILE_KEY, d);
           this.profile$.next(d);
-          this._meta.updateTag({ name: 'description', content: d.description });
+          // this._meta.updateTag({ name: 'description', content: d.description });
+          this._metaSer.addTag({ name: 'description', content: d.description });
+
         });
     }
   }
